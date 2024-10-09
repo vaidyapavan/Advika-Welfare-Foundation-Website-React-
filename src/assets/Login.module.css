@@ -61,6 +61,7 @@
   background-color: #28a745;
   color: white;
   border: none;
+  margin-left: 80px;
 }
 
 .btnSuccess:hover {
@@ -134,4 +135,8 @@
 }
 .errorBorder {
   border: 2px solid red;
+}
+.forgotPassword
+{
+  margin-left: 65px;
 }

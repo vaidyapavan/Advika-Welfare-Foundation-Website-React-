@@ -1,56 +1,103 @@
-.homecontainer {
-    background-image: url('../assets/images/backhomepage.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 800px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+/* General App Styles */
+.app {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  color: #333;
 }
 
-.logo {
-    margin-top: -350px;
-    margin-left:-90px;
+.app-header {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.body {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    margin-top: 50px;
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
 }
 
-.card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 250px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 
-.card-content h2 {
-    margin: 0;
-    font-size: 24px;
+.navbar-left a {
+  margin: 0 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
 }
 
-.card-content p {
-    margin-top: 10px;
+.navbar-left a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.advika-image {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.navbar-right .profile-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.navbar-right .profile-image:hover {
+  transform: scale(1.1);
+}
+
+/* Main Content Styles */
+main {
+  padding: 20px;
+  background-color: #fff;
+}
+
+main section {
+  margin-bottom: 50px;
+}
+
+/* Footer Section */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-left a {
     font-size: 16px;
-    color: #777;
+    margin: 0 10px;
+  }
+
+  .navbar-right .profile-image {
+    height: 40px;
+    width: 40px;
+  }
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+@media (max-width: 480px) {
+  .navbar-left a {
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+  .navbar-right .profile-image {
+    height: 35px;
+    width: 35px;
+  }
+
+  .advika-image {
+    height: 40px;
+  }
 }

@@ -1,190 +1,100 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../assets/AddExpense.css';
 import CloseIcon from '@mui/icons-material/Close';
-import { MessageBar, MessageBarType } from '@fluentui/react';
-import { Modal } from '@fluentui/react/lib/Modal';
 
-const AddExpense = ({ handlePageChange }) => {
-    const [formData, setFormData] = useState({
-        date: '',
-        reason: '',
-        category: '',
-        amount: '',
-        paymentMode: '',
-        description: ''
-    });
+const AddExpense = ({ handlePageChange, setTotalBalance }) => {
+    let [amount, setAmount] = useState('');
+    const [date, setDate] = useState('');
+    const [reason, setReason] = useState('');
+    const [category, setCategory] = useState('');
+    const [paymentMode, setPaymentMode] = useState('online');
+    const [description, setDescription] = useState('');
 
-    const [error, setError] = useState('');
-    const [successModalVisible, setSuccessModalVisible] = useState(false);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // Check if all required fields are filled
-        if (!formData.date || !formData.reason || !formData.category || !formData.amount || !formData.paymentMode) {
-            setError('All fields are required');
-            return;
-        }
-
-        setError(''); // Clear any existing error message
-
-        // Format the date to YYYY-MM-DD for storage
-        const formattedDate = formatDateForStorage(formData.date);
+    const handleSave = async () => {
+        const newExpense = {
+            amount,
+            date,
+            reason,
+            category,
+            paymentMode,
+            description
+        };
 
         try {
-            const response = await fetch('http://localhost:8085/addExpense', {
+            await axios.post('http://localhost:8085/addExpense', newExpense);
+            amount = -amount;
+            const newBalanceData = {
+                amount,
+                date,
+                paymentMode,
+            };
+            await fetch('http://localhost:8085/addBalance', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ ...formData, date: formattedDate })
+                body: JSON.stringify(newBalanceData)
             });
-
-            const result = await response.json();
-            if (response.ok) {
-                console.log(result.message);
-                setFormData({
-                    date: '',
-                    reason: '',
-                    category: '',
-                    amount: '',
-                    paymentMode: '',
-                    description: ''
-                });
-                setSuccessModalVisible(true); // Show success modal
-            } else {
-                console.error('Error:', result.error);
-            }
+            // setTotalBalance(prevBalance => prevBalance - parseFloat(amount));
+            handlePageChange('ExpenseTable');
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error adding expense:', error);
         }
     };
 
-    const onCancel = () => {
-        handlePageChange('ExpenseTable');
-    };
-
-    const formatDateForStorage = (date) => {
-        if (!date) return '';
-        const d = new Date(date);
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
-    const handleCloseModal = () => {
-        setSuccessModalVisible(false);
-        handlePageChange('ExpenseTable');
-    };
-
     return (
-        <>
-            <div className='main-container'>
-                <form onSubmit={handleSubmit}>
-                    <h2>Add Transaction</h2>
-                    <CloseIcon onClick={onCancel} style={{ cursor: "pointer", marginLeft: "540px", marginTop: "-100px" }} />
-                    
-                    <label>Transaction Date <span style={{ color: 'red' }}>*</span></label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleInputChange}
-                        placeholder="Select the date"
-                    />
-                    <br />
-                    
-                    <label>Reason <span style={{ color: 'red' }}>*</span></label>
-                    <input
-                        type="text"
-                        name="reason"
-                        value={formData.reason}
-                        onChange={handleInputChange}
-                        placeholder="Enter the reason for expense"
-                    />
-                    <br />
-                    
-                    <label>Category <span style={{ color: 'red' }}>*</span></label>
-                    <select
-                        name="category"
-                        value={formData.category}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Select a category</option>
-                        <option value="food">Food</option>
-                        <option value="education">Education</option>
-                        <option value="vegetables">Vegetables</option>
-                        <option value="travel">Travel</option>
-                        <option value="grocery">Grocery</option>
-                    </select>
-                    <br />
-                    
-                    <label>Amount (₹) <span style={{ color: 'red' }}>*</span></label>
-                    <input
-                        type="number"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleInputChange}
-                        placeholder="Enter amount"
-                    />
-                    <br />
-                    
-                    <label>Payment Mode <span style={{ color: 'red' }}>*</span></label>
-                    <select
-                        name="paymentMode"
-                        value={formData.paymentMode}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Select payment mode</option>
-                        <option value="cash">Cash</option>
-                        <option value="creditCard">Credit Card</option>
-                        <option value="debitCard">Debit Card</option>
-                        <option value="online">Online Payment</option>
-                    </select>
-                    <br />
-                    
-                    <label>Description</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        placeholder="Enter description"
-                    />
-                    <br />
-                    
-                    {error && (
-                        <MessageBar messageBarType={MessageBarType.error} isMultiline={false}>
-                            {error}
-                        </MessageBar>
-                    )}
-                    
-                    <button type="button" onClick={onCancel} style={{ marginLeft: "150px" }}>Cancel</button>
-                    <button type="submit" style={{ marginLeft: "20px" }}>Submit</button>
-                </form>
-            </div>
-
-            <Modal
-                isOpen={successModalVisible}
-                onDismiss={handleCloseModal}
-                isBlocking={false}
-                containerClassName="custom-modal"
+        <div className="add-expense-container">
+            <h2>Add Expense</h2>
+            <button className="btn btn-primary mb-3" onClick={() => handlePageChange('ExpenseTable')}>
+                <CloseIcon />
+            </button>
+            <label>Date</label>
+            <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+            />
+            <br />
+            <label>Reason</label>
+            <input
+                type="text"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+            />
+            <br />
+            <label>Category</label>
+            <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+            />
+            <br />
+            <label>Amount</label>
+            <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+            />
+            <br />
+            <label>Payment Mode</label>
+            <select
+                value={paymentMode}
+                onChange={(e) => setPaymentMode(e.target.value)}
             >
-                <div className="modal-content">
-                    <div className="success-message" >
-                        Transaction is added successfully!
-                    </div>
-                    <button className="ok-button" onClick={handleCloseModal} style={{ marginLeft: '90px', marginTop: '10px' }}>
-                        OK
-                    </button>
-                </div>
-            </Modal>
-        </>
+                <option value="online">Online</option>
+                <option value="cash">Cash</option>
+            </select>
+            <br />
+            <label>Description</label>
+            <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
+            <br />
+            <button className="cancel" onClick={() => handlePageChange('ExpenseTable')}>Cancel</button>
+            <button className="save" onClick={handleSave}>Save</button>
+        </div>
     );
 };
 

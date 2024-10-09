@@ -4,18 +4,11 @@ import axios from 'axios';
 import { Label } from '@fluentui/react/lib/Label';
 import { MessageBar, MessageBarType } from '@fluentui/react';
 
-const Login = ({ handlePageChange }) => {  
-  const [values, setValues] = useState({
-    email: '',
-    password: ''
-  });
-
+const Login = ({handlePageChange}) => {
+  const [values, setValues] = useState({ email: '', password: '' });
   const [requiredError, setRequiredError] = useState('');
   const [error, setError] = useState('');
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false
-  });
+  const [errors, setErrors] = useState({ email: false, password: false });
 
   const handleInput = (event) => {
     const { name, value } = event.target;
@@ -28,17 +21,23 @@ const Login = ({ handlePageChange }) => {
     }
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     let valid = true;
 
     if (!values.email || !values.password) {
-      setRequiredError('Enter the Email id and Password !!');
-      setErrors({
-        email: !values.email,
-        password: !values.password
-      });
+      setRequiredError('Enter the Email and Password!');
+      setErrors({ email: !values.email, password: !values.password });
+      valid = false;
+    } else if (!validateEmail(values.email)) {
+      setRequiredError('Enter a valid Email!');
+      setErrors({ email: true, password: false });
       valid = false;
     }
 
@@ -47,18 +46,18 @@ const Login = ({ handlePageChange }) => {
     }
 
     axios.post('http://localhost:8085/login', values)
-      .then(res => {
-        if (res.data === "Success") {
-          // handlePageChange('Read');
-          handlePageChange('Homepage');
-        } else {
-          setError('Invalid Email or Password');
-        }
-      })
-      .catch(err => {
-        setError('An error occurred. Please try again.');
-        console.log(err);
-      });
+  .then(res => {
+    if (res.data === "Success") { 
+      handlePageChange('Homepage1');
+    } else {
+      setError(res.data.message || 'Invalid Email or Password');
+    }
+  })
+  .catch(err => {
+    setError('An error occurred. Please try again.');
+    console.error(err);
+  });
+
   };
 
   const handleRegister = () => {
@@ -72,7 +71,7 @@ const Login = ({ handlePageChange }) => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h2 style={{ marginLeft: "165px" }}>Login</h2>
+        <h2 className={styles.title}>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className={`${styles.mb3} ${styles.inputGroup}`}>
             <Label required>Email</Label>
@@ -82,7 +81,7 @@ const Login = ({ handlePageChange }) => {
               onChange={handleInput}
               name="email"
               value={values.email}
-              style={{ border: errors.email ? '1px solid red' : '' }}
+              className={errors.email ? styles.inputError : styles.input}
             />
           </div>
           <br />
@@ -94,7 +93,7 @@ const Login = ({ handlePageChange }) => {
               name="password"
               onChange={handleInput}
               value={values.password}
-              style={{ border: errors.password ? '1px solid red' : '' }}
+              className={errors.password ? styles.inputError : styles.input}
             />
           </div>
           <br />
@@ -103,7 +102,7 @@ const Login = ({ handlePageChange }) => {
               messageBarType={MessageBarType.error}
               isMultiline={false}
               dismissButtonAriaLabel="Close"
-              styles={{ root: { marginBottom: '10px' } }}
+              className={styles.messageBar}
             >
               {requiredError}
             </MessageBar>
@@ -113,23 +112,23 @@ const Login = ({ handlePageChange }) => {
               messageBarType={MessageBarType.error}
               isMultiline={false}
               dismissButtonAriaLabel="Close"
-              styles={{ root: { marginBottom: '10px', } }}
+              className={styles.messageBar}
             >
               {error}
             </MessageBar>
           )}
           <br />
-          <button type="submit" className={`${styles.btn} ${styles.btnSuccess}`} style={{ marginLeft: "120px" }}>Sign In</button>
-          <button type="button" className={`${styles.btn} ${styles.btnSuccess}`} style={{ marginLeft: "10px" }} onClick={handleRegister}>
+          <button type="submit" className={`${styles.btn} ${styles.btnSuccess}`}>Sign In</button>
+          <button type="button" className={`${styles.btn} ${styles.btnSecondary}`} onClick={handleRegister}>
             Register
           </button>
-          <br></br>
-          <br></br>
-          <button style={{ marginLeft:"100px" }} onClick={handleForgotPassword}>Forgot username or Password?</button>
+          <br />
+          <br />
+          <button className={styles.forgotPassword} onClick={handleForgotPassword}>Forgot username or Password?</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

@@ -161,7 +161,7 @@ const Read = ({handlePageChange} ) => {
 
   const gotohomepage = () =>
   {
-    handlePageChange('Homepage');
+    handlePageChange('Homepage1');
 
   }
 

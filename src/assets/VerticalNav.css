@@ -1,0 +1,37 @@
+.sidebar {
+    position: fixed;
+    top: 63px;
+    left: 0;
+    width: 164px;
+    height: 83%;
+    background-color: rgba(0, 0, 0, 0.7); /* Updated to transparent background */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Sidebar is hidden by default */
+  .sidebar-hidden {
+    transform: translateX(-100%);
+  }
+  
+  /* Sidebar is shown when visible */
+  .sidebar-visible {
+    transform: translateX(0);
+  }
+  
+  .sidebar-item {
+    padding: 15px;
+    color: white; /* Ensure text remains readable */
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 1px solid #444;
+  }
+  
+  .sidebar-item:hover {
+    background-color: rgba(15, 15, 15, 0.8); /* Slightly transparent hover effect */
+  }
+  

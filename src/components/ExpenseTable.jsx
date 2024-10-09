@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../assets/ExpenseTable.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Modal, MessageBar, MessageBarType, Button } from '@fluentui/react';
+import { Modal } from '@fluentui/react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 
 const ExpenseTable = ({ handlePageChange }) => {
     const [expenses, setExpenses] = useState([]);
+    const [totalBalance, setTotalBalance] = useState(0);
     const [addBalanceModal, setAddBalanceModal] = useState(false);
-    const [editExpenseModal, setEditExpenseModal] = useState(false);
+    const [addExpenseModal, setAddExpenseModal] = useState(false);
+    const [editExpenseModal, setEditExpenseModal] = useState(false); // New state for editing expenses
     const [successMessageModal, setSuccessMessageModal] = useState(false);
+
+    // States for adding or editing an expense
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
     const [paymentMode, setPaymentMode] = useState('online');
     const [reason, setReason] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
-    const [currentExpense, setCurrentExpense] = useState(null);
+    const [currentExpense, setCurrentExpense] = useState(null); // State to track the expense being edited
 
     useEffect(() => {
         fetchExpenses();
@@ -28,17 +32,21 @@ const ExpenseTable = ({ handlePageChange }) => {
         try {
             const response = await axios.get('http://localhost:8085/getExpenses');
             setExpenses(response.data);
+            const response1 = await axios.get('http://localhost:8085/getBalance');
+            calculateTotalBalance(response1.data);
         } catch (error) {
             console.error('Error fetching expenses:', error);
         }
     };
 
-    const gotohomepage = () => {
-        handlePageChange('Homepage');
+    const calculateTotalBalance = (currBalance) => {
+        const initialBalance = 0;
+        const totalExpense = currBalance.reduce((sum, expense) => sum - parseFloat(expense.amount), 0);
+        setTotalBalance(initialBalance - totalExpense);
     };
 
-    const addExpense = () => {
-        handlePageChange('AddExpense');
+    const gotohomepage = () => {
+        handlePageChange('Homepage1');
     };
 
     const openAddBalanceModal = () => {
@@ -49,13 +57,21 @@ const ExpenseTable = ({ handlePageChange }) => {
         setAddBalanceModal(false);
     };
 
-    const openEditExpenseModal = (expense) => {
+    const openAddExpenseModal = () => {
+        setAddExpenseModal(true); 
+    };
+
+    const closeAddExpenseModal = () => {
+        setAddExpenseModal(false); 
+    };
+
+    const openEditExpenseModal = (expense) => { // Open the edit modal and set the current expense
         setCurrentExpense(expense);
         setAmount(expense.amount);
         setDate(expense.date);
-        setPaymentMode(expense.paymentMode);
         setReason(expense.reason);
         setCategory(expense.category);
+        setPaymentMode(expense.paymentMode);
         setDescription(expense.description);
         setEditExpenseModal(true);
     };
@@ -65,43 +81,66 @@ const ExpenseTable = ({ handlePageChange }) => {
         setCurrentExpense(null);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const newBalanceData = {
             amount,
             date,
             paymentMode,
         };
-        fetch('http://localhost:8085/addBalance', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newBalanceData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Balance saved:', data);
+        try {
+            await fetch('http://localhost:8085/addBalance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newBalanceData)
+            });
+
+            setTotalBalance(prevBalance => prevBalance + parseFloat(amount));
             closeAddBalanceModal();
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error:', error);
-        });
+        }
+    };
+
+    const handleAddExpense = async () => {
+        const newExpense = {
+            amount,
+            date,
+            reason,
+            category,
+            paymentMode,
+            description
+        };
+
+        try {
+            await axios.post('http://localhost:8085/addExpense', newExpense);
+            setTotalBalance(prevBalance => prevBalance - parseFloat(amount)); 
+            setExpenses([...expenses, newExpense]); 
+            closeAddExpenseModal(); 
+        } catch (error) {
+            console.error('Error adding expense:', error);
+        }
     };
 
     const handleEditExpense = async () => {
+        const updatedExpense = {
+            ...currentExpense,
+            amount,
+            date,
+            reason,
+            category,
+            paymentMode,
+            description
+        };
+
         try {
-            const updatedExpense = {
-                date,
-                reason,
-                category,
-                amount,
-                paymentMode,
-                description
-            };
             await axios.put(`http://localhost:8085/updateExpense/${currentExpense.id}`, updatedExpense);
-            setExpenses(expenses.map(exp => exp.id === currentExpense.id ? { ...exp, ...updatedExpense } : exp));
+            const updatedExpenses = expenses.map(expense =>
+                expense.id === currentExpense.id ? updatedExpense : expense
+            );
+            setExpenses(updatedExpenses);
             closeEditExpenseModal();
-            setSuccessMessageModal(true); // Show the success message modal
         } catch (error) {
             console.error('Error updating expense:', error);
         }
@@ -109,15 +148,18 @@ const ExpenseTable = ({ handlePageChange }) => {
 
     const handleDeleteExpense = async (expenseId) => {
         try {
+            const expenseToDelete = expenses.find(expense => expense.id === expenseId);
+
             await axios.delete(`http://localhost:8085/deleteExpense/${expenseId}`);
-            setExpenses(expenses.filter(expense => expense.id !== expenseId));
+            const updatedExpenses = expenses.filter(expense => expense.id !== expenseId);
+            setExpenses(updatedExpenses);
+
+            if (expenseToDelete) {
+                setTotalBalance(prevBalance => prevBalance - parseFloat(expenseToDelete.amount));
+            }
         } catch (error) {
             console.error('Error deleting expense:', error);
         }
-    };
-
-    const closeSuccessMessageModal = () => {
-        setSuccessMessageModal(false);
     };
 
     return (
@@ -127,11 +169,11 @@ const ExpenseTable = ({ handlePageChange }) => {
                     <ArrowBackIosIcon />
                 </button>
                 <h2>Expense Details</h2>
-                <h1>Current Available Balance is: {amount}</h1>
+                <h1>Current Available Balance is: ₹{totalBalance.toFixed(2)}</h1>
                 <button className="btn btn-primary mb-3" title="Add Balance" onClick={openAddBalanceModal}>
                     Add Balance
                 </button>
-                <button className="btn btn-primary mb-3" title="Add Expense" style={{ marginLeft: "1150px" }} onClick={addExpense}>
+                <button className="btn btn-primary mb-3" title="Add Expense" style={{ marginLeft: "1150px" }} onClick={openAddExpenseModal}>
                     Add Expense
                 </button>
                 <table className="expense-table">
@@ -176,7 +218,7 @@ const ExpenseTable = ({ handlePageChange }) => {
             {/* Modal for adding balance */}
             <Modal isOpen={addBalanceModal} onDismiss={closeAddBalanceModal}>
                 <div className='popup-content'>
-                    <CloseIcon style={{marginLeft:"300px", cursor:"pointer"}} onClick={closeAddBalanceModal}></CloseIcon>
+                    <CloseIcon style={{ marginLeft: "300px", cursor: "pointer" }} onClick={closeAddBalanceModal} />
                     <h3>Add balance</h3>
                     <label htmlFor="amountInput">Enter amount</label>
                     <input
@@ -209,11 +251,18 @@ const ExpenseTable = ({ handlePageChange }) => {
                 </div>
             </Modal>
 
-            {/* Modal for editing expense */}
-            <Modal isOpen={editExpenseModal} onDismiss={closeEditExpenseModal}>
+            {/* Modal for adding expense */}
+            <Modal isOpen={addExpenseModal} onDismiss={closeAddExpenseModal}>
                 <div className='popup-content'>
-                    <CloseIcon style={{marginLeft:"300px", cursor:"pointer"}} onClick={closeEditExpenseModal}></CloseIcon>
-                    <h3>Edit Expense</h3>
+                    <CloseIcon style={{ marginLeft: "300px", cursor: "pointer" }} onClick={closeAddExpenseModal} />
+                    <h3>Add Expense</h3>
+                    <label>Enter amount</label>
+                    <input
+                        type="text"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                    />
+                    <br />
                     <label>Date</label>
                     <input
                         type="date"
@@ -235,14 +284,61 @@ const ExpenseTable = ({ handlePageChange }) => {
                         onChange={(e) => setCategory(e.target.value)}
                     />
                     <br />
-                    <label>Amount</label>
+                    <label>Payment mode</label>
+                    <select
+                        value={paymentMode}
+                        onChange={(e) => setPaymentMode(e.target.value)}
+                    >
+                        <option value="online">Online</option>
+                        <option value="cash">Cash</option>
+                    </select>
+                    <br />
+                    <label>Description</label>
+                    <input
+                        type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <br />
+                    <button className="cancel" onClick={closeAddExpenseModal}>Cancel</button>
+                    <button className="save" onClick={handleAddExpense}>Add Expense</button>
+                </div>
+            </Modal>
+
+            {/* Modal for editing expense */}
+            <Modal isOpen={editExpenseModal} onDismiss={closeEditExpenseModal}>
+                <div className='popup-content'>
+                    <CloseIcon style={{ marginLeft: "300px", cursor: "pointer" }} onClick={closeEditExpenseModal} />
+                    <h3>Edit Expense</h3>
+                    <label>Enter amount</label>
                     <input
                         type="text"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                     />
                     <br />
-                    <label>Payment Mode</label>
+                    <label>Date</label>
+                    <input
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
+                    <br />
+                    <label>Reason</label>
+                    <input
+                        type="text"
+                        value={reason}
+                        onChange={(e) => setReason(e.target.value)}
+                    />
+                    <br />
+                    <label>Category</label>
+                    <input
+                        type="text"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    />
+                    <br />
+                    <label>Payment mode</label>
                     <select
                         value={paymentMode}
                         onChange={(e) => setPaymentMode(e.target.value)}
@@ -259,17 +355,7 @@ const ExpenseTable = ({ handlePageChange }) => {
                     />
                     <br />
                     <button className="cancel" onClick={closeEditExpenseModal}>Cancel</button>
-                    <button className="save" onClick={handleEditExpense}>Save</button>
-                </div>
-            </Modal>
-
-            {/* Modal for success message */}
-            <Modal isOpen={successMessageModal} onDismiss={closeSuccessMessageModal}>
-                <div className='popup-content'>
-                 
-                   <h3>Data Updated Successfully!!</h3>
-                   <br></br>
-                    <Button   className="save" onClick={closeSuccessMessageModal}>OK</Button>
+                    <button className="save" onClick={handleEditExpense}>Save Changes</button>
                 </div>
             </Modal>
         </>

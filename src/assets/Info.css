@@ -1,0 +1,133 @@
+/* Info.css */
+
+/* General styling for the section */
+#middle {
+  padding: 50px 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.col-sm-6 {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Styling for skill and accordion sections */
+.skill, .accordion {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Heading styles */
+.skill h2, .accordion h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Paragraph styles */
+.skill p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* List styling */
+.skill ul, .panel-body ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #555;
+}
+
+.skill li, .panel-body li {
+  margin-bottom: 10px;
+}
+
+/* Accordion styles */
+.accordion {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.panel-group {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.panel-default {
+  border: none;
+}
+
+.panel-heading {
+  background: #007bff;
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.panel-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.accordion-toggle {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.accordion-toggle:hover {
+  color: #e1e1e1;
+}
+
+.panel-body {
+  padding: 15px;
+  background: #ffffff;
+}
+
+.panel-heading.active {
+  background: #0056b3;
+}
+
+.panel-heading.active .accordion-toggle {
+  color: #e1e1e1;
+}
+
+.panel-heading .fa {
+  margin-left: 10px;
+}
+
+.panel-body span {
+  color: red;
+}
+
+.media-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.media-body span {
+  color: #000;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .col-sm-6 {
+    flex: 1 1 100%;
+  }
+}
