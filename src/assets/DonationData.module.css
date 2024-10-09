@@ -92,13 +92,13 @@
 input[type="text"], input[type="date"], select {
   width: 100%;
   padding: 10px;
-  margin: 5px 0 15px;
-  border: 1px solid #ccc;
+
+  
   border-radius: 4px;
 }
 
 input[type="text"]:focus, input[type="date"]:focus, select:focus {
-  border-color: #4CAF50; /* Green */
+  
   outline: none;
 }
 

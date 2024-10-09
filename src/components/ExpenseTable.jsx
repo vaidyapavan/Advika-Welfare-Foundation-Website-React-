@@ -259,129 +259,157 @@ const ExpenseTable = () => {
 
             {/* Modal for adding expense */}
             <Modal isOpen={addExpenseModal} onDismiss={closeAddExpenseModal}>
-                <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeAddExpenseModal} />
-                    <h3 className={styles.addExpenseHeading}>Add Expense</h3>
-                    <label htmlFor="expenseAmountInput">Amount</label>
-                    <input
-                        type="text"
-                        id="expenseAmountInput"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="expenseDateInput">Date</label>
-                    <input
-                        type="date"
-                        id="expenseDateInput"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="expenseReasonInput">Reason</label>
-                    <input
-                        type="text"
-                        id="expenseReasonInput"
-                        value={reason}
-                        onChange={(e) => setReason(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="expenseCategoryInput">Category</label>
-                    <input
-                        type="text"
-                        id="expenseCategoryInput"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="expensePaymentModeSelect">Payment Mode</label>
-                    <select
-                        id="expensePaymentModeSelect"
-                        value={paymentMode}
-                        onChange={(e) => setPaymentMode(e.target.value)}
-                    >
-                        <option value="online">Online</option>
-                        <option value="cash">Cash</option>
-                    </select>
-                    <br />
-                    <label htmlFor="expenseDescriptionInput">Description</label>
-                    <textarea
-                        id="expenseDescriptionInput"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <br />
-                    <div className={styles.buttons}>
-                    <button className={styles.cancelExpenseButton} onClick={handleAddExpense}>Cancel</button>
-                    <button className={styles.addExpenseButton} onClick={handleAddExpense}>Add </button>
+    <div className={styles.popupContent}>
+        <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeAddExpenseModal} />
+        <h3 className={styles.addExpenseHeading}>Add Expense</h3>
 
-                    </div>
-                
-                </div>
-            </Modal>
+        <label htmlFor="expenseAmountInput">Amount</label>
+        <input
+            type="text"
+            id="expenseAmountInput"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="expenseDateInput">Date</label>
+        <input
+            type="date"
+            id="expenseDateInput"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="expenseReasonInput">Reason</label>
+        <input
+            type="text"
+            id="expenseReasonInput"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="expenseCategoryInput">Category</label>
+        <select
+            id="expenseCategoryInput"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+        >
+            <option value="">Select a category</option>
+            <option value="Education">Education</option>
+            <option value="Travelling">Travelling</option>
+            <option value="Cloth">Cloth</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Student Welfare">Student Welfare</option>
+            <option value="Office Expense">Office Expense</option>
+        </select>
+        <br />
+
+        <label htmlFor="expensePaymentModeSelect">Payment Mode</label>
+        <select
+            id="expensePaymentModeSelect"
+            value={paymentMode}
+            onChange={(e) => setPaymentMode(e.target.value)}
+        >
+            <option value="online">Online</option>
+            <option value="cash">Cash</option>
+        </select>
+        <br />
+
+        <label htmlFor="expenseDescriptionInput">Description</label>
+        <textarea
+            id="expenseDescriptionInput"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+        />
+        <br />
+
+        <div className={styles.buttons}>
+            <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal}>Cancel</button>
+            <button className={styles.addExpenseButton} onClick={handleAddExpense}>Add</button>
+        </div>
+    </div>
+</Modal>
+
 
             {/* Modal for editing expense */}
             <Modal isOpen={editExpenseModal} onDismiss={closeEditExpenseModal}>
-                <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeEditExpenseModal} />
-                    <h3 className={styles.addExpenseHeading}>Edit Expense</h3>
-                    <label htmlFor="editExpenseAmountInput">Amount</label>
-                    <input
-                        type="text"
-                        id="editExpenseAmountInput"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="editExpenseDateInput">Date</label>
-                    <input
-                        type="date"
-                        id="editExpenseDateInput"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="editExpenseReasonInput">Reason</label>
-                    <input
-                        type="text"
-                        id="editExpenseReasonInput"
-                        value={reason}
-                        onChange={(e) => setReason(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="editExpenseCategoryInput">Category</label>
-                    <input
-                        type="text"
-                        id="editExpenseCategoryInput"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="editExpensePaymentModeSelect">Payment Mode</label>
-                    <select
-                        id="editExpensePaymentModeSelect"
-                        value={paymentMode}
-                        onChange={(e) => setPaymentMode(e.target.value)}
-                    >
-                        <option value="online">Online</option>
-                        <option value="cash">Cash</option>
-                    </select>
-                    <br />
-                    <label htmlFor="editExpenseDescriptionInput">Description</label>
-                    <textarea
-                        id="editExpenseDescriptionInput"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <br />
-                    <div className={styles.buttons}>
-                    <button className={styles.cancelExpenseButton} onClick={handleEditExpense}>Cancel</button>
-                    <button className={styles.addExpenseButton} onClick={handleEditExpense}>Update </button>
+    <div className={styles.popupContent}>
+        <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeEditExpenseModal} />
+        <h3 className={styles.addExpenseHeading}>Edit Expense</h3>
 
-                    </div>
-                   
-                </div>
-            </Modal>
+        <label htmlFor="editExpenseAmountInput">Amount</label>
+        <input
+            type="text"
+            id="editExpenseAmountInput"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="editExpenseDateInput">Date</label>
+        <input
+            type="date"
+            id="editExpenseDateInput"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="editExpenseReasonInput">Reason</label>
+        <input
+            type="text"
+            id="editExpenseReasonInput"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="editExpenseCategoryInput">Category</label>
+        <select
+            id="editExpenseCategoryInput"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+        >
+            <option value="">Select a category</option>
+            <option value="Education">Education</option>
+            <option value="Travelling">Travelling</option>
+            <option value="Cloth">Cloth</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Student Welfare">Student Welfare</option>
+            <option value="Office Expense">Office Expense</option>
+        </select>
+        <br />
+
+        <label htmlFor="editExpensePaymentModeSelect">Payment Mode</label>
+        <select
+            id="editExpensePaymentModeSelect"
+            value={paymentMode}
+            onChange={(e) => setPaymentMode(e.target.value)}
+        >
+            <option value="online">Online</option>
+            <option value="cash">Cash</option>
+        </select>
+        <br />
+
+        <label htmlFor="editExpenseDescriptionInput">Description</label>
+        <textarea
+            id="editExpenseDescriptionInput"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+        />
+        <br />
+
+        <div className={styles.buttons}>
+            <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal}>Cancel</button>
+            <button className={styles.addExpenseButton} onClick={handleEditExpense}>Update</button>
+        </div>
+    </div>
+</Modal>
+
         </div>
     );
 };

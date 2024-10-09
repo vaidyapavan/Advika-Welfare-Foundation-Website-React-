@@ -22,6 +22,10 @@ const Homepage1 = ({email}) => {
     {
         navigate('/donationData');
     }
+    const goToReport = () =>
+    {
+        navigate('/report');
+    }
 
     return (
         <>
@@ -54,7 +58,7 @@ const Homepage1 = ({email}) => {
                             </div>
                         </div>
 
-                        <div className='card' onClick={expensetransaction}>
+                        <div className='card' onClick={goToReport}>
                             <div className='card-content'>
                                 <h2>Monthly Report</h2>
                                 <p>Monthly Consumption</p>

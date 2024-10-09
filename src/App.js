@@ -14,6 +14,7 @@ import AddEmployee from './components/AddEmployee';
 import Homepage1 from './components/Homepage1';
 import Footer from './components/Footer';
 import DonationData from './components/DonationData';
+import Report from './components/Report';
 
 function App() {
   const [email,setEmail] = useState("");
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/employeedata" element={<EmployeeData />} />
         <Route path="/addemployee" element={<AddEmployee />} />
+        <Route path="/report" element={<Report />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/donationdata" element={<DonationData />} />
         <Route path="*" element={<Error />} />
