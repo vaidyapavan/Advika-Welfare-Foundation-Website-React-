@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { Modal } from '@fluentui/react/lib/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import Select from 'react-select';
 import { Label } from '@fluentui/react/lib/Label';
-
+import { useNavigate } from 'react-router-dom';
 import '../assets/Create.css';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 
+
 initializeIcons();
 
-const Create = ({handlePageChange }) => {
+const Create = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [studentClass, setStudentClass] = useState('');
@@ -23,8 +23,9 @@ const Create = ({handlePageChange }) => {
     const [hobbiesError, setHobbiesError] = useState('');
     const [genderError, setGenderError] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate(); 
 
-    const navigate = useNavigate();
+    
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const nameRegex = /^[a-zA-Z\s]*$/;
@@ -109,7 +110,7 @@ const Create = ({handlePageChange }) => {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        handlePageChange('Read');
+        navigate('/read');
     };
 
     const hobbyOptions = [
@@ -127,7 +128,7 @@ const Create = ({handlePageChange }) => {
     ];
 
     const cancelForm = () => {
-        handlePageChange('Read');
+        navigate('/read');
        
     };
 
@@ -180,7 +181,8 @@ const Create = ({handlePageChange }) => {
     return (
         <div className="create-container">
             <div className="form-container">
-                <CloseIcon onClick={cancelForm} className="close-icon" style={{ marginLeft: "490px", marginTop: "-20px", marginRight: "-30px", cursor: "pointer" }} />
+               
+                <CloseIcon onClick = {cancelForm}  style={{marginLeft:"480px", cursor: "pointer"}} ></CloseIcon>
                 <h2 className="form-title">Add Student Data</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
@@ -293,7 +295,7 @@ const Create = ({handlePageChange }) => {
                             </div>
                         )}
                     </div>
-                    <button type="button" className="btn btn-primary" style={{ marginLeft: '170px', marginRight: '10px' }} onClick={cancelForm}>Back</button>
+                    <button type="button" className="btn btn-primary" style={{ marginLeft: '170px', marginRight: '10px' }} onClick={cancelForm}> Cancel</button>
                     <button type="submit" className="btn btn-primary" style={{ marginLeft: '10px' }}>ADD</button>
                 </form>
             </div>

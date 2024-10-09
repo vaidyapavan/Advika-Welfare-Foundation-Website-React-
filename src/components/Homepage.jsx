@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import '../assets/Homepage.css';
 import profile from '../assets/images/profile2.jpg';
 import advika from '../assets/images/Advika.png'; 
@@ -9,21 +10,23 @@ import Bottom from '../components/Bottom';
 import Galary from '../components/Galary';
 import Footer from '../components/Footer';
 
-function Homepage({ handlePageChange }) {
-  const gotologinpage = () => {
-    handlePageChange('Login'); // Call handlePageChange when profile is clicked
+function Homepage() {
+  const navigate = useNavigate(); 
+
+  const gotoLoginPage = () => {
+    navigate('/login'); 
   };
 
   const gotoGalary = () => {
-    handlePageChange('Galary'); // Call handlePageChange for gallery
+    navigate('/galary'); 
   };
 
-  const gotoFeatureselection = () => {
-    handlePageChange('Featureselection'); // Call handlePageChange for feature selection (About Us)
+  const gotoFeatureSelection = () => {
+    navigate('/featureselection'); 
   };
 
-  const gotocontact = () => {
-    handlePageChange('Footer'); // Call handlePageChange for contact (footer)
+  const gotoContact = () => {
+    navigate('/footer'); 
   };
 
   return (
@@ -33,8 +36,8 @@ function Homepage({ handlePageChange }) {
           <div className="navbar-left">
             <img src={advika} alt="Advika" className="advika-image" /> 
             <a href="#home" onClick={() => window.scrollTo(0, 0)}>Home</a>
-            <a onClick={gotoFeatureselection} style={{ cursor: "pointer" }}>About Us</a>
-            <a onClick={gotocontact} style={{ cursor: "pointer" }}>Contact Us</a>
+            <a onClick={gotoFeatureSelection} style={{ cursor: "pointer" }}>About Us</a>
+            <a onClick={gotoContact} style={{ cursor: "pointer" }}>Contact Us</a>
             <a onClick={gotoGalary} style={{ cursor: "pointer" }}>Gallery</a>
           </div>
           <div className="navbar-right">
@@ -42,7 +45,7 @@ function Homepage({ handlePageChange }) {
               src={profile}
               alt="Profile"
               className="profile-image"
-              onClick={gotologinpage} // Change page when profile is clicked
+              onClick={gotoLoginPage} 
             />
           </div>
         </nav>

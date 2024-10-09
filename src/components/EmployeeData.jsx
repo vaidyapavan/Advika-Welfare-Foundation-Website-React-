@@ -6,22 +6,33 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import EditIcon from '@mui/icons-material/Edit'; 
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit'; 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useNavigate } from 'react-router-dom';
+import { SearchBox } from '@fluentui/react/lib/SearchBox';
+import styles from '../assets/EmployeeData.module.css';
 
-import '../assets/EmployeeData.css';
-import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
-
-const EmployeeData = ({ handlePageChange }) => {
+const EmployeeData = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [message, setMessage] = useState('');
   const [isDeleteConfirmModal, setIsDeleteConfirmModal] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddEmployeeModalOpen, setIsAddEmployeeModalOpen] = useState(false);
+  const [newEmployee, setNewEmployee] = useState({
+    EmployeeName: '',
+    Role: '',
+    Salary: '',
+    Location: '',
+    AadharNo: '',
+    MobileNo: '',
+    JoiningDate: ''
+  });
   const [editEmployee, setEditEmployee] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [sortOrder, setSortOrder] = useState({ name: 'asc', role: 'asc' });
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData();
@@ -84,35 +95,16 @@ const EmployeeData = ({ handlePageChange }) => {
     setDeleteId(null);
   };
 
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setEditEmployee((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleEdit = (employee) => {
-    setEditEmployee(employee);
-    setIsEditModalOpen(true);
-  };
-
-  const handleEditSave = async () => {
-    try {
-      await axios.put(`http://localhost:8085/updateEmployee/${editEmployee.id}`, editEmployee);
-      getData();
-      setIsEditModalOpen(false);
-      setEditEmployee(null);
-    } catch (error) {
-      console.error('Error updating employee:', error.message);
-    }
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setMessage('');
-  };
-
   const handleSearchClear = () => {
     setSearchTerm('');
     setMessage('');
+  };
+
+  const handleSearchChange = (event) => {
+    if (event && event.target) {  // Check if event and event.target are defined
+      const searchTerm = event.target.value; // Accessing target.value safely
+      setSearchTerm(searchTerm); // Update state
+    }
   };
 
   const filteredData = data.filter((item) =>
@@ -127,63 +119,119 @@ const EmployeeData = ({ handlePageChange }) => {
     }
   }, [searchTerm, filteredData]);
 
-  const addNewEmployee = () => {
-    handlePageChange('AddEmployee');
+  const openAddEmployeeModal = () => {
+    setIsAddEmployeeModalOpen(true);
   };
-  const gotohomepage = () =>
-  {
-    handlePageChange('Homepage1');
-  }
+
+  const closeAddEmployeeModal = () => {
+    setIsAddEmployeeModalOpen(false);
+    setNewEmployee({
+      EmployeeName: '',
+      Role: '',
+      Salary: '',
+      Location: '',
+      AadharNo: '',
+      MobileNo: '',
+      JoiningDate: ''
+    });
+    getData();
+  };
+
+  const handleAddEmployeeChange = (e) => {
+    const { name, value } = e.target;
+    setNewEmployee({ ...newEmployee, [name]: value });
+  };
+
+  const handleAddEmployeeSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:8085/addEmployee', newEmployee);
+      closeAddEmployeeModal();
+    } catch (error) {
+      console.error('Error adding employee:', error.message);
+    }
+  };
+
+  const openEditModal = (employee) => {
+    setEditEmployee(employee);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditEmployee(null);
+  };
+
+  const handleEditEmployeeChange = (e) => {
+    const { name, value } = e.target;
+    setEditEmployee({ ...editEmployee, [name]: value });
+  };
+
+  const handleEditEmployeeSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8085/updateEmployee/${editEmployee.id}`, editEmployee);
+      closeEditModal();
+      getData();
+    } catch (error) {
+      console.error('Error updating employee:', error.message);
+    }
+  };
+
+  const gotohomepage = () => {
+    navigate('/homepage1');
+  };
 
   return (
     <>
-      <div className="container mt-3">
-      <ArrowBackIos onClick={gotohomepage}></ArrowBackIos>
-        <h2 className="form-title">Employee Data</h2>
-        <div style={{ width: '200px', marginBottom: '-30px' }}>
-          <TextField
-            label="Search by name"
-           
+      <div className={styles.container}>
+        <h1 className={styles.formTitle}>Employee Data</h1>
+        <button className={styles.goback} title="Go back">
+          <ArrowBackIosIcon onClick={gotohomepage} />
+        </button>
+        <br />
+        <br />
+        <div className={styles.searchContainer}>
+          <SearchBox
+            placeholder="Search by name"
             value={searchTerm}
             onChange={handleSearchChange}
-            InputProps={{
-              endAdornment: (
-                 
-                  <CloseIcon title ="cancel" onClick={handleSearchClear} style={{cursor:"pointer"}}  />
-               
-              ),
+            onClear={handleSearchClear}
+            styles={{
+              root: { width: 300 },
+              icon: { color: 'blue' },
             }}
           />
+          <button className={styles.addButton} title='Add Employee' onClick={openAddEmployeeModal}>
+            ADD
+          </button>
         </div>
-        <Button  onClick={addNewEmployee} style={{marginLeft:"1080px"}}>
-          ADD
-        </Button>
 
-        <table className="table table-bordered" style={{ alignItems: 'center' }}>
+        <table className={styles.employeeTableContainer}>
           <thead>
             <tr>
-              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>
+              <th className={styles.tableHeader}>
                 Name
                 {sortOrder.name === 'asc' ? (
-                  <ArrowDropDownIcon onClick={sortNames} style={{ cursor: 'pointer' }} />
+                  <ArrowDropDownIcon onClick={sortNames} className={styles.sortIcon} />
                 ) : (
-                  <ArrowDropUpIcon onClick={sortNames} style={{ cursor: 'pointer' }} />
+                  <ArrowDropUpIcon onClick={sortNames} className={styles.sortIcon} />
                 )}
               </th>
-              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>
+              <th className={styles.tableHeader}>
                 Role
                 {sortOrder.role === 'asc' ? (
-                  <ArrowDropDownIcon onClick={sortRoles} style={{ cursor: 'pointer' }} />
+                  <ArrowDropDownIcon onClick={sortRoles} className={styles.sortIcon} />
                 ) : (
-                  <ArrowDropUpIcon onClick={sortRoles} style={{ cursor: 'pointer' }} />
+                  <ArrowDropUpIcon onClick={sortRoles} className={styles.sortIcon} />
                 )}
               </th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Salary</th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Location</th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Aadhar No</th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Mobile No</th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Joining Date</th>
-              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>Actions</th>
+              <th className={styles.tableHeader}>Salary</th>
+              <th className={styles.tableHeader}>Location</th>
+              <th className={styles.tableHeader}>Aadhar No</th>
+              <th className={styles.tableHeader}>Mobile No</th>
+              <th className={styles.tableHeader}>Joining Date</th>
+              <th className={styles.tableHeader}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -196,124 +244,196 @@ const EmployeeData = ({ handlePageChange }) => {
                 <td>{employee.AadharNo}</td>
                 <td>{employee.MobileNo}</td>
                 <td>{employee.JoiningDate}</td>
-                <td style={{display:"flex"}}>
-                  <DeleteIcon
-                  title="Delete"
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => confirmDelete(employee.id)}
-                    style={{cursor:"pointer"}}
-                  
-                  ></DeleteIcon>
-                
-                  <EditIcon
-                  title="Edit"
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(employee)}
-                    style={{ marginLeft: '10px',cursor:"pointer" }}
-                  >
-                    
-                  </EditIcon>
+                <td>
+                  <div className={styles.actionIcons}>
+                    <DeleteIcon onClick={() => confirmDelete(employee.id)} />
+                    <EditIcon onClick={() => openEditModal(employee)} />
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {message && (
-          <p className="no-data-message" style={{ marginLeft: '60px' }}>
-            {message}
-          </p>
-        )}
+
+        {message && <div className={styles.alertWarning}>{message}</div>}
       </div>
 
-      <Modal isOpen={isDeleteConfirmModal} onDismiss={cancelDeleteConfirmation} className="custom-modal">
-        <div className="modal-content">
-          <CloseIcon
-            onClick={cancelDeleteConfirmation}
-            style={{ marginLeft: '440px', marginTop: '-15px', marginBottom: '10px', cursor: 'pointer' }}
-          />
-          <h3>Are you sure you want to delete this employee?</h3>
-          <div>
-            <Button onClick={handleDeleteConfirmation}>Yes</Button>
-            <Button onClick={cancelDeleteConfirmation}>No</Button>
-          </div>
+      {/* Add Employee Modal */}
+      <Modal isOpen={isAddEmployeeModalOpen} onDismiss={closeAddEmployeeModal}>
+        <div className={styles.modalHeader}>
+          <h2 className={styles.modalHeading}>Add Employee</h2>
+          <CloseIcon onClick={closeAddEmployeeModal} className={styles.closeIcon} />
         </div>
+        <form onSubmit={handleAddEmployeeSubmit} className={styles.modalForm}>
+          <label>Name</label>
+          <input
+          placeholder='Enter Name'
+            label="Employee Name"
+            name="EmployeeName"
+            value={newEmployee.EmployeeName}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Role</label>
+          <input
+           placeholder='Enter Role'
+            label="Role"
+            name="Role"
+            value={newEmployee.Role}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Salary</label>
+          <input
+           placeholder='Enter Salary'
+            label="Salary"
+            name="Salary"
+            type="number"
+            value={newEmployee.Salary}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Location</label>
+          <input
+           placeholder='Enter Location'
+            label="Location"
+            name="Location"
+            value={newEmployee.Location}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Aadhar No</label>
+          <input
+           placeholder='Enter Aadhar no:'
+            label="Aadhar No"
+            name="AadharNo"
+            value={newEmployee.AadharNo}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Mobile No:</label>
+          <input
+           placeholder='Enter Mobile no:'
+            label="Mobile No"
+            name="MobileNo"
+            value={newEmployee.MobileNo}
+            onChange={handleAddEmployeeChange}
+            required
+          />
+          <label>Joining Date</label>
+          <input
+            label="Joining Date"
+            name="JoiningDate"
+            type="date"
+            value={newEmployee.JoiningDate}
+            onChange={handleAddEmployeeChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            required
+          />
+          <div className={styles.modalFooter}>
+          <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>Cancel</button>
+            <button  className={styles.Addbutton} type="submit" variant="contained" color="primary">
+              Add 
+            </button>
+           
+          </div>
+        </form>
       </Modal>
 
-      <Modal isOpen={isEditModalOpen} onDismiss={() => setIsEditModalOpen(false)} className="custom-modal">
-        <div className="modal-content">
-          <CloseIcon
-            onClick={() => setIsEditModalOpen(false)}
-            style={{ marginLeft: '440px', marginTop: '-15px', marginBottom: '10px', cursor: 'pointer' }}
+      {/* Edit Employee Modal */}
+      <Modal isOpen={isEditModalOpen} onDismiss={closeEditModal}>
+        <div className={styles.modalHeader}>
+          <h2>Edit Employee</h2>
+          <CloseIcon onClick={closeEditModal} className={styles.closeIcon} />
+        </div>
+        <form onSubmit={handleEditEmployeeSubmit} className={styles.modalForm}>
+        <label>Name</label>
+          <input
+            label="Employee Name"
+            name="EmployeeName"
+            value={editEmployee?.EmployeeName}
+            onChange={handleEditEmployeeChange}
+            required
           />
-          <h3>Edit Employee Data</h3>
-          <div>
-            <TextField
-              label="Name"
-              name="EmployeeName"
-              value={editEmployee?.EmployeeName || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Role"
-              name="Role"
-              value={editEmployee?.Role || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Salary"
-              name="Salary"
-              value={editEmployee?.Salary || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Location"
-              name="Location"
-              value={editEmployee?.Location || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Aadhar No"
-              name="AadharNo"
-              value={editEmployee?.AadharNo || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Mobile No"
-              name="MobileNo"
-              value={editEmployee?.MobileNo || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <TextField
-              label="Joining Date"
-              name="JoiningDate"
-              value={editEmployee?.JoiningDate || ''}
-              onChange={handleEditChange}
-              fullWidth
-              style={{ marginBottom: '10px' }}
-            />
-            <div>
-              <Button onClick={handleEditSave} variant="contained" color="primary" style={{ marginRight: '10px' }}>
-                Save
-              </Button>
-              <Button onClick={() => setIsEditModalOpen(false)} variant="contained" color="secondary">
-                Cancel
-              </Button>
-            </div>
+            <label>Role</label>
+          <input
+            label="Role"
+            name="Role"
+            value={editEmployee?.Role}
+            onChange={handleEditEmployeeChange}
+            required
+          />
+            <label>Salary</label>
+          <input
+            label="Salary"
+            name="Salary"
+            type="number"
+            value={editEmployee?.Salary}
+            onChange={handleEditEmployeeChange}
+            required
+          />
+            <label>Location</label>
+          <input
+            label="Location"
+            name="Location"
+            value={editEmployee?.Location}
+            onChange={handleEditEmployeeChange}
+            required
+          />
+            <label>Aadhar No</label>
+          <input
+            label="Aadhar No"
+            name="AadharNo"
+            value={editEmployee?.AadharNo}
+            onChange={handleEditEmployeeChange}
+            required
+          />
+            <label>Mobile No</label>
+          <input
+            label="Mobile No"
+            name="MobileNo"
+            value={editEmployee?.MobileNo}
+            onChange={handleEditEmployeeChange}
+            required
+          />
+            <label>Joining Date</label>
+          <input
+            label="Joining Date"
+            name="JoiningDate"
+            type="date"
+            value={editEmployee?.JoiningDate}
+            onChange={handleEditEmployeeChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            required
+          />
+          <div className={styles.modalFooter}>
+          <button className={styles.cancelButton} onClick={closeEditModal}>Cancel</button>
+            <button  className={styles.Addbutton} type="submit" variant="contained" color="primary">
+              Update 
+            </button>
+           
           </div>
+        </form>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal isOpen={isDeleteConfirmModal} onDismiss={cancelDeleteConfirmation}>
+        <div className={styles.modalHeader}>
+          <h2>Confirm Deletion</h2>
+          <CloseIcon onClick={cancelDeleteConfirmation} className={styles.closeIcon} />
+        </div>
+        <div className={styles.modalBody}>
+          <h5>Are you sure you want to delete this employee?</h5>
+        </div>
+        <div className={styles.modalFooter}>
+          <button  className={styles.cancelButton} onClick={handleDeleteConfirmation} variant="contained" color="secondary">
+            Delete
+          </button>
+          <button  className={styles.Addbutton} onClick={cancelDeleteConfirmation}>Cancel</button>
         </div>
       </Modal>
     </>

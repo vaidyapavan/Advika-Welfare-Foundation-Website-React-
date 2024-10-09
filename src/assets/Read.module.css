@@ -1,0 +1,129 @@
+body{
+  background-color:darkgray;
+}
+.main_container
+{
+  background-color: aliceblue;
+}
+.container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-top: 120px;
+}
+
+.formTitle {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  margin-left: 700px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.donationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.donationTable th,
+.donationTable td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.donationTable th {
+
+  color:black;
+}
+
+.donationTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+.header
+{
+  display: flex;
+  flex-direction: row;
+}
+.action
+{
+
+  display: flex;
+ align-self: center;
+  gap: 10px;
+}
+.modalbuttons
+{
+  gap: 10px;
+  margin-left: 10px;
+
+}
+.modalCloseIcon
+{
+  margin-left: 440px;
+  width: 30px;
+  display: flex;
+}
+.modalbuttons
+{
+  width: 80px;
+  display: flex;
+  flex-direction:row;
+  margin-left: 150px;
+}
+
+.cancelButton
+{
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left:100px;
+}
+.Addbutton
+{
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left:20px;
+}
+.modal_footer
+{
+  gap: 10px;
+}
+.close_icon
+{
+  margin-left: 400px;
+  cursor: pointer;
+  
+}
+.deleteHeader
+{
+  margin-left: 20px;
+}
+

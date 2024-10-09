@@ -1,22 +1,61 @@
-.search {
+.search-container {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 30px; /* Adjust margin as needed */
+  justify-content: space-between;
+  padding: 10px;
+  gap: 20px; /* Adjust spacing between elements */
+width: 80%;
+align-items: center;
 }
 
 .searchinput {
-  margin-right: 10px; /* Adjust spacing between search input and filters */
-  margin-bottom: -30px;
-  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 20px;
+  width:30px;
+
 }
 
-.gender {
- 
-  margin-left:10px;
-  background-origin: padding-box;
+.searchinput input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width:40%;
 }
 
-.hobbies {
-  margin-right: 600px; /* Adjust spacing between hobbies filter and any other content */
+.searchinput svg {
+  margin-left: 8px;
+  cursor: pointer;
+  
+}
+
+.gender-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gender-filter label {
+  font-weight: bold;
+}
+
+.gender-filter select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.hobbies-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hobbies-filter label {
+  font-weight: bold;
+}
+
+.hobbies-filter .ms-Dropdown {
+  min-width: 250px;
 }

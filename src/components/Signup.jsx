@@ -5,8 +5,10 @@ import { Modal } from '@fluentui/react/lib/Modal';
 import { Label } from '@fluentui/react/lib/Label';
 import { MessageBar, MessageBarType } from '@fluentui/react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
+import { useNavigate } from 'react-router-dom';
 
 const Signup = ({ handlePageChange }) => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     id: '', // Unique ID field
     name: '',
@@ -117,11 +119,11 @@ const Signup = ({ handlePageChange }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    handlePageChange('Login');
+  navigate('/login');
   };
 
   const goToSignInPage = () => {
-    handlePageChange('Login');
+    navigate('/login');
   };
 
   return (
@@ -199,8 +201,9 @@ const Signup = ({ handlePageChange }) => {
           )}
 
           <div className={styles.btnContainer}>
-            <button type="submit" className={`${styles.btn} ${styles.btnSuccess}`}>Submit</button>
-            <button type="button" className={`${styles.btn} ${styles.btnLink}`} onClick={goToSignInPage}>Sign in</button>
+          <button type="button" style={{backgroundColor:"#0078d4"}} className={`${styles.btn} ${styles.btnSuccess}`} onClick={goToSignInPage}>Sign in</button>
+          <button type="submit"  style={{backgroundColor:"#0078d4"}}className={`${styles.btn} ${styles.btnSuccess}`}>Submit</button>
+           
           </div>
         </form>
       </div>

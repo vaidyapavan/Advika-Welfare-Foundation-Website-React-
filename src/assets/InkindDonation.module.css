@@ -1,0 +1,128 @@
+
+.inkindDonationContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.addDonationButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 1350px;
+}
+
+.addDonationButton:hover {
+  background-color: #1565c0;
+}
+
+.donorCount {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.inkindDonationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.inkindDonationTable th, 
+.inkindDonationTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.inkindDonationTable th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.inkindDonationTable tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.actionIcon svg {
+  cursor: pointer;
+  color: #1976d2;
+  transition: color 0.3s ease;
+}
+
+.actionIcon svg:hover {
+  color: #1565c0;
+}
+
+.modalContainer {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.closeIcon {
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.closeIcon:hover {
+  color: #555;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.saveButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 0;
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #1565c0;
+}
+
+.header
+{
+  display: flex;
+  flex-direction: row;
+}

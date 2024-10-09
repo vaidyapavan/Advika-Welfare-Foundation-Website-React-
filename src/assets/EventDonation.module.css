@@ -1,0 +1,110 @@
+.eventDonationContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  }
+  
+  /* Button styles */
+  .addDonationButton {
+    background-color:#1976d2; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 1300px;
+
+  }
+  
+  .addDonationButton:hover {
+    background-color: #005a9e; /* Darker blue on hover */
+  }
+  
+  /* Table styles */
+  .eventDonationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .eventDonationTable th,
+  .eventDonationTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .eventDonationTable th {
+    color: black;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .eventDonationTable tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Action icon styles */
+  .actionIcon {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  .actionIcon svg {
+    font-size: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .actionIcon svg:hover {
+    color: #0078d4; /* Fluent UI blue on hover */
+  }
+  
+  /* Modal styles */
+  .modalContainer {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 100px auto;
+    position: relative;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modalTitle {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .closeIcon {
+    cursor: pointer;
+  }
+  
+  .modalForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .saveButton {
+    background-color: #0078d4;
+    color: white;
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .saveButton:hover {
+    background-color: #005a9e;
+  }
+  
+  .header{
+    display: flex;
+     flex-direction: row;
+  }

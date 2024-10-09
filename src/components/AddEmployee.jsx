@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from '@fluentui/react'; // Make sure you have Fluent UI installed
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
 
-const AddEmployee = ({ handlePageChange }) => {
+const AddEmployee = () => {
+  const navigate = useNavigate();
   const [employeeData, setEmployeeData] = useState({
     EmployeeName: '',
     Role: '',
@@ -42,11 +44,11 @@ const AddEmployee = ({ handlePageChange }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    handlePageChange('EmployeeData'); 
+    navigate('/employeeData'); 
   };
 
   const goback = () => {
-    handlePageChange('EmployeeData');
+    navigate('/employeeData');
   };
 
   return (

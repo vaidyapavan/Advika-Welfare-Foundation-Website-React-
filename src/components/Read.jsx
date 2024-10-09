@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Modal } from '@fluentui/react/lib/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import Searchbar from './Searchbar';
-import DeleteButtonWithTooltip from './DeleteButtonWithTooltip';
-import EditButtonWithTooltip from './EditButtonWithTooltip';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Dropdown, IDropdownOption } from '@fluentui/react/lib/Dropdown';
 
-import '../assets/Read.css';
+import styles from '../assets/Read.module.css';
 
-const Read = ({handlePageChange} ) => {
+const Read = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [message, setMessage] = useState('');
@@ -22,30 +21,27 @@ const Read = ({handlePageChange} ) => {
   const [deleteId, setDeleteId] = useState(null);
   const [sortOrder, setSortOrder] = useState({ name: 'asc', class: 'asc' });
   const [genderTerm, setGenderTerm] = useState('');
-  const [hobbyTerms, setHobbyTerms] = useState([]); // Changed to array for multiple selection
+  const [hobbyTerms, setHobbyTerms] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData(); // Fetch data when component mounts
+    getData();
   }, []);
 
   const getData = async () => {
     try {
-      const response = await axios.get('http://localhost:8085/getData'); 
-      setData(response.data); // Update state with fetched data
-      console.log('Data fetched successfully:', response.data); // Log fetched data to console
+      const response = await axios.get('http://localhost:8085/getData');
+      setData(response.data);
     } catch (error) {
-      console.error('Error fetching data:', error); // Log error if data fetch fails
+      console.error('Error fetching data:', error);
     }
   };
 
   const sortNames = () => {
     const sortedData = [...data].sort((a, b) => {
-      if (sortOrder.name === 'asc') {
-        return a.name.localeCompare(b.name);
-      } else {
-        return b.name.localeCompare(a.name);
-      }
+      return sortOrder.name === 'asc'
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
     });
     setData(sortedData);
     setSortOrder({ ...sortOrder, name: sortOrder.name === 'asc' ? 'desc' : 'asc' });
@@ -53,97 +49,81 @@ const Read = ({handlePageChange} ) => {
 
   const sortClasses = () => {
     const sortedData = [...data].sort((a, b) => {
-      if (sortOrder.class === 'asc') {
-        return a.studentClass.localeCompare(b.studentClass);
-      } else {
-        return b.studentClass.localeCompare(a.studentClass);
-      }
+      return sortOrder.class === 'asc'
+        ? a.studentClass.localeCompare(b.studentClass)
+        : b.studentClass.localeCompare(a.studentClass);
     });
     setData(sortedData);
     setSortOrder({ ...sortOrder, class: sortOrder.class === 'asc' ? 'desc' : 'asc' });
   };
 
-  // Function to handle delete operation
-  const handleDelete = (id) => {
-    axios
-      .delete(`http://localhost:8085/deleteData/${id}`)
-      .then(() => {
-        console.log('Item deleted successfully');
-        getData(); // Refresh data after deletion
-        setIsDeleteConfirmModal(false); // Close delete confirmation modal
-      })
-      .catch((error) => {
-        console.error('Error deleting item:', error); // Log error if deletion fails
-      });
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8085/deleteData/${id}`);
+      getData();
+      setIsDeleteConfirmModal(false);
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
   };
 
-  // Function to navigate to update page with item details
   const setToLocalStorageAndNavigate = (id, name, email, studentClass, hobby, gender) => {
     localStorage.setItem('ID', id);
     localStorage.setItem('Name', name);
     localStorage.setItem('Email', email);
     localStorage.setItem('StudentClass', studentClass);
-    localStorage.setItem('hobby', JSON.stringify(hobby));
+    localStorage.setItem('Hobby', JSON.stringify(hobby));
     localStorage.setItem('Gender', gender);
-    handlePageChange('Update');
+    navigate('/Update');
   };
 
-  // Function to initiate delete confirmation
   const confirmDelete = (id) => {
     setDeleteId(id);
-    setIsDeleteConfirmModal(true); // Show delete confirmation modal
+    setIsDeleteConfirmModal(true);
   };
 
-  // Function to handle delete confirmation
   const handleDeleteConfirmation = () => {
     if (deleteId !== null) {
       handleDelete(deleteId);
     }
   };
 
-  // Function to cancel delete confirmation
   const cancelDeleteConfirmation = () => {
-    setIsDeleteConfirmModal(false); // Close delete confirmation modal
+    setIsDeleteConfirmModal(false);
     setDeleteId(null);
-    handlePageChange('Read');
   };
 
-  // Function to handle search term change
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleChange = (newValue) => {
+    setSearchTerm(newValue || '');
     setMessage('');
   };
 
-  // Function to clear search term
   const handleClear = () => {
     setSearchTerm('');
     setMessage('');
   };
 
-  const genderChange = (e) => {
-    setGenderTerm(e.target.value);
+  const genderChange = (event, option) => {
+    setGenderTerm(option ? option.key : ''); // Set the gender filter based on selected option
   };
+  
 
   const handleHobbyChange = (selectedKeys) => {
     setHobbyTerms(selectedKeys);
   };
 
-  // Function to capitalize the first letter of a string
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
-  // Filter data based on search and filter criteria
   const filteredData = data.filter((item) => {
     const matchesName = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesGender = genderTerm === '' || item.gender.toLowerCase() === genderTerm.toLowerCase();
-    const matchesHobbies =
-      hobbyTerms.length === 0 || hobbyTerms.every((hobby) => item.hobby.includes(hobby));
+    const matchesGender = !genderTerm || item.gender.toLowerCase() === genderTerm.toLowerCase(); // Matches all if gender is not selected
+    const matchesHobbies = hobbyTerms.length === 0 || hobbyTerms.every((hobby) => item.hobby.includes(hobby));
+    
     return matchesName && matchesGender && matchesHobbies;
   });
-  console.log(filteredData);
-
-  // Effect to update message based on filtered data
+  
   useEffect(() => {
     if ((searchTerm || genderTerm || hobbyTerms.length > 0) && filteredData.length === 0) {
       setMessage('No data found');
@@ -151,34 +131,23 @@ const Read = ({handlePageChange} ) => {
       setMessage('');
     }
   }, [searchTerm, genderTerm, hobbyTerms, filteredData]);
-  const addstudent=()=>
-  {
-    handlePageChange('Create');
 
-  }
+  const addStudent = () => {
+    navigate('/create');
+  };
 
-  
-
-  const gotohomepage = () =>
-  {
-    handlePageChange('Homepage1');
-
-  }
+  const goToHomepage = () => {
+    navigate('/homepage1');
+  };
 
   return (
-    <>
-      <div className="container mt-3">
-        <h2 className="form-title">Student Data</h2>
-        <div>
-
-        <button className="btn btn-primary mb-3" title="Go back" onClick={gotohomepage}><ArrowBackIosIcon></ArrowBackIosIcon></button>
-     
-   
-          
-            <button className="btn btn-primary mb-3" title="Add student" style={{marginLeft:"1230px"}} onClick={addstudent}>
-              Add+
-            </button>
-          
+    <div className={styles.main_container}>
+      <div className={styles.container}>
+        <h2 className={styles.formTitle}>Student Information</h2>
+        <button className="btn btn-primary mb-3" title="Go back" onClick={goToHomepage}>
+          <ArrowBackIosIcon />
+        </button>
+        <div className={styles.header}>
           <Searchbar
             searchTerm={searchTerm}
             handleChange={handleChange}
@@ -188,9 +157,12 @@ const Read = ({handlePageChange} ) => {
             hobbyTerms={hobbyTerms}
             handleHobbyChange={handleHobbyChange}
           />
+          <button className="btn btn-primary mb-3" title="Add student" style={{ marginLeft: "270px" }} onClick={addStudent}>
+            Add
+          </button>
         </div>
 
-        <table className="table table-bordered" style={{ alignItems: 'center' }}>
+        <table className={styles.donationTable}>
           <thead>
             <tr>
               <th scope="col" style={{ textAlign: 'center', width: '15%' }}>
@@ -201,9 +173,7 @@ const Read = ({handlePageChange} ) => {
                   <ArrowDropUpIcon onClick={sortNames} style={{ cursor: 'pointer' }} />
                 )}
               </th>
-              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>
-                Email
-              </th>
+              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>Email</th>
               <th scope="col" style={{ textAlign: 'center', width: '15%' }}>
                 Class
                 {sortOrder.class === 'asc' ? (
@@ -212,15 +182,9 @@ const Read = ({handlePageChange} ) => {
                   <ArrowDropUpIcon onClick={sortClasses} style={{ cursor: 'pointer' }} />
                 )}
               </th>
-              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>
-                Hobbies
-              </th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>
-                Gender
-              </th>
-              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>
-                Actions
-              </th>
+              <th scope="col" style={{ textAlign: 'center', width: '20%' }}>Hobbies</th>
+              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Gender</th>
+              <th scope="col" style={{ textAlign: 'center', width: '15%' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -244,60 +208,37 @@ const Read = ({handlePageChange} ) => {
                 <td style={{ textAlign: 'center' }}>
                   {capitalizeFirstLetter(item.gender)}
                 </td>
-                <td style={{ textAlign: 'center' }}>
-                  <button
-                    className="btn btn-primary"
-                    style={{ marginRight: '12px', padding: '1px', width: '50px' }}
-                    onClick={() =>
-                      setToLocalStorageAndNavigate(
-                        item.id,
-                        item.name,
-                        item.email,
-                        item.studentClass,
-                        item.hobby,
-                        item.gender
-                      )
-                    }
-                  >
-                    <EditButtonWithTooltip />
-                  </button>
-                  <button
-                    style={{ marginLeft: '8px', padding: '1px', width: '50px' }}
-                    className="btn btn-primary"
-                    onClick={() => confirmDelete(item.id)}
-                  >
-                    <DeleteButtonWithTooltip />
-                  </button>
+                <td style={{ textAlign: 'center' }} className={styles.action} >
+                  <EditIcon title="Edit" style={{ marginLeft: "80px" }} onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
+                  <DeleteIcon title="Delete" style={{ marginLeft: "25px" }} onClick={() => confirmDelete(item.id)} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {message && (
-          <p className="no-data-message" style={{ marginLeft: '60px' }}>
-            {message}
-          </p>
-        )}
+        {message && <p style={{ textAlign: 'center' }}>{message}</p>}
       </div>
-      <Modal isOpen={isDeleteConfirmModal} onDismiss={cancelDeleteConfirmation} className="custom-modal">
-        <div className="modal-content">
-          <CloseIcon
-            onClick={cancelDeleteConfirmation}
-            style={{ marginLeft: '350px', marginTop: '-15px', marginRight: '-10px', cursor: 'pointer' }}
-          />
-          <br />
-          <div className="success-message" style={{ color: 'black' }}>
-            Are you sure you want to delete this data?
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={isDeleteConfirmModal}
+        onDismiss={cancelDeleteConfirmation}
+        isBlocking={false}
+        className={styles.custom_modal}
+      >
+        <div className={styles.modal_container}>
+          <CloseIcon className={styles.close_icon} onClick={cancelDeleteConfirmation} />
+          <div className={styles.modal_body}>
+            <h4 className={styles.deleteHeader}>Are you sure you want to delete?</h4>
           </div>
-          <button className="ok-button" onClick={cancelDeleteConfirmation} style={{ marginTop: '30px', marginLeft: '100px', marginBottom: '-10px' }}>
-            No
-          </button>
-          <button className="ok-button" onClick={handleDeleteConfirmation} style={{ marginLeft: '200px', marginTop: '-35px' }}>
-            Yes
-          </button>
+          <br></br>
+          <div className={styles.modal_footer}>
+            <button  className={styles.cancelButton}onClick={cancelDeleteConfirmation}>Cancel</button>
+            <button  className={styles.Addbutton} onClick={handleDeleteConfirmation}>Delete</button>
+          </div>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

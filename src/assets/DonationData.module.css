@@ -1,0 +1,109 @@
+.main-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 80px;
+}
+
+.add-btn {
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 1380px;
+}
+.goback
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.add-btn:hover {
+  background-color:#005a9e; 
+}
+
+.donor-count {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.donation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.donation-table th, .donation-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.donation-table th {
+  background-color: #f2f2f2;
+}
+
+.donation-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.action-icon {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}
+
+.modal-content {
+  position: relative;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin: auto;
+  margin-top: 100px; /* Adjust for vertical centering */
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+input[type="text"], input[type="date"], select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, select:focus {
+  border-color: #4CAF50; /* Green */
+  outline: none;
+}
+
+.header
+{
+  display: flex;
+  flex-direction: row;
+}

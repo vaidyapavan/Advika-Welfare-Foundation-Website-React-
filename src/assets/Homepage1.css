@@ -14,7 +14,7 @@
 
 .logo {
     margin-top: -350px;
-    margin-left:-90px;
+    margin-left:-20px;
 }
 
 .body {
@@ -53,4 +53,13 @@
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.AccountBoxIcon{
+  
+
+    
+
+
+
 }

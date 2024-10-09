@@ -1,0 +1,170 @@
+
+
+body{
+  background-color:gray;
+
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header
+{
+  margin-left: 650px;
+  font-size: 40px;
+}
+.balance
+{
+  margin-left: -3px;
+}
+/* Expense Table styles */
+.expenseTableContainer {
+  width: 140%;
+  max-width: 1750px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+ 
+}
+
+/* Button styles */
+.btn {
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.btn:hover {
+  background-color: #005a9e; /* Darker blue on hover */
+}
+.save
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: -10px;
+}
+
+.cancelExpenseButton
+{
+  
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 140px;
+
+}
+.buttons
+{
+  display: flex;
+  
+}
+#addBalanceHeading
+{
+  margin-left: 130px;
+}
+.addExpenseHeading
+{
+  margin-left: 140px;
+}
+
+.addExpenseButton{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 20px;
+
+}
+
+/* Table styles */
+.expenseTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.expenseTable th,
+.expenseTable td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.expenseTable th {
+  color:black;
+  font-weight: bold;
+}
+.expenseTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Popup modal styles */
+.popupContent {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  position: relative; 
+  width: 500px;
+  
+}
+
+/* Close icon style */
+.popupContent .closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .expenseTable {
+      font-size: 14px; /* Adjust table font size for smaller screens */
+  }
+
+  .btn {
+      padding: 8px 12px; /* Adjust button padding */
+  }
+
+  .popupContent {
+      padding: 15px; /* Adjust modal padding */
+  }
+}

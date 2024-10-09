@@ -7,14 +7,15 @@ import Select from 'react-select';
 import '../assets/Update.css';
 import { Label } from '@fluentui/react/lib/Label';
 
-const Update = ({handlePageChange }) => {
+
+const Update = () => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [studentClass, setStudentClass] = useState('');
     const [hobby, setHobby] = useState([]);
     const [gender, setGender] = useState('');
-    const navigate = useNavigate();
+
     const [issavemodal, setIssavemodal] = useState(false);
     const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
     const [nameError, setNameError] = useState("");
@@ -25,25 +26,31 @@ const Update = ({handlePageChange }) => {
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const nameRegex = /^[a-zA-Z\s]*$/;
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setId(localStorage.getItem("ID"));
+        const storedId = localStorage.getItem("ID");
+        setId(storedId);
         setName(localStorage.getItem("Name"));
         setEmail(localStorage.getItem("Email"));
 
         axios.get(`http://localhost:8085/getData`)
             .then(response => {
-                const data = response.data.find(item => item.id === parseInt(id));
+                const data = response.data.find(item => item.id === parseInt(storedId));
                 if (data) {
                     setStudentClass(data.studentClass);
-                    setHobby(data.hobby.split(',').map(h => ({ value: h, label: h })));
-                    setGender(data.gender);
+
+                    // Convert hobbies string into proper select options
+                    const hobbiesArray = data.hobby.split(',').map(h => ({ value: h.trim(), label: h.trim() }));
+                    setHobby(hobbiesArray);
+
+                    setGender(data.gender.toLowerCase()); // Set gender correctly
                 }
             })
             .catch(error => {
                 console.error('Error fetching additional data:', error);
             });
-    }, [id]);
+    }, []);
 
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -101,7 +108,7 @@ const Update = ({handlePageChange }) => {
             name: name,
             email: email,
             studentClass: studentClass,
-            hobby: hobby.map(h => h.value).join(','),
+            hobby: hobby.map(h => h.value).join(','),  // Convert hobby array to string
             gender: capitalizedGender
         })
             .then(response => {
@@ -117,7 +124,7 @@ const Update = ({handlePageChange }) => {
     };
 
     const cancelUpdate = () => {
-        handlePageChange('Read');
+        navigate('/read');
     };
 
     const cancelcloseModal = () => {
@@ -125,7 +132,7 @@ const Update = ({handlePageChange }) => {
     };
 
     const gotoreadpage = () => {
-        handlePageChange('Read');
+        navigate('/read');
     };
 
     const hobbyOptions = [
@@ -138,12 +145,14 @@ const Update = ({handlePageChange }) => {
 
     return (
         <div className="update-container">
-            <CloseIcon onClick={cancelUpdate} className="close-icon" style={{ marginLeft: "540px", marginTop: "-20px", cursor: "pointer" }} />
-
+            
+            <CloseIcon onClick = {gotoreadpage}  style={{marginLeft:"540px"}}></CloseIcon>
             <h2>Update Student Data</h2>
+            
+            
             <form onSubmit={handleUpdate}>
                 <div className="mb-3">
-                  <Label required>Name</Label>
+                    <Label required>Name</Label>
                     <input
                         type="text"
                         className={`form-control ${nameError ? 'is-invalid' : ''}`}
@@ -158,12 +167,11 @@ const Update = ({handlePageChange }) => {
                     )}
                 </div>
                 <div className="mb-3">
-                <Label required>Email</Label>
+                    <Label required>Email</Label>
                     <input
                         type="text"
                         className={`form-control ${emailError ? 'is-invalid' : ''}`}
                         id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -174,7 +182,7 @@ const Update = ({handlePageChange }) => {
                     )}
                 </div>
                 <div className="mb-3">
-                <Label required>Student class</Label>
+                    <Label required>Student class</Label>
                     <select
                         className={`form-select ${studentClassError ? 'is-invalid' : ''}`}
                         id="exampleStudentClass"
@@ -195,7 +203,7 @@ const Update = ({handlePageChange }) => {
                     )}
                 </div>
                 <div className="mb-3">
-                <Label required>Hobbies</Label>
+                    <Label required>Hobbies</Label>
                     <Select
                         isMulti
                         name="hobbies"
@@ -212,7 +220,7 @@ const Update = ({handlePageChange }) => {
                     )}
                 </div>
                 <div className="mb-3">
-                <Label required>Gender</Label>
+                    <Label required>Gender</Label>
                     <div className="form-check" style={{ marginBottom: '10px' }}>
                         <input
                             className={`form-check-input ${genderError ? 'is-invalid' : ''}`}
@@ -250,16 +258,15 @@ const Update = ({handlePageChange }) => {
             </form>
 
             <Modal isOpen={issavemodal} onDismiss={cancelcloseModal} className="custom-modal">
-                <div className="modal-content" style={{alignItems:"center", }}>
-                    {/* <CloseIcon onClick={cancelcloseModal} className="close-icon" /> */}
-                    <br></br>
-                    <h2 style={{marginLeft:"10px"}}>Data Updated successfully!!</h2>
-                    <br></br>
-                    <button className="btn btn-primary" onClick={gotoreadpage}>OK</button>
+                <div className="modal-content" style={{ alignItems: "center" }}>
+                    <br />
+                    <h4>Updated Successfully</h4>
+                    <br />
+                    <button type="button" className="btn btn-primary" onClick={gotoreadpage}>OK</button>
                 </div>
             </Modal>
         </div>
     );
-}
+};
 
 export default Update;

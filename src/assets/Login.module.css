@@ -11,7 +11,7 @@
   padding: 2rem;
   border-radius: 8px;
   width: 500px;
-  height: 500px;
+  height: 550px;
 }
 
 .mb3 {
@@ -58,10 +58,11 @@
 }
 
 .btnSuccess {
-  background-color: #28a745;
+  background-color:#0078d4;
   color: white;
   border: none;
-  margin-left: 80px;
+  margin-left: 20px
+
 }
 
 .btnSuccess:hover {
@@ -139,4 +140,15 @@
 .forgotPassword
 {
   margin-left: 65px;
+}
+.title{
+  align-content: center;
+  align-items: center;
+  margin-left: 170px;
+  margin-top: 50px;
+}
+
+.form-title{
+  margin-top: 50px;
+
 }

@@ -1,6 +1,6 @@
 
 body{
-    background-color:rgb(246, 255, 196);
+    background-color:gray;
 }
 
 .create-container {
@@ -8,7 +8,7 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color:rgb(246, 255, 196);    
+    
    
 }
 
@@ -19,6 +19,7 @@ body{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 550px;
     height: 700px;
+    background-color:rgb(255, 255, 255);
 }
 
 
@@ -152,7 +153,7 @@ body{
 }
 
 .custom-modal .ok-button {
-    background-color:gray;
+    background-color:#0078d4;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -176,9 +177,6 @@ body{
     margin-left: 150px;
 }
 
-.ok-button:hover {
-    background-color:darkolivegreen;
-}
 
 
 
@@ -193,7 +191,4 @@ body{
 
 .select__menu {
     z-index: 100;
-}
-.btn btn-primary mb-3{
-    background-color: red;
 }

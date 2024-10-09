@@ -2,22 +2,25 @@ import React from 'react';
 import '../assets/Homepage1.css';
 import logo from '../assets/images/advikalogo.png';
 import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-const Homepage1 = ({ handlePageChange }) => {
+const Homepage1 = ({email}) => {
+    const navigate = useNavigate();
 
     const expensetransaction = () => {
-        handlePageChange('ExpenseTable');
+        navigate('/expenseTable');
     }
     const studentdata = () => {
-        handlePageChange('Read');
+        navigate('/read');
     }
     const employeedata = () =>
     {
-        handlePageChange('EmployeeData');
+        navigate('/employeeData');
     }
     const GotoDonationData = () =>
     {
-        handlePageChange('DonationData');
+        navigate('/donationData');
     }
 
     return (
@@ -26,6 +29,8 @@ const Homepage1 = ({ handlePageChange }) => {
                 <div className='header'>
                     <div className='logo'>
                         <img src={logo} alt="Advika Logo" />
+                        <AccountBoxIcon  style={{fontSize:"100px", marginLeft:"1400px", marginTop:"-20px"}}></AccountBoxIcon>
+                        <h3  style={{ marginLeft:"1550px"}}>{email}</h3>
                     </div>
                     <div className='body'>
                         <div className='card' onClick={studentdata}>

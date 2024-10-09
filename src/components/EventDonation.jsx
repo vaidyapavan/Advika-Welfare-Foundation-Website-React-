@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, TextField, Button, IconButton, MenuItem } from '@mui/material';
+import { Modal, TextField, Button, MenuItem } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import '../assets/EventDonation.css'; // Import the CSS file
+import styles from '../assets/EventDonation.module.css'; // Import the CSS Module
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 const EventDonation = () => {
-    // State to handle modal visibility
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
-
-    // State for form inputs
     const [donorName, setDonorName] = useState('');
     const [panNo, setPanNo] = useState('');
     const [date, setDate] = useState('');
@@ -19,25 +18,32 @@ const EventDonation = () => {
     const [amount, setAmount] = useState('');
     const [reason, setReason] = useState('');
     const [currentId, setCurrentId] = useState(null);
-
-    // State for fetched data
+    const [totalEventlyDonors, setTotalEventlyDonors] = useState(0);
     const [donations, setDonations] = useState([]);
 
-    // Fetch donations on component mount
     useEffect(() => {
         const fetchDonations = async () => {
             try {
                 const response = await axios.get('http://localhost:8085/EventDonation');
                 setDonations(response.data);
             } catch (error) {
-                console.error('There was an error fetching the donations!', error);
+                console.error('Error fetching donations', error);
+            }
+        };
+
+        const fetchEventDonorsCount = async () => {
+            try {
+                const response = await axios.get('http://localhost:8085/EventDonation/count');
+                setTotalEventlyDonors(response.data.totalEventlyDonors);
+            } catch (error) {
+                console.error('Error fetching donor count', error);
             }
         };
 
         fetchDonations();
+        fetchEventDonorsCount();
     }, []);
 
-    // Function to open the modal
     const openModal = (donation = null) => {
         if (donation) {
             setDonorName(donation.donor_name);
@@ -61,60 +67,51 @@ const EventDonation = () => {
         setIsModalOpen(true);
     };
 
-    // Function to close the modal
     const closeModal = () => {
         setIsModalOpen(false);
     };
 
-    // Function to handle form submission
     const handleSave = async () => {
         try {
-            const data = {
-                donorName,
-                panNo,
-                date,
-                paymentMode,
-                amount,
-                reason
-            };
-
+            const data = { donorName, panNo, date, paymentMode, amount, reason };
             if (isEditMode) {
-                // Axios request to update the data
                 await axios.put(`http://localhost:8085/EventDonation/${currentId}`, data);
             } else {
-                // Axios request to add a new donation
                 await axios.post('http://localhost:8085/EventDonation', data);
             }
 
-            // Fetch updated data
             const response = await axios.get('http://localhost:8085/EventDonation');
             setDonations(response.data);
-
-            // Close modal and reset form on successful submission
             closeModal();
         } catch (error) {
-            console.error("There was an error saving the donation!", error);
+            console.error('Error saving donation', error);
         }
     };
 
-    // Function to handle delete
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:8085/EventDonation/${id}`);
-
-            // Fetch updated data
             const response = await axios.get('http://localhost:8085/EventDonation');
             setDonations(response.data);
         } catch (error) {
-            console.error("There was an error deleting the donation!", error);
+            console.error('Error deleting donation', error);
         }
     };
 
+    const gotoHomepage = () => {
+        navigate('/homepage1');
+    };
+
     return (
-        <div className="event-donation-container">
-            <h5 className="event-donation-heading">Event Donation</h5>
-            <Button className="add-donation-button" variant="contained" color="primary" onClick={() => openModal()}>ADD Event Donation</Button>
-            <table className="event-donation-table">
+        <div className={styles.eventDonationContainer}>
+            
+            <div className={styles.header}>
+            <h5 style={{ marginTop: '40px' }}>Number of donors: {totalEventlyDonors}</h5>
+            <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
+
+            </div>
+           
+            <table className={styles.eventDonationTable}>
                 <thead>
                     <tr>
                         <th>Donor Name</th>
@@ -136,35 +133,25 @@ const EventDonation = () => {
                             <td>{donation.amount}</td>
                             <td>{donation.reason}</td>
                             <td>
-                                <IconButton onClick={() => openModal(donation)}>
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton onClick={() => handleDelete(donation.id)}>
-                                    <DeleteIcon />
-                                </IconButton>
+                                <div className={styles.actionIcon}>
+                                    <EditIcon onClick={() => openModal(donation)} />
+                                    <DeleteIcon onClick={() => handleDelete(donation.id)} />
+                                </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <Modal
-                open={isModalOpen}
-                onClose={closeModal}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <div className="modal-container">
-                    <div className="modal-header">
-                        <h2 id="modal-title" className="modal-title">{isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}</h2>
-                        <IconButton className="modal-close-button" onClick={closeModal}>
-                            <CloseIcon />
-                        </IconButton>
+            <Modal open={isModalOpen} onClose={closeModal}>
+                <div className={styles.modalContainer}>
+                    <div className={styles.modalHeader}>
+                        <h2 className={styles.modalTitle}>{isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}</h2>
+                        <CloseIcon className={styles.closeIcon} onClick={closeModal} />
                     </div>
-                    <form className="modal-form">
+                    <form className={styles.modalForm}>
                         <TextField
                             label="Donor Name"
-                            variant="outlined"
                             fullWidth
                             margin="normal"
                             value={donorName}
@@ -172,7 +159,6 @@ const EventDonation = () => {
                         />
                         <TextField
                             label="PAN No"
-                            variant="outlined"
                             fullWidth
                             margin="normal"
                             value={panNo}
@@ -181,17 +167,14 @@ const EventDonation = () => {
                         <TextField
                             label="Date"
                             type="date"
-                            variant="outlined"
                             fullWidth
                             margin="normal"
-                            InputLabelProps={{ shrink: true }}
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                         />
                         <TextField
                             label="Payment Mode"
                             select
-                            variant="outlined"
                             fullWidth
                             margin="normal"
                             value={paymentMode}
@@ -205,7 +188,6 @@ const EventDonation = () => {
                         <TextField
                             label="Amount"
                             type="number"
-                            variant="outlined"
                             fullWidth
                             margin="normal"
                             value={amount}
@@ -213,23 +195,18 @@ const EventDonation = () => {
                         />
                         <TextField
                             label="Reason"
-                            variant="outlined"
                             fullWidth
                             margin="normal"
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
                         />
-                        <Button
-                            className="save-button"
-                            variant="contained"
-                            color="primary"
-                            onClick={handleSave}
-                        >
+                        <Button className={styles.saveButton} variant="contained" onClick={handleSave}>
                             Save
                         </Button>
                     </form>
                 </div>
             </Modal>
+           
         </div>
     );
 };

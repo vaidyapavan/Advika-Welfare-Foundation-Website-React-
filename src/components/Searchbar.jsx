@@ -1,11 +1,10 @@
 import React from 'react';
 import '../assets/search.css';
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
 import { Dropdown, DropdownMenuItemType } from '@fluentui/react/lib/Dropdown';
+import { SearchBox } from '@fluentui/react/lib/SearchBox';
 
 const Searchbar = ({ searchTerm, handleChange, handleClear, genderTerm, genderChange, hobbyTerms, handleHobbyChange }) => {
-  
+
   const hobbies = [
     { key: 'All', text: 'All', itemType: DropdownMenuItemType.Header },
     { key: 'Cricket', text: 'Cricket' },
@@ -19,7 +18,11 @@ const Searchbar = ({ searchTerm, handleChange, handleClear, genderTerm, genderCh
     { key: 'Writing', text: 'Writing' },
   ];
 
-  const dropdownStyles = { dropdown: { width: 300 } };
+  const genders = [
+    { key: '', text: 'All' },
+    { key: 'male', text: 'Male' },
+    { key: 'female', text: 'Female' },
+  ];
 
   // Function to handle hobby filter change
   const onHobbyChange = (event, option) => {
@@ -28,47 +31,38 @@ const Searchbar = ({ searchTerm, handleChange, handleClear, genderTerm, genderCh
       : hobbyTerms.filter(key => key !== option.key); // Remove hobby key if deselected
     handleHobbyChange(selectedKeys); // Update state with new selected keys
   };
-  
 
   return (
-    <div className='search'>
-    
-    
-      <div className='searchinput'>
-      
-      
-
-        <input
-          type='text'
-          placeholder='Search by Name'
+    <div className="search-container">
+      <div className="search-input">
+        {/* Fluent UI SearchBox */}
+        <SearchBox
+          placeholder="Search by Name"
           value={searchTerm}
-          onChange={handleChange}
+          onChange={(_, newValue) => handleChange(newValue)} // Passing newValue directly to handleChange
+          onClear={handleClear}
         />
-        {searchTerm ? (
-          <CloseIcon onClick={handleClear} style={{ cursor: 'pointer' }} />
-        ) : (
-          <SearchIcon />
-        )}
       </div>
 
-      <div className='gender'>
-        <label ><h6>Gender:</h6></label>
-        <select value={genderTerm} onChange={genderChange}>
-          <option value="">All</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+      <div className="gender-filter">
+        <label>Gender:</label>
+        <Dropdown
+  placeholder="Select Gender"
+  selectedKey={genderTerm} // Controlled component: selected value
+  options={genders}
+  onChange={(event, option) => genderChange(event, option)} // Pass both event and option
+/>
+
       </div>
 
-      <div className='hobbies'>
-        <label><h6>Hobbies:</h6></label>
+      <div className="hobbies-filter">
+        <label>Hobbies:</label>
         <Dropdown
           placeholder="Select Hobbies"
           selectedKeys={hobbyTerms}
           multiSelect
           options={hobbies}
           onChange={onHobbyChange}
-          styles={dropdownStyles}
         />
       </div>
     </div>
