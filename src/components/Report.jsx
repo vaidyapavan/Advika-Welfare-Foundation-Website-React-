@@ -11,13 +11,13 @@ const rootClass = mergeStyles({ maxWidth: 300, selectors: { '> *': { marginBotto
 
 const Report = () => {
     const [expenses, setExpenses] = useState([]);
-    const [filteredExpenses, setFilteredExpenses] = useState([]); // State to hold filtered results
-    const [totalBalance, setTotalBalance] = useState(0);
+    const [filteredExpenses, setFilteredExpenses] = useState([]); 
+    const [totalExpense, setTotalExpense] = useState(0); 
 
     // State for filtering
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [selectedCategories, setSelectedCategories] = useState([]); // Array to hold selected categories
+    const [selectedCategories, setSelectedCategories] = useState([]); 
 
     const categoryOptions = [
         { key: 'All', text: 'All' },
@@ -40,17 +40,23 @@ const Report = () => {
             const response = await axios.get('http://localhost:8085/getExpenses');
             setExpenses(response.data);
             setFilteredExpenses(response.data); // Initially, all expenses are shown
-            const response1 = await axios.get('http://localhost:8085/getBalance');
-            calculateTotalBalance(response1.data);
+            calculateTotalExpense(response.data); // Calculate the total expense at start
         } catch (error) {
             console.error('Error fetching expenses:', error);
         }
     };
+    
+    const calculateTotalExpense = (expenses) => {
+        const total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+        setTotalExpense(total);
+    };
 
-    const calculateTotalBalance = (currBalance) => {
-        const initialBalance = 0;
-        const totalExpense = currBalance.reduce((sum, expense) => sum - parseFloat(expense.amount), 0);
-        setTotalBalance(initialBalance - totalExpense);
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
     };
 
     const goToHomepage = () => {
@@ -71,19 +77,17 @@ const Report = () => {
         // Filter by selected categories
         if (selectedCategories.length > 0 && !selectedCategories.includes('All')) {
             filtered = filtered.filter(expense => selectedCategories.includes(expense.category));
-        } else if (selectedCategories.includes('All')) {
-            // If "All" is selected, do not filter by category
-            // You may want to reset selectedCategories if needed
         }
 
         setFilteredExpenses(filtered);
+        calculateTotalExpense(filtered); // Recalculate total expense after filtering
     };
 
     const handleComboBoxChange = (event, option) => {
         if (option) {
             const currentSelection = selectedCategories.includes(option.key)
-                ? selectedCategories.filter(cat => cat !== option.key) // Remove if already selected
-                : [...selectedCategories, option.key]; // Add to selection
+                ? selectedCategories.filter(cat => cat !== option.key) 
+                : [...selectedCategories, option.key]; 
 
             setSelectedCategories(currentSelection);
         }
@@ -96,9 +100,7 @@ const Report = () => {
                     <ArrowBackIosIcon />
                 </button>
                 <h1 className={styles.header}>Monthly report</h1>
-                <h2 className={styles.balance}>Current Available Balance is: ₹{totalBalance.toFixed(2)}</h2>
 
-                {/* Aligning DatePickers and Search Button */}
                 <div className={styles.filterContainer}>
                     <DatePicker
                         placeholder='Select Start Date'
@@ -134,7 +136,7 @@ const Report = () => {
                     <tbody>
                         {filteredExpenses.map((expense) => (
                             <tr key={expense.id}>
-                                <td>{expense.date}</td>
+                                <td>{formatDate(expense.date)}</td> {/* Format date here */}
                                 <td>{expense.reason}</td>
                                 <td>{expense.category}</td>
                                 <td>{expense.amount}</td>
@@ -144,7 +146,11 @@ const Report = () => {
                         ))}
                     </tbody>
                 </table>
+                        
                 <br />
+                {/* Displaying the total expense */}
+                <h3 className={styles.totalBalance} style={{marginLeft:"730px"}}>Total: ₹{totalExpense.toFixed(2)}</h3>
+              
 
                 {/* Centered Buttons */}
                 <div className={styles.footerContent}>

@@ -210,7 +210,7 @@ const Read = () => {
                 </td>
                 <td style={{ textAlign: 'center' }} className={styles.action} >
                   <EditIcon title="Edit" style={{ marginLeft: "80px" }} onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
-                  <DeleteIcon title="Delete" style={{ marginLeft: "25px" }} onClick={() => confirmDelete(item.id)} />
+                  <DeleteIcon title="Delete" style={{ marginLeft: "10px" }} onClick={() => confirmDelete(item.id)} />
                 </td>
               </tr>
             ))}

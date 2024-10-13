@@ -7,6 +7,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+
+import { SearchBox, ISearchBoxStyles } from '@fluentui/react/lib/SearchBox';
 
 const ExpenseTable = () => {
     const [expenses, setExpenses] = useState([]);
@@ -15,6 +19,7 @@ const ExpenseTable = () => {
     const [addExpenseModal, setAddExpenseModal] = useState(false);
     const [editExpenseModal, setEditExpenseModal] = useState(false);
     const [successMessageModal, setSuccessMessageModal] = useState(false);
+    const [sortOrder, setSortOrder] = useState({ amount: 'asc', date: 'asc' });
     const navigate = useNavigate();
 
     // States for adding or editing an expense
@@ -83,6 +88,18 @@ const ExpenseTable = () => {
         setCurrentExpense(null);
     };
 
+    const sortExpenses = (field) => {
+        const sortedExpenses = [...expenses].sort((a, b) => {
+            if (sortOrder[field] === 'asc') {
+                return a[field] > b[field] ? 1 : -1;
+            } else {
+                return a[field] < b[field] ? 1 : -1;
+            }
+        });
+
+        setExpenses(sortedExpenses);
+        setSortOrder({ ...sortOrder, [field]: sortOrder[field] === 'asc' ? 'desc' : 'asc' });
+    };
     const handleSave = async () => {
         const newBalanceData = {
             amount,
@@ -163,6 +180,13 @@ const ExpenseTable = () => {
             console.error('Error deleting expense:', error);
         }
     };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
 
     return (
         <div className={styles.container} style={{marginTop:"40px"}}>
@@ -178,13 +202,15 @@ const ExpenseTable = () => {
                 <button className={styles.btn} title="Add Expense" style={{ marginLeft: "1400px" }} onClick={openAddExpenseModal}>
                     Add Expense
                 </button>
+                <br></br>
+                <SearchBox></SearchBox>
                 <table className={styles.expenseTable}>
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th  onClick={() => sortExpenses('date')}>  {sortOrder.date === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}Date</th>
                             <th>Reason</th>
                             <th>Category</th>
-                            <th>Amount</th>
+                            <th  onClick={() => sortExpenses('amount')}>   {sortOrder.amount === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}Amount</th>
                             <th>Payment Mode</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -193,7 +219,7 @@ const ExpenseTable = () => {
                     <tbody>
                         {expenses.map((expense) => (
                             <tr key={expense.id}>
-                                <td>{expense.date}</td>
+                                <td>{formatDate(expense.date)}</td>
                                 <td>{expense.reason}</td>
                                 <td>{expense.category}</td>
                                 <td>{expense.amount}</td>

@@ -101,6 +101,13 @@ const EventDonation = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
 
     return (
         <div className={styles.eventDonationContainer}>
@@ -128,7 +135,7 @@ const EventDonation = () => {
                         <tr key={donation.id}>
                             <td>{donation.donor_name}</td>
                             <td>{donation.pan_no}</td>
-                            <td>{donation.date}</td>
+                            <td>{formatDate(donation.date)}</td>
                             <td>{donation.payment_mode}</td>
                             <td>{donation.amount}</td>
                             <td>{donation.reason}</td>

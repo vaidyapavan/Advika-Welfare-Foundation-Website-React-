@@ -7,16 +7,18 @@
 
 .expenseTableContainer {
     width: 100%;
-    max-width: 1700px; 
+    max-width: 1800px; 
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 20px;
+    margin-top: 100px;
 }
 
 .header {
     font-size: 2rem;
     margin-bottom: 10px;
     color: #333;
+    margin-left: 700px;
 }
 
 .balance {
@@ -94,4 +96,9 @@
 
 .button:hover {
     background-color: #45a049; /* Darker green on hover */
+}
+
+.totalExpense
+{
+    margin-left: 830px;
 }

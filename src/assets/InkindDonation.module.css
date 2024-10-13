@@ -59,13 +59,13 @@
 
 .actionIcon svg {
   cursor: pointer;
-  color: #1976d2;
+
   transition: color 0.3s ease;
 }
 
-.actionIcon svg:hover {
+/* .actionIcon svg:hover {
   color: #1565c0;
-}
+} */
 
 .modalContainer {
   background-color: white;
