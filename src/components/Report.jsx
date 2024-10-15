@@ -122,43 +122,49 @@ const Report = () => {
                     <Button variant="contained" onClick={handleSearch}>Search</Button>
                 </div>
 
-                <table className={styles.expenseTable}>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Reason</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th>Payment Mode</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredExpenses.map((expense) => (
-                            <tr key={expense.id}>
-                                <td>{formatDate(expense.date)}</td> {/* Format date here */}
-                                <td>{expense.reason}</td>
-                                <td>{expense.category}</td>
-                                <td>{expense.amount}</td>
-                                <td>{expense.paymentMode}</td>
-                                <td>{expense.description}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                        
-                <br />
-                {/* Displaying the total expense */}
-                <h3 className={styles.totalBalance} style={{marginLeft:"730px"}}>Total: ₹{totalExpense.toFixed(2)}</h3>
-              
+                <div className={styles.scrollableTableContainer}>
+        <table className={styles.expenseTable}>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Reason</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Payment Mode</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredExpenses.map((expense) => (
+                    <tr key={expense.id}>
+                        <td>{formatDate(expense.date)}</td>
+                        <td>{expense.reason}</td>
+                        <td>{expense.category}</td> 
+                        <td>{expense.amount}</td>
+                        <td>{expense.paymentMode}</td>
+                        <td>{expense.description}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
 
-                {/* Centered Buttons */}
-                <div className={styles.footerContent}>
-                    <Button variant="contained" className={styles.backButton} onClick={goToHomepage}>Back</Button>
-                    <Button variant="contained" className={styles.exportButton}>Export to Excel</Button>
+    <div className={styles.reportFooter}>
+        <Button variant="contained" className={styles.backButton} onClick={goToHomepage}>Back</Button>
+        <Button variant="contained" className={styles.exportButton}>Export to Excel</Button>
+    </div>
+                
+                        
+                
+                
+                
+                   
                 </div>
+                <h3 className={styles.totalBalance} style={{marginLeft:"730px"}}>Total: ₹{totalExpense.toFixed(2)}</h3>
+               
+                
             </div>
-        </div>
+        
     );
 };
 

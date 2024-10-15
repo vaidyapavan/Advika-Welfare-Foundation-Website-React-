@@ -35,21 +35,29 @@
   margin-bottom: 20px;
 }
 
-.donation-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+.scrollable-table-container {
+  max-height: 400px; /* Adjust this value to set the maximum height of the scrollable area */
+  overflow-y: auto;  /* Enables vertical scrolling */
+  border: 1px solid #ddd; /* Optional: Add border to the scrollable area */
 }
 
-.donation-table th, .donation-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.donation-table {
+  width: 100%;
+ 
 }
 
 .donation-table th {
-  background-color: #f2f2f2;
+  position: sticky; /* Fixes the header position */
+  top: 0;          /* Sticks the header to the top of the container */
+  z-index: 10;    /* Ensures the header is above other content */
+  background-color: #f2f2f2; /* Keep the background for header */
 }
+.donation-table td{
+  border-bottom: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
 
 .donation-table tr:hover {
   background-color: #f1f1f1;

@@ -28,27 +28,32 @@
   color: #333;
 }
 
-.inkindDonationTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+.scrollableTableContainer {
+  max-height: 400px; /* Adjust this value to set the maximum height of the scrollable area */
+  overflow-y: auto;  /* Enables vertical scrolling */
+ 
 }
 
-.inkindDonationTable th, 
-.inkindDonationTable td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.inkindDonationTable {
+  width: 100%;
+ 
 }
 
 .inkindDonationTable th {
-  background-color: #f1f1f1;
-  font-weight: bold;
+  position: sticky; /* Makes the header stick to the top */
+  top: 0;          /* Sticks the header to the top of the container */
+  z-index: 10;    /* Ensures the header is above other content */
+  background-color: #f1f1f1; /* Keep the background for header */
 }
 
-.inkindDonationTable tr:hover {
-  background-color: #f9f9f9;
+.inkindDonationTable td{
+  border-bottom: 1px solid #ddd;
+padding: 12px 15px;
+text-align: left;
+
 }
+
+
 
 .actionIcon {
   display: inline-flex;

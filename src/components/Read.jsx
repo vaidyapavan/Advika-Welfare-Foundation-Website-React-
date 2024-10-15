@@ -144,9 +144,7 @@ const Read = () => {
     <div className={styles.main_container}>
       <div className={styles.container}>
         <h2 className={styles.formTitle}>Student Information</h2>
-        <button className="btn btn-primary mb-3" title="Go back" onClick={goToHomepage}>
-          <ArrowBackIosIcon />
-        </button>
+        
         <div className={styles.header}>
           <Searchbar
             searchTerm={searchTerm}
@@ -161,7 +159,7 @@ const Read = () => {
             Add
           </button>
         </div>
-
+        <div className={styles.tableContainer}>
         <table className={styles.donationTable}>
           <thead>
             <tr>
@@ -216,7 +214,19 @@ const Read = () => {
             ))}
           </tbody>
         </table>
+        </div>
+        <br></br>
+
+        
         {message && <p style={{ textAlign: 'center' }}>{message}</p>}
+        <div className={styles.studentfooter}>
+        <button className="backButton" title="Go back" onClick={goToHomepage}>
+          Back
+        </button>
+        <button className="nextButton" title=" GO Next" onClick={goToHomepage}>
+          next
+        </button>
+        </div>
       </div>
 
       {/* Delete Confirmation Modal */}

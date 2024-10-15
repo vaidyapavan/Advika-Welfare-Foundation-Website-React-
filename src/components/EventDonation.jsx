@@ -111,44 +111,51 @@ const EventDonation = () => {
 
     return (
         <div className={styles.eventDonationContainer}>
-            
+
             <div className={styles.header}>
-            <h5 style={{ marginTop: '40px' }}>Number of donors: {totalEventlyDonors}</h5>
-            <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
+                <h5 style={{ marginTop: '40px' }}>Number of donors: {totalEventlyDonors}</h5>
+                <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
 
             </div>
-           
-            <table className={styles.eventDonationTable}>
-                <thead>
-                    <tr>
-                        <th>Donor Name</th>
-                        <th>PAN No</th>
-                        <th>Date</th>
-                        <th>Payment Mode</th>
-                        <th>Amount</th>
-                        <th>Reason</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {donations.map(donation => (
-                        <tr key={donation.id}>
-                            <td>{donation.donor_name}</td>
-                            <td>{donation.pan_no}</td>
-                            <td>{formatDate(donation.date)}</td>
-                            <td>{donation.payment_mode}</td>
-                            <td>{donation.amount}</td>
-                            <td>{donation.reason}</td>
-                            <td>
-                                <div className={styles.actionIcon}>
-                                    <EditIcon onClick={() => openModal(donation)} />
-                                    <DeleteIcon onClick={() => handleDelete(donation.id)} />
-                                </div>
-                            </td>
+
+            <div className={styles.scrollableTableContainer}>
+                <table className={styles.eventDonationTable}>
+                    <thead>
+                        <tr>
+                            <th>Donor Name</th>
+                            <th>PAN No</th>
+                            <th>Date</th>
+                            <th>Payment Mode</th>
+                            <th>Amount</th>
+                            <th>Reason</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {donations.map(donation => (
+                            <tr key={donation.id}>
+                                <td>{donation.donor_name}</td>
+                                <td>{donation.pan_no}</td>
+                                <td>{formatDate(donation.date)}</td>
+                                <td>{donation.payment_mode}</td>
+                                <td>{donation.amount}</td>
+                                <td>{donation.reason}</td>
+                                <td>
+                                    <div className={styles.actionIcon}>
+                                        <EditIcon onClick={() => openModal(donation)} />
+                                        <DeleteIcon onClick={() => handleDelete(donation.id)} />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <br></br>
+                <div className="donationfooter">
+                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
+                    <button className={styles.goback} onClick={gotoHomepage}> Next</button>
+                </div>
+            </div>
 
             <Modal open={isModalOpen} onClose={closeModal}>
                 <div className={styles.modalContainer}>
@@ -213,7 +220,7 @@ const EventDonation = () => {
                     </form>
                 </div>
             </Modal>
-           
+
         </div>
     );
 };

@@ -7,7 +7,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit'; 
+import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
 import { SearchBox } from '@fluentui/react/lib/SearchBox';
@@ -186,9 +186,7 @@ const EmployeeData = () => {
     <>
       <div className={styles.container}>
         <h1 className={styles.formTitle}>Employee Data</h1>
-        <button className={styles.goback} title="Go back">
-          <ArrowBackIosIcon onClick={gotohomepage} />
-        </button>
+
         <br />
         <br />
         <div className={styles.searchContainer}>
@@ -207,55 +205,67 @@ const EmployeeData = () => {
           </button>
         </div>
 
-        <table className={styles.employeeTableContainer}>
-          <thead>
-            <tr>
-              <th className={styles.tableHeader}>
-                Name
-                {sortOrder.name === 'asc' ? (
-                  <ArrowDropDownIcon onClick={sortNames} className={styles.sortIcon} />
-                ) : (
-                  <ArrowDropUpIcon onClick={sortNames} className={styles.sortIcon} />
-                )}
-              </th>
-              <th className={styles.tableHeader}>
-                Role
-                {sortOrder.role === 'asc' ? (
-                  <ArrowDropDownIcon onClick={sortRoles} className={styles.sortIcon} />
-                ) : (
-                  <ArrowDropUpIcon onClick={sortRoles} className={styles.sortIcon} />
-                )}
-              </th>
-              <th className={styles.tableHeader}>Salary</th>
-              <th className={styles.tableHeader}>Location</th>
-              <th className={styles.tableHeader}>Aadhar No</th>
-              <th className={styles.tableHeader}>Mobile No</th>
-              <th className={styles.tableHeader}>Joining Date</th>
-              <th className={styles.tableHeader}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((employee) => (
-              <tr key={employee.id}>
-                <td>{employee.EmployeeName}</td>
-                <td>{employee.Role}</td>
-                <td>{employee.Salary}</td>
-                <td>{employee.Location}</td>
-                <td>{employee.AadharNo}</td>
-                <td>{employee.MobileNo}</td>
-                <td>{employee.JoiningDate}</td>
-                <td>
-                  <div className={styles.actionIcons}>
-                    <DeleteIcon onClick={() => confirmDelete(employee.id)} />
-                    <EditIcon onClick={() => openEditModal(employee)} />
-                  </div>
-                </td>
+        <div className={styles.employeeTableWrapper}>
+          <table className={styles.employeeTableContainer}>
+            <thead>
+              <tr>
+                <th className={styles.tableHeader}>
+                  Name
+                  {sortOrder.name === 'asc' ? (
+                    <ArrowDropDownIcon onClick={sortNames} className={styles.sortIcon} />
+                  ) : (
+                    <ArrowDropUpIcon onClick={sortNames} className={styles.sortIcon} />
+                  )}
+                </th>
+                <th className={styles.tableHeader}>
+                  Role
+                  {sortOrder.role === 'asc' ? (
+                    <ArrowDropDownIcon onClick={sortRoles} className={styles.sortIcon} />
+                  ) : (
+                    <ArrowDropUpIcon onClick={sortRoles} className={styles.sortIcon} />
+                  )}
+                </th>
+                <th className={styles.tableHeader}>Salary</th>
+                <th className={styles.tableHeader}>Location</th>
+                <th className={styles.tableHeader}>Aadhar No</th>
+                <th className={styles.tableHeader}>Mobile No</th>
+                <th className={styles.tableHeader}>Joining Date</th>
+                <th className={styles.tableHeader}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredData.map((employee) => (
+                <tr key={employee.id}>
+                  <td>{employee.EmployeeName}</td>
+                  <td>{employee.Role}</td>
+                  <td>{employee.Salary}</td>
+                  <td>{employee.Location}</td>
+                  <td>{employee.AadharNo}</td>
+                  <td>{employee.MobileNo}</td>
+                  <td>{employee.JoiningDate}</td>
+                  <td>
+                    <div className={styles.actionIcons}>
+                      <DeleteIcon onClick={() => confirmDelete(employee.id)} />
+                      <EditIcon onClick={() => openEditModal(employee)} />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {message && <div className={styles.alertWarning}>{message}</div>}
+        </div>
+        <br></br>
 
-        {message && <div className={styles.alertWarning}>{message}</div>}
+        <div className='employeeFooter'>
+          <button className={styles.goback} title="Go back" style={{marginLeft:"700px"}} onClick={gotohomepage}>
+            BACK
+          </button>
+          <button className={styles.next} title="Go next" onClick={gotohomepage}>
+            NEXT
+          </button>
+        </div>
+  
       </div>
 
       {/* Add Employee Modal */}
@@ -267,7 +277,7 @@ const EmployeeData = () => {
         <form onSubmit={handleAddEmployeeSubmit} className={styles.modalForm}>
           <label>Name</label>
           <input
-          placeholder='Enter Name'
+            placeholder='Enter Name'
             label="Employee Name"
             name="EmployeeName"
             value={newEmployee.EmployeeName}
@@ -276,7 +286,7 @@ const EmployeeData = () => {
           />
           <label>Role</label>
           <input
-           placeholder='Enter Role'
+            placeholder='Enter Role'
             label="Role"
             name="Role"
             value={newEmployee.Role}
@@ -285,7 +295,7 @@ const EmployeeData = () => {
           />
           <label>Salary</label>
           <input
-           placeholder='Enter Salary'
+            placeholder='Enter Salary'
             label="Salary"
             name="Salary"
             type="number"
@@ -295,7 +305,7 @@ const EmployeeData = () => {
           />
           <label>Location</label>
           <input
-           placeholder='Enter Location'
+            placeholder='Enter Location'
             label="Location"
             name="Location"
             value={newEmployee.Location}
@@ -304,7 +314,7 @@ const EmployeeData = () => {
           />
           <label>Aadhar No</label>
           <input
-           placeholder='Enter Aadhar no:'
+            placeholder='Enter Aadhar no:'
             label="Aadhar No"
             name="AadharNo"
             value={newEmployee.AadharNo}
@@ -313,7 +323,7 @@ const EmployeeData = () => {
           />
           <label>Mobile No:</label>
           <input
-           placeholder='Enter Mobile no:'
+            placeholder='Enter Mobile no:'
             label="Mobile No"
             name="MobileNo"
             value={newEmployee.MobileNo}
@@ -333,11 +343,11 @@ const EmployeeData = () => {
             required
           />
           <div className={styles.modalFooter}>
-          <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>Cancel</button>
-            <button  className={styles.Addbutton} type="submit" variant="contained" color="primary">
-              Add 
+            <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>Cancel</button>
+            <button className={styles.Addbutton} type="submit" variant="contained" color="primary">
+              Add
             </button>
-           
+
           </div>
         </form>
       </Modal>
@@ -349,7 +359,7 @@ const EmployeeData = () => {
           <CloseIcon onClick={closeEditModal} className={styles.closeIcon} />
         </div>
         <form onSubmit={handleEditEmployeeSubmit} className={styles.modalForm}>
-        <label>Name</label>
+          <label>Name</label>
           <input
             label="Employee Name"
             name="EmployeeName"
@@ -357,7 +367,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Role</label>
+          <label>Role</label>
           <input
             label="Role"
             name="Role"
@@ -365,7 +375,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Salary</label>
+          <label>Salary</label>
           <input
             label="Salary"
             name="Salary"
@@ -374,7 +384,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Location</label>
+          <label>Location</label>
           <input
             label="Location"
             name="Location"
@@ -382,7 +392,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Aadhar No</label>
+          <label>Aadhar No</label>
           <input
             label="Aadhar No"
             name="AadharNo"
@@ -390,7 +400,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Mobile No</label>
+          <label>Mobile No</label>
           <input
             label="Mobile No"
             name="MobileNo"
@@ -398,7 +408,7 @@ const EmployeeData = () => {
             onChange={handleEditEmployeeChange}
             required
           />
-            <label>Joining Date</label>
+          <label>Joining Date</label>
           <input
             label="Joining Date"
             name="JoiningDate"
@@ -411,11 +421,11 @@ const EmployeeData = () => {
             required
           />
           <div className={styles.modalFooter}>
-          <button className={styles.cancelButton} onClick={closeEditModal}>Cancel</button>
-            <button  className={styles.Addbutton} type="submit" variant="contained" color="primary">
-              Update 
+            <button className={styles.cancelButton} onClick={closeEditModal}>Cancel</button>
+            <button className={styles.Addbutton} type="submit" variant="contained" color="primary">
+              Update
             </button>
-           
+
           </div>
         </form>
       </Modal>
@@ -430,10 +440,10 @@ const EmployeeData = () => {
           <h5>Are you sure you want to delete this employee?</h5>
         </div>
         <div className={styles.modalFooter}>
-          <button  className={styles.cancelButton} onClick={handleDeleteConfirmation} variant="contained" color="secondary">
+          <button className={styles.cancelButton} onClick={handleDeleteConfirmation} variant="contained" color="secondary">
             Delete
           </button>
-          <button  className={styles.Addbutton} onClick={cancelDeleteConfirmation}>Cancel</button>
+          <button className={styles.Addbutton} onClick={cancelDeleteConfirmation}>Cancel</button>
         </div>
       </Modal>
     </>

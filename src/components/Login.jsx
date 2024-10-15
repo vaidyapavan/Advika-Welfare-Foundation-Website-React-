@@ -66,22 +66,19 @@ const Login = ({ setEmail }) => {
           navigate('/homepage1'); // Redirect to homepage
         } else {
           setError(res.data.message || 'Invalid Email or Password');
+          // Set errors to true for both email and password when invalid credentials are entered
+          setErrors({ email: true, password: true });
         }
       })
       .catch((err) => {
-        setError("Your credentials dosen't match please try again");
+        setError("Your credentials don't match, please try again.");
+        setErrors({ email: true, password: true }); // Set both to true in case of error
         console.error(err);
       });
   };
 
-
   const handleRegister = () => {
     navigate('/signup');
-  };
-
-
-  const handleForgotPassword = () => {
-    navigate('/forgot-password');
   };
 
   return (
@@ -98,6 +95,7 @@ const Login = ({ setEmail }) => {
               name="email"
               value={values.email}
               className={errors.email ? styles.inputError : styles.input}
+              style={{ border: errors.email ? '1px solid red' : '1px solid #ccc' }}
             />
           </div>
           <br />
@@ -110,6 +108,7 @@ const Login = ({ setEmail }) => {
               onChange={handleInput}
               value={values.password}
               className={errors.password ? styles.inputError : styles.input}
+              style={{ border: errors.password ? '1px solid red' : '1px solid #ccc' }}
             />
           </div>
           <br />
@@ -136,23 +135,17 @@ const Login = ({ setEmail }) => {
           )}
           <br />
           {/* Submit and Register buttons */}
-          <button type="button" style={{ backgroundColor: "#0078d4", marginLeft: "60px" }} className={`${styles.btn} ${styles.btnSecondary}`} onClick={handleRegister}>
+          <button type="button" style={{ backgroundColor: "#0078d4", marginLeft: "60px" }} className={`${styles.btn} ${styles.btnSuccess}`} onClick={handleRegister}>
             Create Account
           </button>
           <button type="submit" style={{ backgroundColor: "#0078d4" }} className={`${styles.btn} ${styles.btnSuccess}`}>
             Sign In
           </button>
-
           <br />
           <br />
           <h5>
-            <a href="" style={{marginLeft:"60px", color:"black"}}> Forgot username or Password?</a>
+            <a href="" style={{ marginLeft: "60px", color: "black" }}> Forgot username or Password?</a>
           </h5>
-
-
-          {/* <button className={styles.forgotPassword} onClick={handleForgotPassword}>
-            Forgot username or Password?
-          </button> */}
         </form>
       </div>
     </div>

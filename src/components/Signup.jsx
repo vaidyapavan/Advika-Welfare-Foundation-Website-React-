@@ -91,7 +91,7 @@ const Signup = ({ handlePageChange }) => {
       newErrors.confirmedPassword = 'Confirm password is required';
       valid = false;
     } else if (password !== confirmedPassword) {
-      newErrors.confirmedPassword = 'Passwords do not match';
+      newErrors.confirmedPassword = 'Passwords does not match';
       valid = false;
     }
 
@@ -167,7 +167,7 @@ const Signup = ({ handlePageChange }) => {
               value={values.password}
               style={{ border: errors.password ? '1px solid red' : '1px solid #ccc' }}
             />
-            {errors.password && <div className={styles.errorMessage}>{errors.password}</div>}
+           
           </div>
 
           <div className={`${styles.mb3} ${styles.inputGroup}`}>

@@ -18,29 +18,28 @@
     font-size: 2rem;
     margin-bottom: 10px;
     color: #333;
-    margin-left: 700px;
+    text-align: center; /* Center the header */
 }
 
 .balance {
     font-size: 1.5rem;
     margin-bottom: 20px;
-   
 }
 
 .btn {
-    background-color: #1976d2; /* Primary color for buttons */
+    background-color: #0078d4; /* Primary color for buttons */
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin: 0 10px; /* Space between buttons */
     display: flex;
     align-items: center;
 }
 
 .btn:hover {
-    background-color: #1565c0; /* Darker shade on hover */
+    background-color: #005a9e; /* Darker shade on hover */
 }
 
 .filterContainer {
@@ -57,25 +56,38 @@
     margin-top: 20px;
 }
 
-.expenseTable th, .expenseTable td {
+.scrollableTableContainer {
+    max-height: 400px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 20px; /* Space between table and header */
+    border: 1px solid #ccc; /* Optional: Add border around table */
+    border-radius: 4px; /* Optional: Rounded corners */
+}
+
+.expenseTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+ .expenseTable td {
     padding: 10px;
-    text-align: left;
+    text-align:left;
 }
 
-.expenseTable tr:nth-child(even) {
-    background-color: #f2f2f2; /* Zebra striping */
+.expenseTable th {
+   
+    color: #333;
+    text-align: center;
+    position: sticky;
 }
 
-.footerContent {
-    gap: 20px;
-    display: flex;
-    justify-content: center; /* Center the buttons */
+/* Adjust existing footer content */
+.reportFooter {
+    display: flex; /* Align buttons horizontally */
+    justify-content: center; /* Center buttons */
     margin-top: 20px; /* Space above buttons */
 }
 
-.backButton, .exportButton {
-    margin: 0 10px; /* Space between buttons */
-}
 
 /* Style for DatePicker and Dropdown */
 .fluid-datepicker, .fluid-dropdown {
@@ -98,7 +110,6 @@
     background-color: #45a049; /* Darker green on hover */
 }
 
-.totalExpense
-{
+.totalExpense {
     margin-left: 830px;
 }

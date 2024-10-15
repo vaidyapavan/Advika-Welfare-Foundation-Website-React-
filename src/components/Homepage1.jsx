@@ -58,6 +58,13 @@ const Homepage1 = ({email}) => {
                             </div>
                         </div>
 
+                        <div className='card' onClick={GotoDonationData}>
+                            <div className='card-content'>
+                                <h2>Donation Data</h2>
+                                <p>  Our Donation</p>
+                            </div>
+                        </div>
+
                         <div className='card' onClick={goToReport}>
                             <div className='card-content'>
                                 <h2>Monthly Report</h2>
@@ -65,12 +72,7 @@ const Homepage1 = ({email}) => {
                             </div>
                         </div>
 
-                        <div className='card' onClick={GotoDonationData}>
-                            <div className='card-content'>
-                                <h2>Donation Data</h2>
-                                <p>  Our Donation</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

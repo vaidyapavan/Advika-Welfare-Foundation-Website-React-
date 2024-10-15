@@ -40,22 +40,26 @@
   background-color: #005a9e;
 }
 
+.employeeTableWrapper {
+  max-height: 400px; /* Set a max height for the scrolling area */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  margin-top: 10px;
+  border: 1px solid #ddd; /* Optional border for better visibility */
+}
+
 .employeeTableContainer {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
 .employeeTableContainer th,
 .employeeTableContainer td {
   padding: 12px;
-  
   text-align: left;
 }
 
 .employeeTableContainer th {
- 
-  color:black;
+  color: black;
 }
 
 .employeeTableContainer tr:nth-child(even) {
@@ -79,6 +83,14 @@
   display: flex;
   gap: 10px;
 }
+
+.employeeFooter {
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+  margin-top: 10px; /* Space above the buttons */
+}
+
+
 
 
 

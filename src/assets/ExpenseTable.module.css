@@ -1,9 +1,7 @@
-
-
-body{
-  background-color:gray;
-
+body {
+  background-color: gray;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,29 +9,31 @@ body{
   padding: 20px;
 }
 
-.header
-{
+/* Header styles */
+.header {
   margin-left: 650px;
   font-size: 40px;
 }
-.balance
-{
+
+/* Balance styles */
+.balance {
   margin-left: -3px;
 }
-/* Expense Table styles */
+
+/* Expense Table Container styles */
 .expenseTableContainer {
-  width: 140%;
+  width: 100%;
   max-width: 1750px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
- 
+  position: relative; /* For positioning buttons */
 }
 
 /* Button styles */
-.btn {
-  background-color:#1976d2; 
+.btn, .save, .cancelExpenseButton, .addExpenseButton {
+  background-color: #1976d2; 
   color: white;
   padding: 10px 15px;
   border: none;
@@ -42,58 +42,12 @@ body{
   margin-bottom: 20px;
 }
 
-.btn:hover {
+.btn:hover, .save:hover, .cancelExpenseButton:hover, .addExpenseButton:hover {
   background-color: #005a9e; /* Darker blue on hover */
 }
-.save
-{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: -10px;
-}
 
-.cancelExpenseButton
-{
-  
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: 140px;
-
-}
-.buttons
-{
+.buttons {
   display: flex;
-  
-}
-#addBalanceHeading
-{
-  margin-left: 130px;
-}
-.addExpenseHeading
-{
-  margin-left: 140px;
-}
-
-.addExpenseButton{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: 20px;
-
 }
 
 /* Table styles */
@@ -111,11 +65,23 @@ body{
 }
 
 .expenseTable th {
-  color:black;
+  color: black;
   font-weight: bold;
+  position: sticky; /* Makes the header sticky */
+  top: 0; /* Stick at the top */
+  background-color: #f9f9f9; /* Background for sticky header */
+  z-index: 1; /* Ensure it stays above table content */
 }
+
 .expenseTable tr:hover {
   background-color: #f1f1f1;
+}
+
+/* Scrollable Table Container */
+.tableScrollContainer {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto; /* Vertical scrolling */
+  margin-bottom: 60px; /* Space for buttons at the bottom */
 }
 
 /* Popup modal styles */
@@ -125,7 +91,6 @@ body{
   border-radius: 8px;
   position: relative; 
   width: 500px;
-  
 }
 
 /* Close icon style */
@@ -143,15 +108,18 @@ select,
 textarea {
   width: calc(100% - 20px);
   padding: 10px;
-  
   margin-bottom: 15px;
-
   border-radius: 4px;
   font-size: 16px;
 }
 
 textarea {
   resize: vertical; /* Allow vertical resizing only */
+}
+
+.expenseFooter
+{
+ background-color:gray;
 }
 
 /* Responsive styles */

@@ -22,25 +22,39 @@
   }
   
   /* Table styles */
-  .eventDonationTable {
+  .scrollableTableContainer {
+    max-height: 400px; /* Adjust this value to set the maximum height of the scrollable area */
+    overflow-y: auto;  /* Enables vertical scrolling */
+   
+    margin-top: 20px; /* Maintain space between the button and the table */
+}
+
+/* Table styles */
+.eventDonationTable {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .eventDonationTable th,
-  .eventDonationTable td {
+    
+}
+
+.eventDonationTable th {
+    position: sticky; /* Makes the header sticky */
+    top: 0;          /* Keeps the header at the top of the container */
+    z-index: 10;    /* Ensures the header is above other content */
+    background-color: #f9f9f9; /* Background color for the header */
+    color: black;   /* Text color for the header */
+    font-weight: bold; 
+}
+
+.eventDonationTable th,
+.eventDonationTable td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-  }
-  
-  .eventDonationTable th {
-    color: black;
-    font-weight: bold;
-    text-align: left;
-  }
-  
+}
+
+.eventDonationTable tr:hover {
+    background-color: #f1f1f1;
+}
+
   .eventDonationTable tr:hover {
     background-color: #f1f1f1;
   }

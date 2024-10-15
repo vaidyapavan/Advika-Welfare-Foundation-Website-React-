@@ -1,10 +1,11 @@
-body{
-  background-color:darkgray;
+body {
+  background-color: darkgray;
 }
-.main_container
-{
+
+.main_container {
   background-color: aliceblue;
 }
+
 .container {
   margin: 20px;
   padding: 20px;
@@ -27,7 +28,6 @@ body{
   color: white;
   border: none;
   border-radius: 5px;
-  
   cursor: pointer;
 }
 
@@ -49,49 +49,68 @@ body{
 }
 
 .donationTable th {
-
-  color:black;
+  color: black;
+  background-color: #f9f9f9; /* Background for sticky header */
+  position: sticky; /* Makes the header sticky */
+  top: 0; /* Stick at the top */
+  z-index: 1; /* Ensures it stays above table content */
 }
 
 .donationTable tr:hover {
   background-color: #f1f1f1;
 }
 
+/* Making the table scrollable */
+.tableContainer {
+  max-height: 400px; /* Adjust this height based on your requirement */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
-.header
-{
+/* Static footer section */
+.studentfooter {
+  position: sticky;
+
+  width: 100%;
+  background-color: burlywood;
+  text-align: center;
+  gap: 15px;
+}
+
+.header {
   display: flex;
   flex-direction: row;
 }
-.action
-{
 
+.action {
   display: flex;
- align-self: center;
+  align-self: center;
   gap: 10px;
 }
-.modalbuttons
-{
+
+.modalbuttons {
   gap: 10px;
   margin-left: 10px;
-
 }
-.modalCloseIcon
-{
+
+.modalCloseIcon {
   margin-left: 440px;
   width: 30px;
   display: flex;
 }
-.modalbuttons
-{
-  width: 80px;
-  display: flex;
-  flex-direction:row;
-  margin-left: 150px;
+
+.cancelButton {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 100px;
 }
 
-.cancelButton
-{
+.Addbutton {
   padding: 10px 15px;
   font-size: 16px;
   background-color: #0078d4;
@@ -99,31 +118,31 @@ body{
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-left:100px;
-}
-.Addbutton
-{
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: #0078d4;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left:20px;
-}
-.modal_footer
-{
-  gap: 10px;
-}
-.close_icon
-{
-  margin-left: 400px;
-  cursor: pointer;
-  
-}
-.deleteHeader
-{
   margin-left: 20px;
 }
 
+.modal_footer {
+  gap: 10px;
+}
+
+.close_icon {
+  margin-left: 400px;
+  cursor: pointer;
+}
+
+.deleteHeader {
+  margin-left: 20px;
+}
+
+.backButton
+{
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+  
+}
