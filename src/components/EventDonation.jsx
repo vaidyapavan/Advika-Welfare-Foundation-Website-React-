@@ -151,11 +151,12 @@ const EventDonation = () => {
                     </tbody>
                 </table>
                 <br></br>
-                <div className="donationfooter">
-                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                    <button className={styles.goback} onClick={gotoHomepage}> Next</button>
-                </div>
+               
             </div>
+            <div className="donationfooter">
+                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
+                    <button className={styles.nextButton} onClick={gotoHomepage}> Next</button>
+                </div>
 
             <Modal open={isModalOpen} onClose={closeModal}>
                 <div className={styles.modalContainer}>

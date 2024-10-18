@@ -24,6 +24,19 @@
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
+  margin-left: 800px;
+}
+.nextButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 15px;
+
 }
 
 .add-btn:hover {
@@ -35,30 +48,34 @@
   margin-bottom: 20px;
 }
 
-.scrollable-table-container {
-  max-height: 400px; /* Adjust this value to set the maximum height of the scrollable area */
-  overflow-y: auto;  /* Enables vertical scrolling */
-  border: 1px solid #ddd; /* Optional: Add border to the scrollable area */
+.donation-table thead {
+  position: sticky;
+  top: 0;
+  background-color: white; /* Ensures the header is visible */
+  z-index: 1; /* Keeps the header above the body content */
 }
 
-.donation-table {
-  width: 100%;
- 
-}
-
-.donation-table th {
-  position: sticky; /* Fixes the header position */
-  top: 0;          /* Sticks the header to the top of the container */
-  z-index: 10;    /* Ensures the header is above other content */
-  background-color: #f2f2f2; /* Keep the background for header */
-}
-.donation-table td{
-  border-bottom: 1px solid #ddd;
-  padding: 12px 15px;
+.donation-table th, .donation-table td {
+  padding: 8px 16px;
   text-align: left;
+
 }
 
+.donation-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 
+.donation-table tbody {
+  max-height: 350px; /* Adjust as per table wrapper height */
+  display: block; /* To enable scrolling */
+  overflow-y: auto;
+}
+
+.donation-table thead, .donation-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Ensures consistent column widths */
+}
 .donation-table tr:hover {
   background-color: #f1f1f1;
 }
@@ -114,4 +131,7 @@ input[type="text"]:focus, input[type="date"]:focus, select:focus {
 {
   display: flex;
   flex-direction: row;
+}
+h1{
+  margin-left: 700px;
 }

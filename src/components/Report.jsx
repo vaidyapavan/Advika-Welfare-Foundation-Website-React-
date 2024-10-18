@@ -11,13 +11,13 @@ const rootClass = mergeStyles({ maxWidth: 300, selectors: { '> *': { marginBotto
 
 const Report = () => {
     const [expenses, setExpenses] = useState([]);
-    const [filteredExpenses, setFilteredExpenses] = useState([]); 
-    const [totalExpense, setTotalExpense] = useState(0); 
+    const [filteredExpenses, setFilteredExpenses] = useState([]);
+    const [totalExpense, setTotalExpense] = useState(0);
 
     // State for filtering
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [selectedCategories, setSelectedCategories] = useState([]); 
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const categoryOptions = [
         { key: 'All', text: 'All' },
@@ -45,7 +45,7 @@ const Report = () => {
             console.error('Error fetching expenses:', error);
         }
     };
-    
+
     const calculateTotalExpense = (expenses) => {
         const total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
         setTotalExpense(total);
@@ -86,8 +86,8 @@ const Report = () => {
     const handleComboBoxChange = (event, option) => {
         if (option) {
             const currentSelection = selectedCategories.includes(option.key)
-                ? selectedCategories.filter(cat => cat !== option.key) 
-                : [...selectedCategories, option.key]; 
+                ? selectedCategories.filter(cat => cat !== option.key)
+                : [...selectedCategories, option.key];
 
             setSelectedCategories(currentSelection);
         }
@@ -117,54 +117,53 @@ const Report = () => {
                         options={categoryOptions}
                         selectedKey={selectedCategories}
                         onChange={handleComboBoxChange}
-                        multiSelect 
+                        multiSelect
                     />
                     <Button variant="contained" onClick={handleSearch}>Search</Button>
                 </div>
 
                 <div className={styles.scrollableTableContainer}>
-        <table className={styles.expenseTable}>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Reason</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Payment Mode</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                {filteredExpenses.map((expense) => (
-                    <tr key={expense.id}>
-                        <td>{formatDate(expense.date)}</td>
-                        <td>{expense.reason}</td>
-                        <td>{expense.category}</td> 
-                        <td>{expense.amount}</td>
-                        <td>{expense.paymentMode}</td>
-                        <td>{expense.description}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>
-
-    <div className={styles.reportFooter}>
-        <Button variant="contained" className={styles.backButton} onClick={goToHomepage}>Back</Button>
-        <Button variant="contained" className={styles.exportButton}>Export to Excel</Button>
-    </div>
-                
-                        
-                
-                
-                
-                   
+                    <table className={styles.expenseTable}>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Payment Mode</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredExpenses.map((expense) => (
+                                <tr key={expense.id}>
+                                    <td>{formatDate(expense.date)}</td>
+                                    <td>{expense.reason}</td>
+                                    <td>{expense.category}</td>
+                                    <td>{expense.amount}</td>
+                                    <td>{expense.paymentMode}</td>
+                                    <td>{expense.description}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-                <h3 className={styles.totalBalance} style={{marginLeft:"730px"}}>Total: ₹{totalExpense.toFixed(2)}</h3>
-               
-                
+
+                <div className={styles.reportFooter}>
+                    <Button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</Button>
+                    <Button variant="contained" className={styles.nextButton}>Export to Excel</Button>
+                </div>
+
+
+
+
+
             </div>
-        
+            <h3 className={styles.totalBalance} style={{ marginLeft: "730px" }}>Total: ₹{totalExpense.toFixed(2)}</h3>
+
+
+        </div>
+
     );
 };
 

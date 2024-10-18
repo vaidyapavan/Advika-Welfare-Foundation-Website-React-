@@ -187,6 +187,11 @@ const ExpenseTable = () => {
         const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     };
+    const goToNextScreen = () =>
+    {
+        navigate('/read');
+
+    }
 
     return (
         <div className={styles.container} style={{ marginTop: "40px" }}>
@@ -247,10 +252,10 @@ const ExpenseTable = () => {
                         </table>
                     </div>
                     <div className={styles.expenseFooter}>
-                    <button className={styles.btn} title="Go back" style={{marginLeft:"700px"}}   onClick={goToHomepage}>
+                    <button className={styles.goback} title="Go back" style={{marginLeft:"700px"}}   onClick={goToHomepage}>
                         BACK
                     </button>
-                    <button className={styles.btn} title="Go next" onClick={goToHomepage}>
+                    <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>
                         NEXT
                     </button>
                 </div>

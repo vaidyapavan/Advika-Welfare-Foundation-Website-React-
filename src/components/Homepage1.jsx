@@ -37,6 +37,21 @@ const Homepage1 = ({email}) => {
                         <h3  style={{ marginLeft:"1550px"}}>{email}</h3>
                     </div>
                     <div className='body'>
+                    <div className='card' onClick={GotoDonationData}>
+                            <div className='card-content'>
+                                <h2>Donation Data</h2>
+                                <p>  Our Donation</p>
+                            </div>
+                        </div>
+                    <div className='card' onClick={expensetransaction}>
+                            <div className='card-content'>
+                                <h2>Expense</h2>
+                                <p>Track Expenses</p>
+                            </div>
+                        </div>
+                      
+                       
+
                         <div className='card' onClick={studentdata}>
                             <div className='card-content'>
                                 <h2>Student</h2>
@@ -44,27 +59,14 @@ const Homepage1 = ({email}) => {
                             </div>
                         </div>
 
-                        <div className='card' onClick={expensetransaction}>
-                            <div className='card-content'>
-                                <h2>Expense</h2>
-                                <p>Track Expenses</p>
-                            </div>
-                        </div>
+                     
 
                         <div className='card' onClick={employeedata}>
                             <div className='card-content'>
                                 <h2>Employee</h2>
-                                <p>Employee Data</p>
+                                <p>Employee Data</p>    
                             </div>
                         </div>
-
-                        <div className='card' onClick={GotoDonationData}>
-                            <div className='card-content'>
-                                <h2>Donation Data</h2>
-                                <p>  Our Donation</p>
-                            </div>
-                        </div>
-
                         <div className='card' onClick={goToReport}>
                             <div className='card-content'>
                                 <h2>Monthly Report</h2>
@@ -72,6 +74,9 @@ const Homepage1 = ({email}) => {
                             </div>
                         </div>
 
+                      
+
+                       
                         
                     </div>
                 </div>

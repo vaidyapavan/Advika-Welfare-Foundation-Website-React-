@@ -9,7 +9,6 @@ import InkindDonation from "./InkindDonation";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
 import { Pivot, PivotItem } from '@fluentui/react';
-// Importing the CSS module
 import styles from '../assets/DonationData.module.css';
 
 const DonationData = () => {
@@ -41,7 +40,7 @@ const DonationData = () => {
         const fetchMonthlyDonorsCount = async () => {
             try {
                 const response = await axios.get('http://localhost:8085/MonthlyDonationData/count');
-                setTotalMonthlyDonors(response.data.totalMonthlyDonors); 
+                setTotalMonthlyDonors(response.data.totalMonthlyDonors);
             } catch (error) {
                 console.error('Error fetching donor count:', error);
             }
@@ -76,6 +75,7 @@ const DonationData = () => {
     };
 
     const handleSaveDonation = () => {
+        // Validation
         if (!donorName || !panNo || !date || !paymentMode || !amount) {
             setErrorMessage('All fields are required');
             return;
@@ -89,6 +89,7 @@ const DonationData = () => {
         const newDonation = { donor_name: donorName, pan_no: panNo, date, payment_mode: paymentMode, amount };
 
         if (editMode) {
+            // Update Donation
             axios.put(`http://localhost:8085/DonationData/${currentDonationId}`, newDonation)
                 .then(response => {
                     setDonations(donations.map(donation => donation.id === currentDonationId ? response.data : donation));
@@ -100,6 +101,7 @@ const DonationData = () => {
                     setErrorMessage(`Error updating donation: ${error.response?.data?.message || error.message}`);
                 });
         } else {
+            // Add New Donation
             axios.post('http://localhost:8085/DonationData', newDonation)
                 .then(response => {
                     setDonations(prevDonations => [...prevDonations, response.data]);
@@ -138,6 +140,7 @@ const DonationData = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -146,67 +149,64 @@ const DonationData = () => {
         return `${day}-${month}-${year}`;
     };
 
+    const goToNextScreen = () => {
+        navigate('/expenseTable');
+    };
+
     return (
         <>
             <div className={styles["main-container"]}>
-                <button className={styles.goback} onClick={gotoHomepage}> <ArrowBackIosIcon /></button>
-
                 <h1>Donation Details</h1>
 
                 {/* Fluent UI Pivot for navigation */}
-                <Pivot
-                    aria-label="Donation Types"
-                    selectedKey={selectedDonationType}
-                    onLinkClick={item => setSelectedDonationType(item.props.itemKey)}
-                >
+                <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
                     <PivotItem headerText="Monthly Donations" itemKey="monthly">
-                        <br></br>
-                        <br></br>
+                        <br />
+                        <br />
                         <div className={styles.header}>
-                        <h5 className={styles["donor-count"]}> Number of donors: {totalMonthlyDonors}</h5>
-                        <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
-
+                            <h5 className={styles["donor-count"]}>Number of donors: {totalMonthlyDonors}</h5>
+                            <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
                         </div>
-                       
-                        
 
-                        <table className={styles["donation-table"]}>
-                            <thead>
-                                <tr>
-                                    <th>Donor Name</th>
-                                    <th>PAN No</th>
-                                    <th>Date</th>
-                                    <th>Payment Mode</th>
-                                    <th>Amount</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {donations.length > 0 ? donations.map((donation) => (
-                                    <tr key={donation.id}>
-                                        <td>{donation.donor_name}</td>
-                                        <td>{donation.pan_no}</td>
-                                        <td>{formatDate(donation.date)}</td>
-                                        <td>{donation.payment_mode}</td>
-                                        <td>{donation.amount}</td>
-                                        <td>
-                                            <div className={styles["action-icon"]}>
-                                                <DeleteIcon className={styles["action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
-                                                <EditIcon className={styles["action-icon"]} onClick={() => openModal(donation)} />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )) : (
+                        <div className={styles["donation-table-wrapper"]}>
+                            <table className={styles["donation-table"]}>
+                                <thead>
                                     <tr>
-                                        <td colSpan="6">No donations available</td>
+                                        <th>Donor Name</th>
+                                        <th>PAN No</th>
+                                        <th>Date</th>
+                                        <th>Payment Mode</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                        <br></br>
+                                </thead>
+                                <tbody>
+                                    {donations.length > 0 ? donations.map((donation) => (
+                                        <tr key={donation.id}>
+                                            <td>{donation.donor_name}</td>
+                                            <td>{donation.pan_no}</td>
+                                            <td>{formatDate(donation.date)}</td>
+                                            <td>{donation.payment_mode}</td>
+                                            <td>{donation.amount}</td>
+                                            <td>
+                                                <div className={styles["action-icon"]}>
+                                                    <DeleteIcon className={styles["action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
+                                                    <EditIcon className={styles["action-icon"]} onClick={() => openModal(donation)} />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan="6">No donations available</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                        <br />
                         <div className="donationfooter">
-                        <button className={styles.goback} style={{marginLeft:"700px"}} onClick={gotoHomepage}> Back</button>
-                        <button className={styles.goback} onClick={gotoHomepage}> Next</button>
+                            <button className={styles.goback} onClick={gotoHomepage}>Back</button>
+                            <button className={styles.nextButton} onClick={goToNextScreen}>Next</button>
                         </div>
                     </PivotItem>
                     <PivotItem headerText="In-Kind Donations" itemKey="inkind">
@@ -244,17 +244,21 @@ const DonationData = () => {
                         <input
                             type="date"
                             value={date}
-                            placeholder="Select the date"
                             onChange={(e) => setDate(e.target.value)}
                         />
                         <br />
 
                         <label>Payment Mode</label>
-                        <select value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}>
+                        <select
+                            value={paymentMode}
+                            onChange={(e) => setPaymentMode(e.target.value)}
+                        >
                             <option value="">Select Payment Mode</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Debit Card">Debit Card</option>
                             <option value="Cash">Cash</option>
-                            <option value="Online">Online</option>
-                            <option value="CreditCard">Credit Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="UPI">UPI</option>
                         </select>
                         <br />
 
@@ -267,10 +271,10 @@ const DonationData = () => {
                         />
                         <br />
 
-                        <button onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Add Donation'}</button>
+                        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+                        {successMessage && <p className={styles.success}>{successMessage}</p>}
 
-                        {errorMessage && <p className={styles["error-message"]}>{errorMessage}</p>}
-                        {successMessage && <p className={styles["success-message"]}>{successMessage}</p>}
+                        <button onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
                     </div>
                 </Modal>
             </div>

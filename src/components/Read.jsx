@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Searchbar from './Searchbar';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 
 
 import styles from '../assets/Read.module.css';
@@ -139,6 +139,10 @@ const Read = () => {
   const goToHomepage = () => {
     navigate('/homepage1');
   };
+  const goToNextScreen = () =>
+  {
+    navigate('/employeeData');
+  }
 
   return (
     <div className={styles.main_container}>
@@ -220,10 +224,10 @@ const Read = () => {
         
         {message && <p style={{ textAlign: 'center' }}>{message}</p>}
         <div className={styles.studentfooter}>
-        <button className="backButton" title="Go back" onClick={goToHomepage}>
+        <button className={styles.goback} title="Go back" onClick={goToHomepage}>
           Back
         </button>
-        <button className="nextButton" title=" GO Next" onClick={goToHomepage}>
+        <button className={styles.nextButton} title=" GO Next" onClick={goToNextScreen}>
           next
         </button>
         </div>

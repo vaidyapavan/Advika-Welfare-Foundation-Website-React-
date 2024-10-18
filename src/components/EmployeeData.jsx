@@ -181,6 +181,10 @@ const EmployeeData = () => {
   const gotohomepage = () => {
     navigate('/homepage1');
   };
+  const goToNextScreen = () =>
+  {
+    navigate('/report');
+  }
 
   return (
     <>
@@ -261,7 +265,7 @@ const EmployeeData = () => {
           <button className={styles.goback} title="Go back" style={{marginLeft:"700px"}} onClick={gotohomepage}>
             BACK
           </button>
-          <button className={styles.next} title="Go next" onClick={gotohomepage}>
+          <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>
             NEXT
           </button>
         </div>

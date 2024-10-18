@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    border: white;
 }
 
 .expenseTableContainer {
@@ -18,7 +19,7 @@
     font-size: 2rem;
     margin-bottom: 10px;
     color: #333;
-    text-align: center; /* Center the header */
+    
 }
 
 .balance {
@@ -56,6 +57,26 @@
     margin-top: 20px;
 }
 
+.expenseTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.expenseTable th {
+    position: sticky;
+    top: 0; /* Stick to the top of the scroll container */
+    background-color: #f1f1f1; /* Background color to make the header stand out */
+    z-index: 2; /* Ensure it stays above table rows */
+    text-align: center;
+    padding: 10px;
+    color: #333;
+}
+
+.expenseTable td {
+    padding: 10px;
+    text-align: left;
+}
+
 .scrollableTableContainer {
     max-height: 400px; /* Adjust height as needed */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -64,22 +85,8 @@
     border-radius: 4px; /* Optional: Rounded corners */
 }
 
-.expenseTable {
-    width: 100%;
-    border-collapse: collapse;
-}
 
- .expenseTable td {
-    padding: 10px;
-    text-align:left;
-}
 
-.expenseTable th {
-   
-    color: #333;
-    text-align: center;
-    position: sticky;
-}
 
 /* Adjust existing footer content */
 .reportFooter {
@@ -112,4 +119,28 @@
 
 .totalExpense {
     margin-left: 830px;
+}
+
+.goback
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.nextButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 15px;
+
 }

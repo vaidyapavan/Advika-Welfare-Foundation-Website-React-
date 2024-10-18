@@ -145,29 +145,31 @@ const InkindDonation = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {donations.map(donation => (
-                            <tr key={donation.id}>
-                                <td>{donation.donor_name}</td>
-                                <td>{donation.pan_no}</td>
-                                <td>{formatDate(donation.date)}</td>
-                                <td>{donation.donation_type}</td>
-                                <td>{donation.description}</td>
-                                <td>
-                                    <div className={styles.actionIcon}>
-                                        <EditIcon className={styles.actionIcon} onClick={() => openModal(donation)} />
-                                        <DeleteIcon className={styles.actionIcon} onClick={() => handleDelete(donation.id)} />
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
+    {donations.map(donation => (
+        <tr key={donation.id}>
+            <td>{donation.donor_name}</td>
+            <td>{donation.pan_no}</td>
+            <td>{formatDate(donation.date)}</td>
+            <td>{donation.donation_type}</td>
+            <td className={styles.scrollableTd}>{donation.description}</td>
+            <td>
+                <div className={styles.actionIcon}>
+                    <EditIcon className={styles.actionIcon} onClick={() => openModal(donation)} />
+                    <DeleteIcon className={styles.actionIcon} onClick={() => handleDelete(donation.id)} />
+                </div>
+            </td>
+        </tr>
+    ))}
+</tbody>
+
                 </table>
                 <br></br>
-                <div className="donationfooter">
-                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                    <button className={styles.goback} onClick={gotoHomepage}> Next</button>
-                </div>
+               
             </div>
+            <div className="donationfooter">
+                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
+                    <button className={styles.nextButton} onClick={gotoHomepage}> Next</button>
+                </div>
 
 
             <Modal
