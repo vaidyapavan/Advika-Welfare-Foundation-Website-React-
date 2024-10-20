@@ -3,16 +3,18 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    border: white;
+    background-color: white;
+    height: 900px;
+    
 }
 
 .expenseTableContainer {
     width: 100%;
     max-width: 1800px; 
-    background-color: #f9f9f9;
+  background-color:#ced4da50;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 100px;
+    
 }
 
 .header {
@@ -59,7 +61,7 @@
 
 .expenseTable {
     width: 100%;
-    border-collapse: collapse;
+    
 }
 
 .expenseTable th {
@@ -70,18 +72,20 @@
     text-align: center;
     padding: 10px;
     color: #333;
+    border-bottom: 1px solid #ddd;
 }
 
 .expenseTable td {
     padding: 10px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 .scrollableTableContainer {
     max-height: 400px; /* Adjust height as needed */
     overflow-y: auto; /* Enable vertical scrolling */
     margin-top: 20px; /* Space between table and header */
-    border: 1px solid #ccc; /* Optional: Add border around table */
+    
     border-radius: 4px; /* Optional: Rounded corners */
 }
 

@@ -185,9 +185,17 @@ const EmployeeData = () => {
   {
     navigate('/report');
   }
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+};
 
   return (
     <>
+    <div className={styles.mainContainer}>
       <div className={styles.container}>
         <h1 className={styles.formTitle}>Employee Data</h1>
 
@@ -246,7 +254,7 @@ const EmployeeData = () => {
                   <td>{employee.Location}</td>
                   <td>{employee.AadharNo}</td>
                   <td>{employee.MobileNo}</td>
-                  <td>{employee.JoiningDate}</td>
+                  <td>{formatDate(employee.JoiningDate)}</td>
                   <td>
                     <div className={styles.actionIcons}>
                       <DeleteIcon onClick={() => confirmDelete(employee.id)} />
@@ -261,15 +269,16 @@ const EmployeeData = () => {
         </div>
         <br></br>
 
-        <div className='employeeFooter'>
-          <button className={styles.goback} title="Go back" style={{marginLeft:"700px"}} onClick={gotohomepage}>
+        <div className={styles.employeeFooter}>
+          <button className={styles.goback} style={{marginLeft:"700px"}}  title="Go back" onClick={gotohomepage}>
             BACK
           </button>
-          <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>
+          <button className={styles.nextButton}  style={{marginLeft:"30px"}}  title="Go next"  onClick={goToNextScreen}>
             NEXT
           </button>
         </div>
   
+      </div>
       </div>
 
       {/* Add Employee Modal */}

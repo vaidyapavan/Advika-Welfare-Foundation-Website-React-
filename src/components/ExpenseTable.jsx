@@ -194,8 +194,8 @@ const ExpenseTable = () => {
     }
 
     return (
-        <div className={styles.container} style={{ marginTop: "40px" }}>
-            <div className={styles.expenseTableContainer}>
+        <div className={styles.container} >
+            <div className={styles.expenseTableContainer} style={{marginTop:"50px"}}>
                 
                 <h1 className={styles.header}>Expense Details</h1>
                 <h2 className={styles.balance}>Current Available Balance is: ₹{totalBalance.toFixed(2)}</h2>

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Modal, TextField, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import styles from '../assets/InkindDonation.module.css'; // Update the path
+import styles from '../assets/InkindDonation.module.css';   
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
 
 const InkindDonation = () => {
@@ -112,6 +111,10 @@ const InkindDonation = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     }
+    const goToNextScreen = () =>
+    {
+        navigate('/expenseTable');
+    }
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -125,7 +128,7 @@ const InkindDonation = () => {
     return (
         <div className={styles.inkindDonationContainer}>
             <div className={styles.header}>
-                <h5> Number of donors: {totalinkindDonors}</h5>
+                <h5> Number of Donors: {totalinkindDonors}</h5>
                 <button className={styles.addDonationButton} onClick={() => openModal()}>
                     Add Donation
                 </button>
@@ -145,31 +148,34 @@ const InkindDonation = () => {
                         </tr>
                     </thead>
                     <tbody>
-    {donations.map(donation => (
-        <tr key={donation.id}>
-            <td>{donation.donor_name}</td>
-            <td>{donation.pan_no}</td>
-            <td>{formatDate(donation.date)}</td>
-            <td>{donation.donation_type}</td>
-            <td className={styles.scrollableTd}>{donation.description}</td>
-            <td>
-                <div className={styles.actionIcon}>
-                    <EditIcon className={styles.actionIcon} onClick={() => openModal(donation)} />
-                    <DeleteIcon className={styles.actionIcon} onClick={() => handleDelete(donation.id)} />
-                </div>
-            </td>
-        </tr>
-    ))}
-</tbody>
+                        {donations.map(donation => (
+                            <tr key={donation.id}>
+                                <td>{donation.donor_name}</td>
+                                <td>{donation.pan_no}</td>
+                                <td>{formatDate(donation.date)}</td>
+                                <td>{donation.donation_type}</td>
+                                <td className={styles.scrollableTd}>{donation.description}</td>
+                                <td>
+                                    <div className={styles.actionIcon}>
+                                        <EditIcon className={styles.actionIcon} onClick={() => openModal(donation)} />
+                                        <DeleteIcon className={styles.actionIcon} onClick={() => handleDelete(donation.id)} />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                            
+                    </tbody>
+               
 
                 </table>
                 <br></br>
-               
+
             </div>
-            <div className="donationfooter">
-                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                    <button className={styles.nextButton} onClick={gotoHomepage}> Next</button>
-                </div>
+            <div className={styles.donationfooter}>
+                <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
+                <button className={styles.nextButton} onClick={goToNextScreen}> Next</button>
+            </div>
+           
 
 
             <Modal

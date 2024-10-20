@@ -155,22 +155,36 @@ const DonationData = () => {
 
     return (
         <>
-            <div className={styles["main-container"]}>
-                <h1>Donation Details</h1>
+            <div className={styles.mainContainer}>
+                <div className={styles.container}>
 
-                {/* Fluent UI Pivot for navigation */}
+               
+
+                <h1>Donation Details</h1>   
+
+                
                 <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
                     <PivotItem headerText="Monthly Donations" itemKey="monthly">
-                        <br />
-                        <br />
-                        <div className={styles.header}>
-                            <h5 className={styles["donor-count"]}>Number of donors: {totalMonthlyDonors}</h5>
-                            <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
-                        </div>
-
+                    
+                  
+                           
                         <div className={styles["donation-table-wrapper"]}>
+                            <br></br>
+                    
+                            <br></br>
+                            <br></br>
+                           
                             <table className={styles["donation-table"]}>
+                                <div  style={{display:"flex"}}>
+                                <h5 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h5>
+                                <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
+                                </div>
+                    
+                 
+                        
+
                                 <thead>
+                           
                                     <tr>
                                         <th>Donor Name</th>
                                         <th>PAN No</th>
@@ -203,8 +217,8 @@ const DonationData = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <br />
-                        <div className="donationfooter">
+                        <br />  
+                        <div className={styles.donationfooter}>
                             <button className={styles.goback} onClick={gotoHomepage}>Back</button>
                             <button className={styles.nextButton} onClick={goToNextScreen}>Next</button>
                         </div>
@@ -277,6 +291,7 @@ const DonationData = () => {
                         <button onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
                     </div>
                 </Modal>
+                </div>
             </div>
         </>
     );

@@ -1,10 +1,14 @@
 .eventDonationContainer {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: white;
   border-radius: 8px;
   }
   
-  /* Button styles */
+  
+
+ .container{
+  background-color:#ced4da50 ;
+ }
   .addDonationButton {
     background-color:#1976d2; 
     color: white;
@@ -18,29 +22,30 @@
   }
   
   .addDonationButton:hover {
-    background-color: #005a9e; /* Darker blue on hover */
+    background-color: #005a9e; 
   }
   
   /* Table styles */
   .scrollableTableContainer {
-    max-height: 400px; /* Adjust this value to set the maximum height of the scrollable area */
-    overflow-y: auto;  /* Enables vertical scrolling */
-   
-    margin-top: 20px; /* Maintain space between the button and the table */
+    max-height: 400px; 
+    overflow-y: auto;  
+    margin-top: 20px; 
+    background-color: #ced4da50;
 }
 
 /* Table styles */
 .eventDonationTable {
     width: 100%;
+
     
 }
 
 .eventDonationTable th {
-    position: sticky; /* Makes the header sticky */
-    top: 0;          /* Keeps the header at the top of the container */
-    z-index: 10;    /* Ensures the header is above other content */
-    background-color: #f9f9f9; /* Background color for the header */
-    color: black;   /* Text color for the header */
+    position: sticky; 
+    top: 0;         
+    z-index: 10;    
+
+    color: black;   
     font-weight: bold; 
 }
 
@@ -52,12 +57,9 @@
 }
 
 .eventDonationTable tr:hover {
-    background-color: #f1f1f1;
+    background-color: white;
 }
 
-  .eventDonationTable tr:hover {
-    background-color: #f1f1f1;
-  }
   
   /* Action icon styles */
   .actionIcon {
@@ -144,4 +146,9 @@
   margin-bottom: 20px;
   margin-left: 15px;
 
+}
+
+.donationfooter
+{
+  background-color: rgba(0, 0, 0, 0.096);
 }

@@ -1,12 +1,10 @@
-body {
-  background-color: gray;
-}
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-color:white ;
 }
 
 /* Header styles */
@@ -22,13 +20,15 @@ body {
 
 /* Expense Table Container styles */
 .expenseTableContainer {
+  margin-top: 100px;
+
   width: 100%;
   max-width: 1750px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color:#ced4da50;
   border-radius: 8px;
-  position: relative; /* For positioning buttons */
+  position: relative; 
 }
 
 /* Button styles */
@@ -74,7 +74,7 @@ body {
 }
 
 .expenseTable tr:hover {
-  background-color: #f1f1f1;
+  background-color:white;
 }
 
 /* Scrollable Table Container */

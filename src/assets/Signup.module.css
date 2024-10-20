@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ced4da;
+    background-color: white ;
   }
   
   .formContainer {
-    background-color: white;
+    background-color:#ced4da4f;
     padding: 2rem;
     border-radius: 8px;
     width: 500px;

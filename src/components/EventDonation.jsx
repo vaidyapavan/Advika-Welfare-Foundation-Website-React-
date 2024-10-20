@@ -101,6 +101,10 @@ const EventDonation = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
+    const goToNextScreen = () =>
+        {
+            navigate('/expenseTable');
+        }
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -111,9 +115,11 @@ const EventDonation = () => {
 
     return (
         <div className={styles.eventDonationContainer}>
+            <div className={styles.container}>
+       
 
             <div className={styles.header}>
-                <h5 style={{ marginTop: '40px' }}>Number of donors: {totalEventlyDonors}</h5>
+                <h5 >Number of Donors: {totalEventlyDonors}</h5>
                 <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
 
             </div>
@@ -153,9 +159,9 @@ const EventDonation = () => {
                 <br></br>
                
             </div>
-            <div className="donationfooter">
+            <div className={styles.donationfooter}>
                     <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                    <button className={styles.nextButton} onClick={gotoHomepage}> Next</button>
+                    <button className={styles.nextButton} onClick={goToNextScreen}> Next</button>
                 </div>
 
             <Modal open={isModalOpen} onClose={closeModal}>
@@ -221,6 +227,7 @@ const EventDonation = () => {
                     </form>
                 </div>
             </Modal>
+            </div>
 
         </div>
     );

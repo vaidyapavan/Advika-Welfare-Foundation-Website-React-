@@ -94,7 +94,7 @@ const Report = () => {
     };
 
     return (
-        <div className={styles.container} style={{ marginTop: "40px" }}>
+        <div className={styles.container}>
             <div className={styles.expenseTableContainer}>
                 <button className={styles.btn} title="Go back" onClick={goToHomepage}>
                     <ArrowBackIosIcon />
