@@ -35,6 +35,14 @@
  
 }
 
+
+.inkindDonationTable thead {
+  position: sticky;
+  top: 0;
+  /* background-color: white;  */
+  z-index: 1; /* Keeps the header above the body content */
+}
+
 .inkindDonationTable {
   width: 100%;
  
@@ -44,9 +52,14 @@
   position: sticky; 
   top: 0;          
   z-index: 10;    
-  background-color: #fff;
+  background-color: white;
+ 
   
 }
+.inkindDonationTable tr:hover {
+  background-color:white;
+}
+
 
 .inkindDonationTable td{
   border-bottom: 1px solid #ddd;
@@ -84,7 +97,6 @@ text-align: left;
 }
 
 .modalHeader {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
@@ -127,7 +139,7 @@ text-align: left;
 
 .header
 {
-  display: flex;
+  
   flex-direction: row;
 background-color: #ced4da50;
 }

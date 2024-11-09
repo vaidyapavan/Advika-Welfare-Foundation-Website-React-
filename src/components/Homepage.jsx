@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import '../assets/Homepage.css';
 import profile from '../assets/images/profile2.jpg';
@@ -13,20 +13,29 @@ import Footer from '../components/Footer';
 function Homepage() {
   const navigate = useNavigate(); 
 
+  // Refs to scroll to different sections
+  const featureSectionRef = useRef(null);
+  const galaryRef = useRef(null);
+  const footerRef = useRef(null);
+
   const gotoLoginPage = () => {
     navigate('/login'); 
   };
 
   const gotoGalary = () => {
-    navigate('/galary'); 
+    galaryRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const gotoFeatureSelection = () => {
-    navigate('/featureselection'); 
+  const gotoFeatureSection = () => {
+    featureSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const gotoContact = () => {
-    navigate('/footer'); 
+    footerRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const gotoHome = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -35,8 +44,8 @@ function Homepage() {
         <nav className="navbar">
           <div className="navbar-left">
             <img src={advika} alt="Advika" className="advika-image" /> 
-            <a href="#home" onClick={() => window.scrollTo(0, 0)}>Home</a>
-            <a onClick={gotoFeatureSelection} style={{ cursor: "pointer" }}>About Us</a>
+            <a onClick={gotoHome} style={{ cursor: "pointer" }}>Home</a>
+            <a onClick={gotoFeatureSection} style={{ cursor: "pointer" }}>About Us</a>
             <a onClick={gotoContact} style={{ cursor: "pointer" }}>Contact Us</a>
             <a onClick={gotoGalary} style={{ cursor: "pointer" }}>Gallery</a>
           </div>
@@ -53,11 +62,24 @@ function Homepage() {
 
       <main>
         <ImageSlider />
-        <FeatureSection />
+        
+       
+        <div ref={featureSectionRef}>
+          <FeatureSection />
+        </div>
+
         <Info />
-        <Galary />
+
+        <div ref={galaryRef}>
+          <Galary />
+        </div>
+
         <Bottom />
-        <Footer />
+
+ 
+        <div ref={footerRef}>
+          <Footer />
+        </div>
       </main>
     </div>
   );

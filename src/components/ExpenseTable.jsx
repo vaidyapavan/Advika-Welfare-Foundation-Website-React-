@@ -296,8 +296,8 @@ const ExpenseTable = () => {
                         <option value="cash">Cash</option>
                     </select>
                     <br />
-                    <div className={styles.bottons}>
-                        <button className={styles.save} onClick={goToHomepage}>Cancel</button>
+                    <div className={styles.buttons}>
+                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"150px"}}>Cancel</button>
                         <button className={styles.save} onClick={handleSave}>Save</button>
 
                     </div>
@@ -375,7 +375,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal}>Cancel</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{marginLeft:"150px"}}>Cancel</button>
                         <button className={styles.addExpenseButton} onClick={handleAddExpense}>Add</button>
                     </div>
                 </div>

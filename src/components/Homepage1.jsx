@@ -33,8 +33,8 @@ const Homepage1 = ({email}) => {
                 <div className='header'>
                     <div className='logo'>
                         <img src={logo} alt="Advika Logo" />
-                        <AccountBoxIcon  style={{fontSize:"100px", marginLeft:"1400px", marginTop:"-20px"}}></AccountBoxIcon>
-                        <h3  style={{ marginLeft:"1550px"}}>{email}</h3>
+                        <AccountBoxIcon  style={{fontSize:"80px", marginLeft:"1450px", marginTop:"-100px"}}></AccountBoxIcon>
+                        <h3  style={{ marginLeft:"1400px", marginTop:"-15px"}}>{email}</h3>
                     </div>
                     <div className='body'>
                     <div className='card' onClick={GotoDonationData}>

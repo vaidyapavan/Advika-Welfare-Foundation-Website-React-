@@ -30,27 +30,27 @@
 }
 
 .btn {
-    background-color: #0078d4; /* Primary color for buttons */
+    background-color: #0078d4; 
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
-    margin: 0 10px; /* Space between buttons */
+    margin: 0 10px; 
     display: flex;
     align-items: center;
 }
 
 .btn:hover {
-    background-color: #005a9e; /* Darker shade on hover */
+    background-color: #005a9e; 
 }
 
 .filterContainer {
     gap: 20px;
     display: flex;
     flex-direction: row;
-    align-items: center; /* Aligns items vertically */
-    margin-bottom: 20px; /* Space between filters and table */
+    align-items: center; 
+    margin-bottom: 20px; 
 }
 
 .expenseTable {
@@ -82,21 +82,21 @@
 }
 
 .scrollableTableContainer {
-    max-height: 400px; /* Adjust height as needed */
-    overflow-y: auto; /* Enable vertical scrolling */
-    margin-top: 20px; /* Space between table and header */
+    max-height: 400px; 
+    overflow-y: auto; 
+    margin-top: 20px; 
     
-    border-radius: 4px; /* Optional: Rounded corners */
+    border-radius: 4px; 
 }
 
 
 
 
-/* Adjust existing footer content */
 .reportFooter {
-    display: flex; /* Align buttons horizontally */
-    justify-content: center; /* Center buttons */
-    margin-top: 20px; /* Space above buttons */
+    display: flex; 
+    justify-content: center;
+    margin-top: 20px; 
+    gap: 20px;
 }
 
 
@@ -109,7 +109,7 @@
 /* Button style */
 .button {
     margin-top: 15px;
-    background-color: #4CAF50; /* Green color for search button */
+    background-color: #4CAF50; 
     color: white;
     padding: 10px;
     border: none;
@@ -118,7 +118,7 @@
 }
 
 .button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049; 
 }
 
 .totalExpense {

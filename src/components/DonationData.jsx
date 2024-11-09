@@ -175,7 +175,7 @@ const DonationData = () => {
                             <br></br>
                            
                             <table className={styles["donation-table"]}>
-                                <div  style={{display:"flex"}}>
+                                <div  style={{display:""}}>
                                 <h5 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h5>
                                 <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
                                 </div>

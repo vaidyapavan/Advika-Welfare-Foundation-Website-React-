@@ -47,6 +47,7 @@
 
     color: black;   
     font-weight: bold; 
+    background-color: white;
 }
 
 .eventDonationTable th,
@@ -121,7 +122,6 @@
   }
   
   .header{
-    display: flex;
      flex-direction: row;
   }
 
