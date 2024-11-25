@@ -1,0 +1,121 @@
+
+
+.main_container{
+    background-color: white;
+
+    height: 700px;
+}
+.data_container
+{
+    background-color: #ddd;
+    width: 1580px;
+    height: 600px;
+    margin-left: 10px;
+
+}
+.inventoryModalWrapper {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+    width: 600px;
+    overflow-y: auto
+
+  
+
+    
+    
+}
+
+.inventoryModalHeading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.inventoryFormGroup {
+    margin-bottom: 16px;
+}
+
+.inventoryFormGroup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+
+.inputError {
+    border-color: red;
+}
+
+.inventoryFormError {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.inventoryFormActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.inventoryFormActions button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.scrollableTableContainer {
+    max-height: 400px; 
+    overflow-y: auto;  
+    background-color:white;
+   
+  }
+  
+  
+  .inventory_table thead {
+    position: sticky;
+    top: 0;
+    /* background-color: white;  */
+    z-index: 1; /* Keeps the header above the body content */
+  }
+  
+  .inventory_table {
+    width: 100%;
+   
+  }
+  
+  .inventory_table th {
+    position: sticky; 
+    top: 0;          
+    z-index: 10;    
+    
+   
+    
+  }
+  .inventory_table tr:hover {
+    background-color:#ccc;
+  }
+  
+  
+  .inventory_table td{
+    border-bottom: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+  
+  }
+  
+  

@@ -26,6 +26,10 @@ const Homepage1 = ({email}) => {
     {
         navigate('/report');
     }
+    const goToInventoryPage = () =>
+    {
+        navigate('/inventoryData');
+    }
 
     return (
         <>
@@ -71,6 +75,12 @@ const Homepage1 = ({email}) => {
                             <div className='card-content'>
                                 <h2>Monthly Report</h2>
                                 <p>Monthly Consumption</p>
+                            </div>
+                        </div>
+                        <div className='card' onClick={goToInventoryPage}>
+                            <div className='card-content'>
+                                <h2>Inventory Record</h2>
+                                <p>Management of of the Whole Inventory</p>
                             </div>
                         </div>
 

@@ -15,6 +15,7 @@ import Homepage1 from './components/Homepage1';
 import Footer from './components/Footer';
 import DonationData from './components/DonationData';
 import Report from './components/Report';
+import InventoryData from './components/InventoryData';
 
 function App() {
   const [email,setEmail] = useState("");
@@ -36,6 +37,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/donationdata" element={<DonationData />} />
+        <Route path="/inventorydata" element={<InventoryData />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
