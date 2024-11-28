@@ -84,7 +84,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 600px;
+    max-width: 500px;
     margin: 100px auto;
     position: relative;
   }
@@ -103,6 +103,8 @@
   
   .closeIcon {
     cursor: pointer;
+    margin-top: -20px;
+   margin-right: -5px;
   }
   
   .modalForm {
@@ -152,4 +154,85 @@
 .donationfooter
 {
   background-color: rgba(0, 0, 0, 0.096);
+}
+
+.saveButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 0;
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #1565c0;
+}
+
+.header
+{
+  
+  flex-direction: row;
+background-color: #ced4da50;
+}
+
+.goback
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 15px;
+
+}
+.nextButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 15px;
+
+}
+
+.donationfooter{
+  background-color: rgba(0, 0, 0, 0.096) ;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
+
+.cancelButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-left: 100px;
+}
+.saveButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
+
 }

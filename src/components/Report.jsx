@@ -156,8 +156,8 @@ const Report = () => {
                 </div>
 
                 <div className={styles.reportFooter}>
-                    <Button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</Button>
-                    <Button variant="contained" className={styles.nextButton}onClick={gotoNextpage}>Export to Excel</Button>
+                    <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
+                    <button variant="contained" className={styles.nextButton}onClick={gotoNextpage}>Export to Excel</button>
                 </div>
 
 

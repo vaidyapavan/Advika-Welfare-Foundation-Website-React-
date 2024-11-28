@@ -106,12 +106,16 @@
   margin: 0;
   font-size: 24px;
   color: #333;
+ text-align: center;
+
 }
 
 .closeIcon {
   cursor: pointer;
   color: #888;
   transition: color 0.3s ease;
+  margin-left: 435px;
+  margin-top: -40px;
 }
 
 .closeIcon:hover {
@@ -175,5 +179,31 @@ background-color: #ced4da50;
   align-items: center;
   justify-content: space-between;
 
+
+}
+
+.cancelButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-left: 100px;
+}
+.saveButton
+{
+  background-color:#1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
 
 }

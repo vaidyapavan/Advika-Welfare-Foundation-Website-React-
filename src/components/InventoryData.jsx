@@ -222,8 +222,9 @@ const InventoryData = () => {
     return (
         <div className={styles.main_container}>
             <div className={styles.data_container}>
+                
                 <h1>Inventory Data</h1>
-                <button onClick={openModal} style={{ marginLeft: "1400px" }}>Add Inventory</button>
+                <button onClick={openModal} className={styles.addInventoryButton} >Add Inventory</button>
                 <div className={styles.inventory_table_Container}>
                     <table className={styles.inventory_table}>
                         <thead>
@@ -277,7 +278,7 @@ const InventoryData = () => {
                                     <td>
                                         <div className={styles.actionIcons}>
                                             <DeleteIcon onClick={() => handleDelete(item.id)} />
-                                            <EditIcon onClick={() => openUpdateModal(item)} />
+                                            <EditIcon style={{marginLeft:"10px"}} onClick={() => openUpdateModal(item)} />
                                         </div>
                                     </td>
                                 </tr>
@@ -286,8 +287,8 @@ const InventoryData = () => {
                     </table>
                 </div>
                 <div className={styles.InventoryFooter}>
-                    <Button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</Button>
-                    <Button variant="contained" className={styles.nextButton}>Export to Excel</Button>
+                    <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
+                    <button variant="contained" className={styles.nextButton}>Export to Excel</button>
                 </div>
 
                 {/* Add Inventory Modal */}
@@ -365,8 +366,8 @@ const InventoryData = () => {
                                 </div>
                                 <div className={styles.inventoryFormActions}>
 
-                                    <DefaultButton onClick={closeModal}>Cancel</DefaultButton>
-                                    <PrimaryButton type="submit">Add</PrimaryButton>
+                                    <button onClick={closeModal} className={styles.cancelButton}>Cancel</button>
+                                    <button type="submit" className={styles.saveButton}>Add</button>
                                 </div>
                             </form>
                         </div>
@@ -444,8 +445,9 @@ const InventoryData = () => {
                                     />
                                 </div>
                                 <div className={styles.inventoryFormActions}>
-                                    <PrimaryButton type="submit">Update</PrimaryButton>
-                                    <DefaultButton onClick={closeUpdateModal}>Cancel</DefaultButton>
+                                <button className={styles.cancelButton} onClick={closeUpdateModal}>Cancel</button>
+                                    <button  className = {styles.saveButton}type="submit">Update</button>
+                                   
                                 </div>
                             </form>
                         </div>

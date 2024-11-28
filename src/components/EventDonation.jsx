@@ -221,9 +221,14 @@ const EventDonation = () => {
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
                         />
-                        <Button className={styles.saveButton} variant="contained" onClick={handleSave}>
+                        <div className={styles.cancel_saveButton_division}>
+                            <button className={styles.cancelButton} onClick={closeModal}> Cancel</button>
+                        <button className={styles.saveButton} variant="contained" onClick={handleSave}>
                             Save
-                        </Button>
+                        </button>
+
+                        </div>
+                        
                     </form>
                 </div>
             </Modal>

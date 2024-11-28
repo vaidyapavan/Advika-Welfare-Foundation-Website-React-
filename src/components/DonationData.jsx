@@ -140,6 +140,7 @@ const DonationData = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
+   
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -234,7 +235,7 @@ const DonationData = () => {
                 <Modal open={isModalOpen} onClose={closeModal}>
                     <div className={styles["modal-content"]}>
                         <CloseIcon className={styles["close-icon"]} onClick={closeModal} />
-                        <h3>{editMode ? 'Edit Donation' : 'Add Donation'}</h3>
+                        <h3 className={styles.modalHeader}>{editMode ? 'Edit Donation' : 'Add Donation'}</h3>
 
                         <label>Donor Name</label>
                         <input
@@ -287,8 +288,13 @@ const DonationData = () => {
 
                         {errorMessage && <p className={styles.error}>{errorMessage}</p>}
                         {successMessage && <p className={styles.success}>{successMessage}</p>}
+                        <div className={styles.buttonDivision}>
+                            <button className={styles.cancelButton} onClick={closeModal}>Cancel</button>
+                        <button className={styles.saveButton} onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
 
-                        <button onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
+                        </div>
+
+                       
                     </div>
                 </Modal>
                 </div>

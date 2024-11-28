@@ -186,10 +186,11 @@ const InkindDonation = () => {
             >
                 <div className={styles.modalContainer}>
                     <div className={styles.modalHeader}>
+                    <CloseIcon onClick={closeModal} className={styles.closeIcon} />
                         <h2 id="modal-title" className={styles.modalTitle}>
-                            {isEditMode ? 'Edit In-kind Donation' : 'Add In-kind Donation'}
+                            {isEditMode ? 'In-kind Donation' : 'In-kind Donation'}
                         </h2>
-                        <CloseIcon onClick={closeModal} className={styles.closeIcon} />
+                       
                     </div>
                     <form className={styles.modalForm}>
                         <TextField
@@ -236,14 +237,18 @@ const InkindDonation = () => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                        <Button
+                        <div className={styles.cancel_save_buttons}>
+                        <button className={styles.cancelButton} onClick={closeModal}> Cancel</button>
+                        <button
                             className={styles.saveButton}
-                            variant="contained"
-                            color="primary"
+                         
+                        
                             onClick={handleSave}
                         >
                             Save
-                        </Button>
+                        </button>
+                        </div>
+                       
                     </form>
                 </div>
             </Modal>

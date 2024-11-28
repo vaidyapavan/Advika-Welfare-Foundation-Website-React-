@@ -268,7 +268,7 @@ const ExpenseTable = () => {
             {/* Modal for adding balance */}
             <Modal isOpen={addBalanceModal} onDismiss={closeAddBalanceModal}>
                 <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeAddBalanceModal} />
+                    <CloseIcon style={{ marginLeft: "340px", cursor: "pointer", marginTop:"-20px"}} onClick={closeAddBalanceModal} />
                     <h3 id={styles.addBalanceHeading}>Add Balance</h3>
                     <label htmlFor="amountInput">Enter amount</label>
                     <input
@@ -297,7 +297,7 @@ const ExpenseTable = () => {
                     </select>
                     <br />
                     <div className={styles.buttons}>
-                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"150px"}}>Cancel</button>
+                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"100px"}}>Cancel</button>
                         <button className={styles.save} onClick={handleSave}>Save</button>
 
                     </div>
@@ -307,8 +307,8 @@ const ExpenseTable = () => {
 
             {/* Modal for adding expense */}
             <Modal isOpen={addExpenseModal} onDismiss={closeAddExpenseModal}>
-                <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeAddExpenseModal} />
+                <div className={styles.addExpensepopupContent}>
+                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer", marginTop:"-20px"}} onClick={closeAddExpenseModal} />
                     <h3 className={styles.addExpenseHeading}>Add Expense</h3>
 
                     <label htmlFor="expenseAmountInput">Amount</label>
@@ -384,7 +384,7 @@ const ExpenseTable = () => {
 
             {/* Modal for editing expense */}
             <Modal isOpen={editExpenseModal} onDismiss={closeEditExpenseModal}>
-                <div className={styles.popupContent}>
+                <div className={styles.addExpensepopupContent}>
                     <CloseIcon style={{ marginLeft: "440px", cursor: "pointer" }} onClick={closeEditExpenseModal} />
                     <h3 className={styles.addExpenseHeading}>Edit Expense</h3>
 
@@ -452,7 +452,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal}>Cancel</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{marginLeft:"150px"}}>Cancel</button>
                         <button className={styles.addExpenseButton} onClick={handleEditExpense}>Update</button>
                     </div>
                 </div>
