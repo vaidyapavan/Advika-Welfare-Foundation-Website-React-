@@ -35,8 +35,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: 800px;
+  margin-bottom: 10px;
+  margin-left: 650px;
+  margin-top: 5px;
 }
 .nextButton
 {
@@ -63,18 +64,16 @@
 .donation-table thead {
   position: sticky;
   top: 0;
-  /* background-color: white;  */
   z-index: 1; /* Keeps the header above the body content */
   background-color: white;
 }
 
 .donation-table th, .donation-table td {
-  padding: 8px 16px;
-  text-align: left;
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 
 }
-
-
 .donation-table tbody {
   max-height: 350px; /* Adjust as per table wrapper height */
   display: block; /* To enable scrolling */
@@ -92,8 +91,13 @@
 
 .action-icon {
   display: flex;
-  gap: 10px;
+  gap:10px;
   cursor: pointer;
+  margin-left: 50px;
+}
+.delete_action-icon
+{
+  margin-left: 45px;
 }
 
 .error-message {

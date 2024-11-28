@@ -8,7 +8,7 @@
     
 }
 
-.expenseTableContainer {
+.reportTableContainer {
     width: 100%;
     max-width: 1800px; 
   background-color:#ced4da50;
@@ -53,32 +53,41 @@
     margin-bottom: 20px; 
 }
 
-.expenseTable {
+.reportTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-.expenseTable {
+.reportTable {
     width: 100%;
     
 }
 
-.expenseTable th {
-    position: sticky;
-    top: 0; /* Stick to the top of the scroll container */
-    background-color: #f1f1f1; /* Background color to make the header stand out */
-    z-index: 2; /* Ensure it stays above table rows */
-    text-align: center;
-    padding: 10px;
-    color: #333;
-    border-bottom: 1px solid #ddd;
+.reportTable th {
+    color: black;
+    font-weight: bold;
+    position: sticky; /* Makes the header sticky */
+    top: 0; /* Stick at the top */
+    background-color: #f9f9f9; /* Background for sticky header */
+    z-index: 1; /* Ensure it stays above table content */
 }
 
-.expenseTable td {
+.reportTable tr:hover {
+    background-color:white;
+  }
+
+.reportTable td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+}
+
+.reportTable th,
+.reportTable td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .scrollableTableContainer {
@@ -93,10 +102,10 @@
 
 
 .reportFooter {
-    display: flex; 
-    justify-content: center;
-    margin-top: 20px; 
-    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.096) ;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 
@@ -133,8 +142,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 650px;
 }
 .nextButton
 {
@@ -144,7 +154,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 15px;
+  margin-top: 10px;
 
 }

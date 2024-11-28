@@ -206,7 +206,7 @@ const ExpenseTable = () => {
                     Add Expense
                 </button>
                 <br></br>
-                <SearchBox></SearchBox>
+                {/* <SearchBox></SearchBox> */}
                 <div className={styles.expenseTableContainer}>
                     <div className={styles.tableScrollContainer}>
                         <table className={styles.expenseTable}>
@@ -252,7 +252,7 @@ const ExpenseTable = () => {
                         </table>
                     </div>
                     <div className={styles.expenseFooter}>
-                    <button className={styles.goback} title="Go back" style={{marginLeft:"700px"}}   onClick={goToHomepage}>
+                    <button className={styles.goback} title="Go back" onClick={goToHomepage}>
                         BACK
                     </button>
                     <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>

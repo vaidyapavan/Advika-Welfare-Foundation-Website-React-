@@ -270,10 +270,10 @@ const EmployeeData = () => {
         <br></br>
 
         <div className={styles.employeeFooter}>
-          <button className={styles.goback} style={{marginLeft:"700px"}}  title="Go back" onClick={gotohomepage}>
+          <button className={styles.goback}   title="Go back" onClick={gotohomepage}>
             BACK
           </button>
-          <button className={styles.nextButton}  style={{marginLeft:"30px"}}  title="Go next"  onClick={goToNextScreen}>
+          <button className={styles.nextButton}   title="Go next"  onClick={goToNextScreen}>
             NEXT
           </button>
         </div>

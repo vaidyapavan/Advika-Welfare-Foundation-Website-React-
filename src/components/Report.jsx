@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../assets/Report.module.css'; // Update to use CSS module
+import styles from '../assets/Report.module.css'; 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { ComboBox } from '@fluentui/react'; // Use ComboBox for multi-select
 import Button from '@mui/material/Button';
@@ -63,6 +63,12 @@ const Report = () => {
         navigate('/homepage1');
     };
 
+    const gotoNextpage = () =>
+    {
+        navigate('/inventorydata');
+
+    }
+
     const handleSearch = () => {
         let filtered = expenses;
 
@@ -95,7 +101,7 @@ const Report = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.expenseTableContainer}>
+            <div className={styles.reportTableContainer}>
                 <button className={styles.btn} title="Go back" onClick={goToHomepage}>
                     <ArrowBackIosIcon />
                 </button>
@@ -123,7 +129,7 @@ const Report = () => {
                 </div>
 
                 <div className={styles.scrollableTableContainer}>
-                    <table className={styles.expenseTable}>
+                    <table className={styles.reportTable}>
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -151,7 +157,7 @@ const Report = () => {
 
                 <div className={styles.reportFooter}>
                     <Button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</Button>
-                    <Button variant="contained" className={styles.nextButton}>Export to Excel</Button>
+                    <Button variant="contained" className={styles.nextButton}onClick={gotoNextpage}>Export to Excel</Button>
                 </div>
 
 

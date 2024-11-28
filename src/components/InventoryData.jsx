@@ -5,7 +5,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import styles from '../assets/InventoryData.module.css';
 
 const InventoryData = () => {
@@ -38,7 +39,7 @@ const InventoryData = () => {
         category: 'asc',
     });
 
-
+    const navigate = useNavigate();
 
     const sortDates = () => {
         setSortOrder((prevState) => {
@@ -214,13 +215,16 @@ const InventoryData = () => {
             }
         }
     };
+    const goToHomepage = () => {
+        navigate('/homepage1');
+    };
 
     return (
         <div className={styles.main_container}>
             <div className={styles.data_container}>
                 <h1>Inventory Data</h1>
                 <button onClick={openModal} style={{ marginLeft: "1400px" }}>Add Inventory</button>
-                <div className={styles}>
+                <div className={styles.inventory_table_Container}>
                     <table className={styles.inventory_table}>
                         <thead>
                             <tr>
@@ -280,6 +284,10 @@ const InventoryData = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className={styles.InventoryFooter}>
+                    <Button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</Button>
+                    <Button variant="contained" className={styles.nextButton}>Export to Excel</Button>
                 </div>
 
                 {/* Add Inventory Modal */}

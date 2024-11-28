@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import EventDonation from "./EventDonation";
 import InkindDonation from "./InkindDonation";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 import { useNavigate } from 'react-router-dom';
 import { Pivot, PivotItem } from '@fluentui/react';
 import styles from '../assets/DonationData.module.css';
@@ -204,8 +204,8 @@ const DonationData = () => {
                                             <td>{donation.amount}</td>
                                             <td>
                                                 <div className={styles["action-icon"]}>
-                                                    <DeleteIcon className={styles["action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
-                                                    <EditIcon className={styles["action-icon"]} onClick={() => openModal(donation)} />
+                                                    <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
+                                                    <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
                                                 </div>
                                             </td>
                                         </tr>

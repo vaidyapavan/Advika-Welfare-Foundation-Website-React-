@@ -68,12 +68,11 @@
 
 /* Static footer section */
 .studentfooter {
-  position: sticky;
   background-color: rgba(0, 0, 0, 0.096) ;
-
-  width: 100%;
-  text-align: center;
-  gap: 15px;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  
 }
 
 .header {
@@ -153,7 +152,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 650px;
 }
 .nextButton
 {
