@@ -1,97 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/Homepage1.css';
 import logo from '../assets/images/advikalogo.png';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PageFooter from './PageFooter';
+import ExpenseTable from './ExpenseTable';
+import DonationData from './DonationData';
+import Read from './Read';
+import EmployeeData from './EmployeeData';
+import Report from './Report';
+import InventoryData from './InventoryData';
 
-const Homepage1 = ({email}) => {
+const Homepage1 = ({ email }) => {
+
+    const sections = ['donation', 'expense', 'student', 'employee', 'report', 'inventory'];
+
+const goToBackScreen = () => {
+    const currentIndex = sections.indexOf(activeComponent);
+    if (currentIndex > 0) {
+        setActiveComponent(sections[currentIndex - 1]);
+    }
+}
+
+const goToNextScreen = () => {
+    const currentIndex = sections.indexOf(activeComponent);
+    if (currentIndex < sections.length - 1) {
+        setActiveComponent(sections[currentIndex + 1]);
+    }
+}
+
     const navigate = useNavigate();
+    const [activeComponent, setActiveComponent] = useState('expense'); // Default load Expense component
 
-    const expensetransaction = () => {
-        navigate('/expenseTable');
+    const navigateTo = (section) => {
+        setActiveComponent(section);
     }
-    const studentdata = () => {
-        navigate('/read');
-    }
-    const employeedata = () =>
-    {
-        navigate('/employeeData');
-    }
-    const GotoDonationData = () =>
-    {
-        navigate('/donationData');
-    }
-    const goToReport = () =>
-    {
-        navigate('/report');
-    }
-    const goToInventoryPage = () =>
-    {
-        navigate('/inventoryData');
+
+    const renderComponent = () => {
+        switch (activeComponent) {
+            case 'expense':
+                return <ExpenseTable />;
+            case 'donation':
+                return <DonationData />;
+            case 'student':
+                return <Read />;
+            case 'employee':
+                return <EmployeeData />;
+            case 'report':
+                return <Report />;
+            case 'inventory':
+                return <InventoryData />;
+            default:
+                return <ExpenseTable />;
+        }
     }
 
     return (
         <>
-            <div className='homecontainer'>
-                <div className='header'>
-                    <div className='logo'>
-                        <img src={logo} alt="Advika Logo" />
-                        <AccountBoxIcon  style={{fontSize:"80px", marginLeft:"1450px", marginTop:"-100px"}}></AccountBoxIcon>
-                        <h3  style={{ marginLeft:"1400px", marginTop:"-15px"}}>{email}</h3>
-                    </div>
-                    <div className='body'>
-                    <div className='card' onClick={GotoDonationData}>
-                            <div className='card-content'>
-                                <h2>Donation Data</h2>
-                                <p>  Our Donation</p>
-                            </div>
-                        </div>
-                    <div className='card' onClick={expensetransaction}>
-                            <div className='card-content'>
-                                <h2>Expense</h2>
-                                <p>Track Expenses</p>
-                            </div>
-                        </div>
-                      
-                       
-
-                        <div className='card' onClick={studentdata}>
-                            <div className='card-content'>
-                                <h2>Student</h2>
-                                <p>Manage Student Data</p>
-                            </div>
-                        </div>
-
-                     
-
-                        <div className='card' onClick={employeedata}>
-                            <div className='card-content'>
-                                <h2>Employee</h2>
-                                <p>Employee Data</p>    
-                            </div>
-                        </div>
-                        <div className='card' onClick={goToReport}>
-                            <div className='card-content'>
-                                <h2>Monthly Report</h2>
-                                <p>Monthly Consumption</p>
-                            </div>
-                        </div>
-                        <div className='card' onClick={goToInventoryPage}>
-                            <div className='card-content'>
-                                <h2>Inventory Record</h2>
-                                <p>Management of of the Whole Inventory</p>
-                            </div>
-                        </div>
-
-                      
-
-                       
-                        
-                    </div>
+            <div className="container">
+                {/* Sidebar navigation */}
+                <div className="sidebar">
+                    <img src={logo} alt="Advika Logo" className="logo" />
+                    <AccountBoxIcon style={{ fontSize: "80px", marginLeft: "auto", marginRight: "auto" }} />
+                    <h3>{email}</h3>
+                    <ul className="nav-items">
+                        <li onClick={() => navigateTo('donation')}>Donation Data</li>
+                        <li onClick={() => navigateTo('expense')}>Expense</li>
+                        <li onClick={() => navigateTo('student')}>Student Data</li>
+                        <li onClick={() => navigateTo('employee')}>Employee Data</li>
+                        <li onClick={() => navigateTo('report')}>Monthly Report</li>
+                        <li onClick={() => navigateTo('inventory')}>Inventory Record</li>
+                    </ul>
                 </div>
+
+                {/* Main content */}
+                <div className="content">
+                    {renderComponent()}
+                    <PageFooter onBack={goToBackScreen} onNext={goToNextScreen} />
+                </div>
+                
             </div>
-            <Footer></Footer>
+
+            {/* Footer with Back and Next buttons */}
+          
+
         </>
     );
 }

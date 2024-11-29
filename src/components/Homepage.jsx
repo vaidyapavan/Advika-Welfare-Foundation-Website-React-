@@ -8,7 +8,9 @@ import FeatureSection from '../components/FeatureSelection';
 import Info from '../components/Info';
 import Bottom from '../components/Bottom';
 import Galary from '../components/Galary';
+
 import Footer from '../components/Footer';
+
 
 function Homepage() {
   const navigate = useNavigate(); 
@@ -75,6 +77,7 @@ function Homepage() {
         </div>
 
         <Bottom />
+       
 
  
         <div ref={footerRef}>

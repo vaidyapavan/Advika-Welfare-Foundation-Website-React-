@@ -269,14 +269,14 @@ const EmployeeData = () => {
         </div>
         <br></br>
 
-        <div className={styles.employeeFooter}>
+        {/* <div className={styles.employeeFooter}>
           <button className={styles.goback}   title="Go back" onClick={gotohomepage}>
             BACK
           </button>
           <button className={styles.nextButton}   title="Go next"  onClick={goToNextScreen}>
             NEXT
           </button>
-        </div>
+        </div> */}
   
       </div>
       </div>

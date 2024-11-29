@@ -155,10 +155,10 @@ const Report = () => {
                     </table>
                 </div>
 
-                <div className={styles.reportFooter}>
+                {/* <div className={styles.reportFooter}>
                     <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
                     <button variant="contained" className={styles.nextButton}onClick={gotoNextpage}>Export to Excel</button>
-                </div>
+                </div> */}
 
 
 

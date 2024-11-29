@@ -157,11 +157,13 @@ const DonationData = () => {
     return (
         <>
             <div className={styles.mainContainer}>
+   
                 <div className={styles.container}>
+                                 
+            <h1 className={styles["donationheader"]}>Donation Details</h1> 
 
                
-
-                <h1>Donation Details</h1>   
+  
 
                 
                 <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
@@ -219,10 +221,10 @@ const DonationData = () => {
                             </table>
                         </div>
                         <br />  
-                        <div className={styles.donationfooter}>
+                        {/* <div className={styles.donationfooter}>
                             <button className={styles.goback} onClick={gotoHomepage}>Back</button>
                             <button className={styles.nextButton} onClick={goToNextScreen}>Next</button>
-                        </div>
+                        </div> */}
                     </PivotItem>
                     <PivotItem headerText="In-Kind Donations" itemKey="inkind">
                         <InkindDonation />

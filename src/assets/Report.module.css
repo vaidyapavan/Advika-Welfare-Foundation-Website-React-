@@ -5,6 +5,7 @@
     padding: 20px;
     background-color: white;
     height: 900px;
+    width: 100%;
     
 }
 
@@ -18,6 +19,8 @@
 }
 
 .header {
+    justify-content: center;
+    text-align: center;
     font-size: 2rem;
     margin-bottom: 10px;
     color: #333;

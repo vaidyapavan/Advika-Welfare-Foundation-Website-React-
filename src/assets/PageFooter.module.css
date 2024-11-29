@@ -1,0 +1,27 @@
+.pageFooter {
+  display: flex; /* Use Flexbox for alignment */
+  justify-content: center; /* Horizontally centers the buttons */
+  align-items: center; /* Vertically centers the buttons */
+  padding: 10px;
+  gap:15px;
+  background-color: rgba(0, 0, 0, 0.096);
+  width: 100%;
+}
+
+.goback {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nextbutton {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

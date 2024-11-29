@@ -223,7 +223,7 @@ const InventoryData = () => {
         <div className={styles.main_container}>
             <div className={styles.data_container}>
                 
-                <h1>Inventory Data</h1>
+                <h1 className={styles.inventoryHeader}>Inventory Data</h1>
                 <button onClick={openModal} className={styles.addInventoryButton} >Add Inventory</button>
                 <div className={styles.inventory_table_Container}>
                     <table className={styles.inventory_table}>
@@ -286,10 +286,10 @@ const InventoryData = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className={styles.InventoryFooter}>
+                {/* <div className={styles.InventoryFooter}>
                     <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
                     <button variant="contained" className={styles.nextButton}>Export to Excel</button>
-                </div>
+                </div> */}
 
                 {/* Add Inventory Modal */}
                 {isModalOpen && (

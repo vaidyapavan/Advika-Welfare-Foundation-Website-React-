@@ -159,10 +159,10 @@ const EventDonation = () => {
                 <br></br>
                
             </div>
-            <div className={styles.donationfooter}>
+            {/* <div className={styles.donationfooter}>
                     <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
                     <button className={styles.nextButton} onClick={goToNextScreen}> Next</button>
-                </div>
+                </div> */}
 
             <Modal open={isModalOpen} onClose={closeModal}>
                 <div className={styles.modalContainer}>

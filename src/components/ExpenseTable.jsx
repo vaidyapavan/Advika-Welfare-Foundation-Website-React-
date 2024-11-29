@@ -202,7 +202,7 @@ const ExpenseTable = () => {
                 <button className={styles.btn} title="Add Balance" onClick={openAddBalanceModal}>
                     Add Balance
                 </button>
-                <button className={styles.btn} title="Add Expense" style={{ marginLeft: "1400px" }} onClick={openAddExpenseModal}>
+                <button className={styles.btn} title="Add Expense" style={{ marginLeft: "500px" }} onClick={openAddExpenseModal}>
                     Add Expense
                 </button>
                 <br></br>
@@ -235,30 +235,33 @@ const ExpenseTable = () => {
                                         <td>{expense.paymentMode}</td>
                                         <td>{expense.description}</td>
                                         <td>
+                                            <div className={styles.action_icon}> 
                                             <EditIcon
                                                 onClick={() => openEditExpenseModal(expense)}
                                                 title="Edit transaction"
-                                                style={{ cursor: "pointer" }}
+                                                style={{ cursor: "pointer",marginLeft:"30px" }}
                                             />
                                             <DeleteIcon
                                                 onClick={() => handleDeleteExpense(expense.id)}
                                                 title="Delete transaction"
-                                                style={{ marginLeft: "10px", cursor: "pointer" }}
+                                                style={{ cursor: "pointer" }}
                                             />
+                                            </div>
+                                            
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                    <div className={styles.expenseFooter}>
+                    {/* <div className={styles.expenseFooter}>
                     <button className={styles.goback} title="Go back" onClick={goToHomepage}>
                         BACK
                     </button>
                     <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>
                         NEXT
                     </button>
-                </div>
+                </div> */}
                    
                 </div>
 

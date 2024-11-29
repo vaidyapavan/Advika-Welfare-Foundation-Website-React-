@@ -159,7 +159,7 @@ const Read = () => {
             hobbyTerms={hobbyTerms}
             handleHobbyChange={handleHobbyChange}
           />
-          <button className="btn btn-primary mb-3" title="Add student" style={{ marginLeft: "270px" }} onClick={addStudent}>
+          <button className="btn btn-primary mb-3" title="Add student" style={{ marginLeft: "70px" }} onClick={addStudent}>
             Add
           </button>
         </div>
@@ -211,8 +211,8 @@ const Read = () => {
                   {capitalizeFirstLetter(item.gender)}
                 </td>
                 <td style={{ textAlign: 'center' }} className={styles.action} >
-                  <EditIcon title="Edit" style={{ marginLeft: "80px" }} onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
-                  <DeleteIcon title="Delete" style={{ marginLeft: "10px" }} onClick={() => confirmDelete(item.id)} />
+                  <EditIcon title="Edit" style={{ marginLeft: "10px" }}  onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
+                  <DeleteIcon title="Delete" style={{ marginLeft: "5px" }} onClick={() => confirmDelete(item.id)} />
                 </td>
               </tr>
             ))}
@@ -223,14 +223,14 @@ const Read = () => {
 
         
         {message && <p style={{ textAlign: 'center' }}>{message}</p>}
-        <div className={styles.studentfooter}>
+        {/* <div className={styles.studentfooter}>
         <button className={styles.goback} title="Go back" onClick={goToHomepage}>
           Back
         </button>
         <button className={styles.nextButton} title=" GO Next" onClick={goToNextScreen}>
           next
         </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Delete Confirmation Modal */}
