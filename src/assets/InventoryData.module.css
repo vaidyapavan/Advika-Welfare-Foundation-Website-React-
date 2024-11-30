@@ -1,153 +1,132 @@
-
-
-.main_container{
+.main_container {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
-    height: 900px;
-    width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  height: 900px;
+  width: 100%;
 }
-.data_container
-{
-    background-color: #ddd;
-    width: 900px;
-    height: 600px;
-    margin-left: 10px;
-    width: 100%;
 
+.data_container {
+  background-color: #ced4da50;
+  width: 100%;
+  height: 600px;
+  margin-left: 10px;
 }
+
 .inventoryModalWrapper {
   padding: 20px;
   max-width: 1200px;
   width: 600px;
   margin: 0 auto;
   border-radius: 8px;
-  max-height: 90vh; 
+  max-height: 90vh;
   overflow-y: auto;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 body.modal-open {
   overflow: hidden;
 }
 
-
 .inventoryModalHeading {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .inventoryFormGroup {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .inventoryFormGroup label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-
-
 .inputError {
-    border-color: red;
+  border-color: red;
 }
 
 .inventoryFormError {
-    color: red;
-    font-size: 12px;
-    margin-top: 4px;
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .inventoryFormActions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .inventoryFormActions button {
-    padding: 10px 20px;
-    font-size: 16px;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
-
-
-.inventoryHeader
-{
+.inventoryHeader {
   justify-content: center;
   text-align: center;
 }
 
-.inventory_table_Container
-{
+.inventory_table_Container {
   width: 100%;
-  max-width: 1800px; 
-background-color:#ced4da50;
+  max-width: 1800px;
+  
   border-radius: 8px;
   padding: 20px;
-  
 }
 
 .scrollableTableContainer {
-    max-height: 400px; 
-    overflow-y: auto;  
-    background-color:white;
-   
-  }
-  
-  
-  .inventory_table thead {
-    position: sticky;
-    top: 0;
-    
-    z-index: 1; 
-  }
-  
-  .inventory_table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    
-   
-  }
-  
-  .inventory_table th {
-    position: sticky;
-    top: 0; /* Stick to the top of the scroll container */
-    background-color: #f1f1f1; /* Background color to make the header stand out */
-    z-index: 2; /* Ensure it stays above table rows */
-    text-align: center;
-    padding: 10px;
-    color: #333;
-    border-bottom: 1px solid #ddd;   
-    
-    
-  }
- 
-  .inventory_table tr:hover {
-    background-color:white;
-  }
-  
-  
-  .inventory_table td{
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  
-  }
-  .inventory_table th,
-.inventory_table td {
- 
-  text-align: center;
-  border-bottom: 2px solid #ddd;
+  max-height: 465px;
+  overflow-y: auto;
 }
 
-.goback
-{
-  background-color:#1976d2; 
+.inventory_table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.inventory_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.inventory_table th {
+  position: sticky;
+  top: 0;
+  background-color: #f1f1f1;
+  z-index: 2;
+  text-align: center;
+  padding: 10px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+.inventory_table tr:hover {
+  background-color: white;
+}
+
+.inventory_table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.inventory_table th,
+.inventory_table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.goback {
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -157,9 +136,9 @@ background-color:#ced4da50;
   margin-top: 15px;
   margin-left: 650px;
 }
-.nextButton
-{
-  background-color:#1976d2; 
+
+.nextButton {
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -168,32 +147,29 @@ background-color:#ced4da50;
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 15px;
-
 }
- 
-  .InventoryFooter
-  {
-    background-color: rgba(0, 0, 0, 0.096) ;
-    padding: 10px;
-    align-items: center;
-    justify-content: space-between;
-  }
- 
-  .addInventoryButton{
-    margin-bottom: -30px;
-    margin-left: 80px;
-    background-color:#1976d2; 
+
+.InventoryFooter {
+  background-color: rgba(0, 0, 0, 0.096);
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addInventoryButton {
+  margin-bottom: -30px;
+  margin-left: 80px;
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  }
+  margin-left: 1130px;
+}
 
-
-  .cancelButton
-{
-  background-color:#1976d2; 
+.cancelButton {
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -202,9 +178,9 @@ background-color:#ced4da50;
   margin-top: -5px;
   margin-left: 170px;
 }
-.saveButton
-{
-  background-color:#1976d2; 
+
+.saveButton {
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -212,8 +188,4 @@ background-color:#ced4da50;
   cursor: pointer;
   margin-top: -5px;
   margin-right: 200px;
- 
-
 }
-  
-  

@@ -115,16 +115,14 @@ const EventDonation = () => {
 
     return (
         <div className={styles.eventDonationContainer}>
-            <div className={styles.container}>
-       
-
-            <div className={styles.header}>
+        <div className={styles.container}>
+                <div className={styles.countdiv}>
                 <h5 >Number of Donors: {totalEventlyDonors}</h5>
                 <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
-
-            </div>
-
+                </div>
+            
             <div className={styles.scrollableTableContainer}>
+                
                 <table className={styles.eventDonationTable}>
                     <thead>
                         <tr>
@@ -159,10 +157,7 @@ const EventDonation = () => {
                 <br></br>
                
             </div>
-            {/* <div className={styles.donationfooter}>
-                    <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                    <button className={styles.nextButton} onClick={goToNextScreen}> Next</button>
-                </div> */}
+            
 
             <Modal open={isModalOpen} onClose={closeModal}>
                 <div className={styles.modalContainer}>
@@ -232,8 +227,8 @@ const EventDonation = () => {
                     </form>
                 </div>
             </Modal>
+            
             </div>
-
         </div>
     );
 };

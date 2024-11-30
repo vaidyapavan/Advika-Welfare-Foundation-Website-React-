@@ -140,7 +140,7 @@ const DonationData = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
-   
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -157,148 +157,125 @@ const DonationData = () => {
     return (
         <>
             <div className={styles.mainContainer}>
-   
                 <div className={styles.container}>
-                                 
-            <h1 className={styles["donationheader"]}>Donation Details</h1> 
-
-               
-  
-
-                
-                <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
-                    <PivotItem headerText="Monthly Donations" itemKey="monthly">
-                    
-                  
-                           
-                        <div className={styles["donation-table-wrapper"]}>
-                            <br></br>
-                    
-                            <br></br>
-                            <br></br>
-                           
-                            <table className={styles["donation-table"]}>
-                                <div  style={{display:""}}>
-                                <h5 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h5>
-                                <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
-                                </div>
-                    
-                 
-                        
-
-                                <thead>
-                           
-                                    <tr>
-                                        <th>Donor Name</th>
-                                        <th>PAN No</th>
-                                        <th>Date</th>
-                                        <th>Payment Mode</th>
-                                        <th>Amount</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {donations.length > 0 ? donations.map((donation) => (
-                                        <tr key={donation.id}>
-                                            <td>{donation.donor_name}</td>
-                                            <td>{donation.pan_no}</td>
-                                            <td>{formatDate(donation.date)}</td>
-                                            <td>{donation.payment_mode}</td>
-                                            <td>{donation.amount}</td>
-                                            <td>
-                                                <div className={styles["action-icon"]}>
-                                                    <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
-                                                    <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )) : (
+                    <h1 className={styles["donationheader"]}>Donation Details</h1>
+                    <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
+                        <PivotItem headerText="Monthly Donations" itemKey="monthly">
+                        <div className={styles["countdiv"]}>
+                                        <h2 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h2>
+                                        <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
+                                    </div>
+                            <div className={styles["donation-table-wrapper"]}>
+                            
+                                <table className={styles["donation-table"]}>
+                                   
+                                    <thead>
                                         <tr>
-                                            <td colSpan="6">No donations available</td>
+                                            <th>Donor Name</th>
+                                            <th>PAN No</th>
+                                            <th>Date</th>
+                                            <th>Payment Mode</th>
+                                            <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {donations.length > 0 ? donations.map((donation) => (
+                                            <tr key={donation.id}>
+                                                <td>{donation.donor_name}</td>
+                                                <td>{donation.pan_no}</td>
+                                                <td>{formatDate(donation.date)}</td>
+                                                <td>{donation.payment_mode}</td>
+                                                <td>{donation.amount}</td>
+                                                <td>
+                                                    <div className={styles["action-icon"]}>
+                                                        <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
+                                                        <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr>
+                                                <td colSpan="6">No donations available</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br />
+                        </PivotItem>
+                        <PivotItem headerText="In-Kind Donations" itemKey="inkind">
+                            <InkindDonation />
+                        </PivotItem>
+                        <PivotItem headerText="Event Donations" itemKey="event">
+                            <EventDonation />
+                        </PivotItem>
+                    </Pivot>
+
+                    <Modal open={isModalOpen} onClose={closeModal}>
+                        <div className={styles["modal-content"]}>
+                            <CloseIcon className={styles["close-icon"]} onClick={closeModal} />
+                            <h3 className={styles.modalHeader}>{editMode ? 'Edit Donation' : 'Add Donation'}</h3>
+                            <label>Donor Name</label>
+                            <input
+                                type="text"
+                                value={donorName}
+                                placeholder="Enter the name"
+                                onChange={(e) => setDonorName(e.target.value)}
+                            />
+                            <br />
+
+                            <label>PAN No</label>
+                            <input
+                                type="text"
+                                value={panNo}
+                                placeholder="Enter the PAN No"
+                                onChange={(e) => setPanNo(e.target.value)}
+                            />
+                            <br />
+
+                            <label>Date</label>
+                            <input
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                            <br />
+
+                            <label>Payment Mode</label>
+                            <select
+                                value={paymentMode}
+                                onChange={(e) => setPaymentMode(e.target.value)}
+                            >
+                                <option value="">Select Payment Mode</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="UPI">UPI</option>
+                            </select>
+                            <br />
+
+                            <label>Amount</label>
+                            <input
+                                type="text"
+                                value={amount}
+                                placeholder="Enter the amount"
+                                onChange={(e) => setAmount(e.target.value)}
+                            />
+                            <br />
+
+                            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+                            {successMessage && <p className={styles.success}>{successMessage}</p>}
+                            <div className={styles.buttonDivision}>
+                                <button className={styles.cancelButton} onClick={closeModal}>Cancel</button>
+                                <button className={styles.saveButton} onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
+
+                            </div>
+
+
                         </div>
-                        <br />  
-                        {/* <div className={styles.donationfooter}>
-                            <button className={styles.goback} onClick={gotoHomepage}>Back</button>
-                            <button className={styles.nextButton} onClick={goToNextScreen}>Next</button>
-                        </div> */}
-                    </PivotItem>
-                    <PivotItem headerText="In-Kind Donations" itemKey="inkind">
-                        <InkindDonation />
-                    </PivotItem>
-                    <PivotItem headerText="Event Donations" itemKey="event">
-                        <EventDonation />
-                    </PivotItem>
-                </Pivot>
-
-                <Modal open={isModalOpen} onClose={closeModal}>
-                    <div className={styles["modal-content"]}>
-                        <CloseIcon className={styles["close-icon"]} onClick={closeModal} />
-                        <h3 className={styles.modalHeader}>{editMode ? 'Edit Donation' : 'Add Donation'}</h3>
-
-                        <label>Donor Name</label>
-                        <input
-                            type="text"
-                            value={donorName}
-                            placeholder="Enter the name"
-                            onChange={(e) => setDonorName(e.target.value)}
-                        />
-                        <br />
-
-                        <label>PAN No</label>
-                        <input
-                            type="text"
-                            value={panNo}
-                            placeholder="Enter the PAN No"
-                            onChange={(e) => setPanNo(e.target.value)}
-                        />
-                        <br />
-
-                        <label>Date</label>
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                        <br />
-
-                        <label>Payment Mode</label>
-                        <select
-                            value={paymentMode}
-                            onChange={(e) => setPaymentMode(e.target.value)}
-                        >
-                            <option value="">Select Payment Mode</option>
-                            <option value="Credit Card">Credit Card</option>
-                            <option value="Debit Card">Debit Card</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Bank Transfer">Bank Transfer</option>
-                            <option value="UPI">UPI</option>
-                        </select>
-                        <br />
-
-                        <label>Amount</label>
-                        <input
-                            type="text"
-                            value={amount}
-                            placeholder="Enter the amount"
-                            onChange={(e) => setAmount(e.target.value)}
-                        />
-                        <br />
-
-                        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-                        {successMessage && <p className={styles.success}>{successMessage}</p>}
-                        <div className={styles.buttonDivision}>
-                            <button className={styles.cancelButton} onClick={closeModal}>Cancel</button>
-                        <button className={styles.saveButton} onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
-
-                        </div>
-
-                       
-                    </div>
-                </Modal>
+                    </Modal>
                 </div>
             </div>
         </>

@@ -159,8 +159,8 @@ const Read = () => {
             hobbyTerms={hobbyTerms}
             handleHobbyChange={handleHobbyChange}
           />
-          <button className="btn btn-primary mb-3" title="Add student" style={{ marginLeft: "70px" }} onClick={addStudent}>
-            Add
+          <button className="btn btn-primary mb-3" title="Add student" style={{ marginLeft: "150px" }} onClick={addStudent}>
+            ADD
           </button>
         </div>
         <div className={styles.tableContainer}>
@@ -211,7 +211,7 @@ const Read = () => {
                   {capitalizeFirstLetter(item.gender)}
                 </td>
                 <td style={{ textAlign: 'center' }} className={styles.action} >
-                  <EditIcon title="Edit" style={{ marginLeft: "10px" }}  onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
+                  <EditIcon title="Edit" style={{ marginLeft: "50px" }}  onClick={() => setToLocalStorageAndNavigate(item.id, item.name, item.email, item.studentClass, item.hobby, item.gender)} />
                   <DeleteIcon title="Delete" style={{ marginLeft: "5px" }} onClick={() => confirmDelete(item.id)} />
                 </td>
               </tr>

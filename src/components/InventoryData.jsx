@@ -222,70 +222,76 @@ const InventoryData = () => {
     return (
         <div className={styles.main_container}>
             <div className={styles.data_container}>
-                
+
                 <h1 className={styles.inventoryHeader}>Inventory Data</h1>
                 <button onClick={openModal} className={styles.addInventoryButton} >Add Inventory</button>
+                <br></br>
+
                 <div className={styles.inventory_table_Container}>
-                    <table className={styles.inventory_table}>
-                        <thead>
-                            <tr>
-                                <th className={styles.tableHeader}>
-                                    Date
-                                    {sortOrder.date === 'asc' ? (
-                                        <ArrowDropDownIcon onClick={sortDates} className={styles.sortIcon} />
-                                    ) : (
-                                        <ArrowDropUpIcon onClick={sortDates} className={styles.sortIcon} />
-                                    )}
-                                </th>
-                                <th className={styles.tableHeader}>
-                                    Item Name
-                                    {sortOrder.itemName === 'asc' ? (
-                                        <ArrowDropDownIcon onClick={sortItems} className={styles.sortIcon} />
-                                    ) : (
-                                        <ArrowDropUpIcon onClick={sortItems} className={styles.sortIcon} />
-                                    )}
-                                </th>
-                                <th className={styles.tableHeader}>
-                                    Quantity
-                                    {sortOrder.quantity === 'asc' ? (
-                                        <ArrowDropDownIcon onClick={sortQuantities} className={styles.sortIcon} />
-                                    ) : (
-                                        <ArrowDropUpIcon onClick={sortQuantities} className={styles.sortIcon} />
-                                    )}
-                                </th>
-                                <th className={styles.tableHeader}>
-                                    Category
-                                    {sortOrder.category === 'asc' ? (
-                                        <ArrowDropDownIcon onClick={sortCategories} className={styles.sortIcon} />
-                                    ) : (
-                                        <ArrowDropUpIcon onClick={sortCategories} className={styles.sortIcon} />
-                                    )}
-                                </th>
-                                <th className={styles.tableHeader}>Unit</th>
-                                <th className={styles.tableHeader}>Description</th>
-                                <th className={styles.tableHeader}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {inventory.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{formatDate(item.date)}</td>
-                                    <td>{item.itemName}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{item.category}</td>
-                                    <td>{item.unitOfMeasurement}</td>
-                                    <td>{item.description}</td>
-                                    <td>
-                                        <div className={styles.actionIcons}>
-                                            <DeleteIcon onClick={() => handleDelete(item.id)} />
-                                            <EditIcon style={{marginLeft:"10px"}} onClick={() => openUpdateModal(item)} />
-                                        </div>
-                                    </td>
+                    <div className={styles.scrollableTableContainer}>
+                        <table className={styles.inventory_table}>
+                            <thead>
+                                <tr>
+                                    <th className={styles.tableHeader}>
+                                        Date
+                                        {sortOrder.date === 'asc' ? (
+                                            <ArrowDropDownIcon onClick={sortDates} className={styles.sortIcon} />
+                                        ) : (
+                                            <ArrowDropUpIcon onClick={sortDates} className={styles.sortIcon} />
+                                        )}
+                                    </th>
+                                    <th className={styles.tableHeader}>
+                                        Item Name
+                                        {sortOrder.itemName === 'asc' ? (
+                                            <ArrowDropDownIcon onClick={sortItems} className={styles.sortIcon} />
+                                        ) : (
+                                            <ArrowDropUpIcon onClick={sortItems} className={styles.sortIcon} />
+                                        )}
+                                    </th>
+                                    <th className={styles.tableHeader}>
+                                        Quantity
+                                        {sortOrder.quantity === 'asc' ? (
+                                            <ArrowDropDownIcon onClick={sortQuantities} className={styles.sortIcon} />
+                                        ) : (
+                                            <ArrowDropUpIcon onClick={sortQuantities} className={styles.sortIcon} />
+                                        )}
+                                    </th>
+                                    <th className={styles.tableHeader}>
+                                        Category
+                                        {sortOrder.category === 'asc' ? (
+                                            <ArrowDropDownIcon onClick={sortCategories} className={styles.sortIcon} />
+                                        ) : (
+                                            <ArrowDropUpIcon onClick={sortCategories} className={styles.sortIcon} />
+                                        )}
+                                    </th>
+                                    <th className={styles.tableHeader}>Unit</th>
+                                    <th className={styles.tableHeader}>Description</th>
+                                    <th className={styles.tableHeader}>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {inventory.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>{formatDate(item.date)}</td>
+                                        <td>{item.itemName}</td>
+                                        <td>{item.quantity}</td>
+                                        <td>{item.category}</td>
+                                        <td>{item.unitOfMeasurement}</td>
+                                        <td>{item.description}</td>
+                                        <td>
+                                            <div className={styles.actionIcons}>
+                                                <DeleteIcon onClick={() => handleDelete(item.id)} />
+                                                <EditIcon style={{ marginLeft: '10px' }} onClick={() => openUpdateModal(item)} />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+
                 {/* <div className={styles.InventoryFooter}>
                     <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
                     <button variant="contained" className={styles.nextButton}>Export to Excel</button>
@@ -445,9 +451,9 @@ const InventoryData = () => {
                                     />
                                 </div>
                                 <div className={styles.inventoryFormActions}>
-                                <button className={styles.cancelButton} onClick={closeUpdateModal}>Cancel</button>
-                                    <button  className = {styles.saveButton}type="submit">Update</button>
-                                   
+                                    <button className={styles.cancelButton} onClick={closeUpdateModal}>Cancel</button>
+                                    <button className={styles.saveButton} type="submit">Update</button>
+
                                 </div>
                             </form>
                         </div>

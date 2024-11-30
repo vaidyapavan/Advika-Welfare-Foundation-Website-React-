@@ -4,6 +4,7 @@
   background-color:white;
   height: 800px;
   width: 100%;
+  margin-top: -40px;
 
 }
 
@@ -52,10 +53,10 @@
 
 .donationTable th {
   color: black;
-  background-color: #f9f9f9; /* Background for sticky header */
-  position: sticky; /* Makes the header sticky */
-  top: 0; /* Stick at the top */
-  z-index: 1; /* Ensures it stays above table content */
+  background-color: #f9f9f9; 
+  position: sticky; 
+  top: 0; 
+  z-index: 1; 
 }
 
 .donationTable tr:hover {
@@ -64,9 +65,10 @@
 
 /* Making the table scrollable */
 .tableContainer {
-  max-height: 400px; /* Adjust this height based on your requirement */
+  max-height: 450px; 
   overflow-y: auto;
   overflow-x: hidden;
+  background-color:#ced4da50;
 }
 
 /* Static footer section */

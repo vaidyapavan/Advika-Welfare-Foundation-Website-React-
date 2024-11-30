@@ -127,6 +127,7 @@ const InkindDonation = () => {
 
     return (
         <div className={styles.inkindDonationContainer}>
+            <div className={styles.container}>
             <div className={styles.header}>
                 <h5> Number of Donors: {totalinkindDonors}</h5>
                 <button className={styles.addDonationButton} onClick={() => openModal()}>
@@ -134,8 +135,8 @@ const InkindDonation = () => {
                 </button>
 
             </div>
-
             <div className={styles.scrollableTableContainer}>
+           
                 <table className={styles.inkindDonationTable}>
                     <thead>
                         <tr>
@@ -252,7 +253,7 @@ const InkindDonation = () => {
                     </form>
                 </div>
             </Modal>
-
+            </div>
         </div>
     );
 };

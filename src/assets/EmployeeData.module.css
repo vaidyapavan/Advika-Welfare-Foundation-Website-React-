@@ -50,7 +50,8 @@ text-align: center;
   max-height: 400px; /* Set a max height for the scrolling area */
   overflow-y: auto;  /* Enable vertical scrolling */
   margin-top: 10px;
-  border: 1px solid #ddd; /* Optional border for better visibility */
+  background-color:#ced4da50;
+
 }
 
 .employeeTableContainer {
@@ -67,10 +68,7 @@ text-align: center;
 
 .employeeTableContainer th {
   color: black;
-}
-
-.employeeTableContainer tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; 
 }
 
 .employeeTableContainer tr:hover {
@@ -91,18 +89,11 @@ text-align: center;
   gap: 10px;
 }
 
-.employeeFooter {
-  background-color: rgba(0, 0, 0, 0.096) ;
-  padding: 10px;
-  align-items: center;
-  justify-content: space-between;
-}
 
 
 
 
 
-/* EmployeeData.module.css */
 
 /* Modal styles */
 .modalHeader {
@@ -209,28 +200,4 @@ text-align: center;
   }
 }
 
-.goback
-{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  margin-left: 650px;
-}
-.nextButton
-{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 20px;
-  
 
-
-}

@@ -5,7 +5,9 @@
   align-items: center;
   padding: 20px;
   background-color:white ;
-  width: 100%
+  width: 100%;
+  margin-top: -100px;
+  
 }
 
 /* Header styles */
@@ -88,7 +90,7 @@
 
 /* Scrollable Table Container */
 .tableScrollContainer {
-  max-height: 400px; /* Adjust height as needed */
+  max-height: 350px; /* Adjust height as needed */
   overflow-y: auto; /* Vertical scrolling */
   margin-bottom: 60px; /* Space for buttons at the bottom */
 }
@@ -181,6 +183,20 @@ textarea {
 .addExpenseHeading
 {
   text-align: center;
+}
+
+
+
+.addexpensebutton
+{
+  margin-left: 1000px;
+  background-color: #1976d2; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 /* Responsive styles */
 @media (max-width: 768px) {

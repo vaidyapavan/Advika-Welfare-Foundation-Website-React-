@@ -14,7 +14,7 @@
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
-  margin-left: 130px;
+  margin-left: 900px;
 }
 
 .addDonationButton:hover {
@@ -28,10 +28,16 @@
   color: #333;
 }
 
+.container
+{
+  background-color:#ced4da50;
+
+}
 .scrollableTableContainer {
-  max-height: 400px; 
+  max-height: 450px; 
   overflow-y: auto;  
   background-color:#ced4da50;
+
  
 }
 
@@ -39,8 +45,8 @@
 .inkindDonationTable thead {
   position: sticky;
   top: 0;
-  /* background-color: white;  */
-  z-index: 1; /* Keeps the header above the body content */
+
+  z-index: 1; 
 }
 
 .inkindDonationTable {
@@ -52,7 +58,7 @@
   position: sticky; 
   top: 0;          
   z-index: 10;    
-  background-color: white;
+  
  
   
 }
@@ -143,44 +149,14 @@
 
 .header
 {
-  
+  display: flex;
   flex-direction: row;
-background-color: #ced4da50;
+  /* background-color:#ced4da50; */
+  
+ 
 }
 
-.goback
-{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  margin-top: 15px;
 
-}
-.nextButton
-{
-  background-color:#1976d2; 
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  margin-left: 15px;
-
-}
-
-.donationfooter{
-  background-color: rgba(0, 0, 0, 0.096) ;
-  padding: 10px;
-  align-items: center;
-  justify-content: space-between;
-
-
-}
 
 .cancelButton
 {

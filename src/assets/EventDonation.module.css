@@ -4,12 +4,17 @@
   border-radius: 8px;
   }
   
-  
+  .countdiv
+  {
+    display: flex;
+    flex-direction: row;
+  }
 
  .container{
   background-color:#ced4da50 ;
  }
   .addDonationButton {
+    margin-top: 20px;
     background-color:#1976d2; 
     color: white;
     padding: 10px 15px;
@@ -17,7 +22,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
-    margin-left: 130px;
+    margin-left: 900px;
 
   }
   
@@ -36,6 +41,7 @@
 /* Table styles */
 .eventDonationTable {
     width: 100%;
+   
 
     
 }
@@ -47,7 +53,7 @@
 
     color: black;   
     font-weight: bold; 
-    background-color: white;
+    
 }
 
 .eventDonationTable th,

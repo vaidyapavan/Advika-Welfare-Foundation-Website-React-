@@ -4,7 +4,7 @@
   border-radius: 8px;
   height: 800px;
   width: 100%;
-
+margin-top: -30px;
   justify-content: center;
   align-items: center;
 
@@ -18,11 +18,11 @@
   align-items: center;
  
 }
-/* .main-container{
-  background-color:#ced4da4f;
-  background-color: red;
-
-} */
+.countdiv
+{
+  display: flex;
+  flex-direction: row;
+}
 
 .donationheader {
   display: flex; /* Use flexbox to align the content */
@@ -41,7 +41,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
-  margin-left: 180px;
+  margin-left: 900px;
 }
 .goback
 {

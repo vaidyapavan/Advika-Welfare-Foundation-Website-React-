@@ -202,7 +202,7 @@ const ExpenseTable = () => {
                 <button className={styles.btn} title="Add Balance" onClick={openAddBalanceModal}>
                     Add Balance
                 </button>
-                <button className={styles.btn} title="Add Expense" style={{ marginLeft: "500px" }} onClick={openAddExpenseModal}>
+                <button className={styles.addexpensebutton} title="Add Expense"  onClick={openAddExpenseModal}>
                     Add Expense
                 </button>
                 <br></br>

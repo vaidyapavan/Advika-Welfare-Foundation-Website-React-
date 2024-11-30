@@ -102,9 +102,6 @@ const Report = () => {
     return (
         <div className={styles.container}>
             <div className={styles.reportTableContainer}>
-                <button className={styles.btn} title="Go back" onClick={goToHomepage}>
-                    <ArrowBackIosIcon />
-                </button>
                 <h1 className={styles.header}>Monthly report</h1>
 
                 <div className={styles.filterContainer}>
@@ -165,7 +162,7 @@ const Report = () => {
 
 
             </div>
-            <h3 className={styles.totalBalance} style={{ marginLeft: "730px" }}>Total: ₹{totalExpense.toFixed(2)}</h3>
+          
 
 
         </div>
