@@ -6,6 +6,7 @@
 }
 
 .addDonationButton {
+  margin-top: 20px;
   background-color: #1976d2;
   color: white;
   padding: 10px 20px;
@@ -13,9 +14,28 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 20px;
-  margin-left: 900px;
+
+  margin-left: 880px;
 }
+
+.header{
+  display: flex; /* Aligns items in a row */
+  align-items: center; /* Vertically centers the content */
+  width: 100%; /* Adjusts to the width of the container */
+  margin-bottom: 20px; /* Adds space below the row */
+}
+
+
+
+.addDonationButton:hover {
+  background-color: #005a9e;
+}
+
+h5 {
+  margin: 0; 
+  margin-left: 20px;
+}
+
 
 .addDonationButton:hover {
   background-color: #1565c0;
@@ -31,6 +51,7 @@
 .container
 {
   background-color:#ced4da50;
+  border-radius: 10px;
 
 }
 .scrollableTableContainer {

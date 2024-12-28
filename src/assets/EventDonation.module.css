@@ -12,8 +12,9 @@
 
  .container{
   background-color:#ced4da50 ;
+  border-radius: 10px;
  }
-  .addDonationButton {
+  /* .addDonationButton {
     margin-top: 20px;
     background-color:#1976d2; 
     color: white;
@@ -24,7 +25,30 @@
     margin-bottom: 20px;
     margin-left: 900px;
 
+  } */
+
+  .countdiv {
+    display: flex; /* Aligns items in a row */
+    align-items: center; /* Vertically centers the content */
+    width: 100%; /* Adjusts to the width of the container */
+    margin-bottom: 20px; /* Adds space below the row */
   }
+  
+  .addDonationButton {
+    margin-top: 20px;
+    background-color:#1976d2; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 880px;
+  }
+  
+  .addDonationButton:hover {
+    background-color: #005a9e;
+  }
+  
   
   .addDonationButton:hover {
     background-color: #005a9e; 

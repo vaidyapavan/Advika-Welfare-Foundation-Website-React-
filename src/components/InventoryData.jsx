@@ -280,8 +280,9 @@ const InventoryData = () => {
                                         <td>{item.description}</td>
                                         <td>
                                             <div className={styles.actionIcons}>
+                                            <EditIcon style={{ marginRight:"10px" }} onClick={() => openUpdateModal(item)} />
                                                 <DeleteIcon onClick={() => handleDelete(item.id)} />
-                                                <EditIcon style={{ marginLeft: '10px' }} onClick={() => openUpdateModal(item)} />
+                                               
                                             </div>
                                         </td>
                                     </tr>

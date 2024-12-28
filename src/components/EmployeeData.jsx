@@ -197,10 +197,7 @@ const EmployeeData = () => {
     <>
     <div className={styles.mainContainer}>
       <div className={styles.container}>
-        <h1 className={styles.formTitle}>Employee Data</h1>
-
-        <br />
-        <br />
+        <h1 className={styles.formTitle}>Employee Data</h1> 
         <div className={styles.searchContainer}>
           <SearchBox
             placeholder="Search by name"
@@ -257,8 +254,9 @@ const EmployeeData = () => {
                   <td>{formatDate(employee.JoiningDate)}</td>
                   <td>
                     <div className={styles.actionIcons}>
+                    <EditIcon onClick={() => openEditModal(employee)} />
                       <DeleteIcon onClick={() => confirmDelete(employee.id)} />
-                      <EditIcon onClick={() => openEditModal(employee)} />
+                      
                     </div>
                   </td>
                 </tr>

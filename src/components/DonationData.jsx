@@ -158,7 +158,7 @@ const DonationData = () => {
         <>
             <div className={styles.mainContainer}>
                 <div className={styles.container}>
-                    <h1 className={styles["donationheader"]}>Donation Details</h1>
+                    {/* <h1 className={styles["donationheader"]}>Donation Details</h1> */}
                     <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
                         <PivotItem headerText="Monthly Donations" itemKey="monthly">
                         <div className={styles["countdiv"]}>
@@ -189,8 +189,9 @@ const DonationData = () => {
                                                 <td>{donation.amount}</td>
                                                 <td>
                                                     <div className={styles["action-icon"]}>
+                                                    <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
                                                         <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
-                                                        <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
+                                                     
                                                     </div>
                                                 </td>
                                             </tr>

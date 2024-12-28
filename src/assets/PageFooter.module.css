@@ -1,10 +1,10 @@
+
 .pageFooter {
-  display: flex; /* Use Flexbox for alignment */
-  justify-content: center; /* Horizontally centers the buttons */
-  align-items: center; /* Vertically centers the buttons */
+  display: flex; 
+  justify-content: center;
   padding: 10px;
   gap:15px;
-  background-color: rgba(0, 0, 0, 0.096);
+  background-color:rgb(124, 122, 122);
   width: 100%;
 }
 

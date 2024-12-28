@@ -101,10 +101,9 @@ const EventDonation = () => {
     const gotoHomepage = () => {
         navigate('/homepage1');
     };
-    const goToNextScreen = () =>
-        {
-            navigate('/expenseTable');
-        }
+    const goToNextScreen = () => {
+        navigate('/expenseTable');
+    }
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -115,119 +114,125 @@ const EventDonation = () => {
 
     return (
         <div className={styles.eventDonationContainer}>
-        <div className={styles.container}>
+            <div className={styles.container}>
                 <div className={styles.countdiv}>
-                <h5 >Number of Donors: {totalEventlyDonors}</h5>
-                <button className={styles.addDonationButton} onClick={() => openModal()}>ADD DONATION </button>
+                    <h5>Number of Donors: {totalEventlyDonors}</h5>
+                    <button
+                        className={styles.addDonationButton}
+                        onClick={() => openModal()}
+                    >
+                        ADD DONATION
+                    </button>
                 </div>
-            
-            <div className={styles.scrollableTableContainer}>
-                
-                <table className={styles.eventDonationTable}>
-                    <thead>
-                        <tr>
-                            <th>Donor Name</th>
-                            <th>PAN No</th>
-                            <th>Date</th>
-                            <th>Payment Mode</th>
-                            <th>Amount</th>
-                            <th>Reason</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {donations.map(donation => (
-                            <tr key={donation.id}>
-                                <td>{donation.donor_name}</td>
-                                <td>{donation.pan_no}</td>
-                                <td>{formatDate(donation.date)}</td>
-                                <td>{donation.payment_mode}</td>
-                                <td>{donation.amount}</td>
-                                <td>{donation.reason}</td>
-                                <td>
-                                    <div className={styles.actionIcon}>
-                                        <EditIcon onClick={() => openModal(donation)} />
-                                        <DeleteIcon onClick={() => handleDelete(donation.id)} />
-                                    </div>
-                                </td>
+
+
+                <div className={styles.scrollableTableContainer}>
+
+                    <table className={styles.eventDonationTable}>
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>PAN No</th>
+                                <th>Date</th>
+                                <th>Payment Mode</th>
+                                <th>Amount</th>
+                                <th>Reason</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <br></br>
-               
-            </div>
-            
+                        </thead>
+                        <tbody>
+                            {donations.map(donation => (
+                                <tr key={donation.id}>
+                                    <td>{donation.donor_name}</td>
+                                    <td>{donation.pan_no}</td>
+                                    <td>{formatDate(donation.date)}</td>
+                                    <td>{donation.payment_mode}</td>
+                                    <td>{donation.amount}</td>
+                                    <td>{donation.reason}</td>
+                                    <td>
+                                        <div className={styles.actionIcon}>
+                                            <EditIcon onClick={() => openModal(donation)} />
+                                            <DeleteIcon onClick={() => handleDelete(donation.id)} />
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <br></br>
 
-            <Modal open={isModalOpen} onClose={closeModal}>
-                <div className={styles.modalContainer}>
-                    <div className={styles.modalHeader}>
-                        <h2 className={styles.modalTitle}>{isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}</h2>
-                        <CloseIcon className={styles.closeIcon} onClick={closeModal} />
-                    </div>
-                    <form className={styles.modalForm}>
-                        <TextField
-                            label="Donor Name"
-                            fullWidth
-                            margin="normal"
-                            value={donorName}
-                            onChange={(e) => setDonorName(e.target.value)}
-                        />
-                        <TextField
-                            label="PAN No"
-                            fullWidth
-                            margin="normal"
-                            value={panNo}
-                            onChange={(e) => setPanNo(e.target.value)}
-                        />
-                        <TextField
-                            label="Date"
-                            type="date"
-                            fullWidth
-                            margin="normal"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                        <TextField
-                            label="Payment Mode"
-                            select
-                            fullWidth
-                            margin="normal"
-                            value={paymentMode}
-                            onChange={(e) => setPaymentMode(e.target.value)}
-                        >
-                            <MenuItem value="Online">Online</MenuItem>
-                            <MenuItem value="Offline">Offline</MenuItem>
-                            <MenuItem value="Credit Card">Credit Card</MenuItem>
-                            <MenuItem value="Cash">Cash</MenuItem>
-                        </TextField>
-                        <TextField
-                            label="Amount"
-                            type="number"
-                            fullWidth
-                            margin="normal"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                        />
-                        <TextField
-                            label="Reason"
-                            fullWidth
-                            margin="normal"
-                            value={reason}
-                            onChange={(e) => setReason(e.target.value)}
-                        />
-                        <div className={styles.cancel_saveButton_division}>
-                            <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
-                        <button className={styles.saveButton} variant="contained" onClick={handleSave}>
-                            SAVE
-                        </button>
-
-                        </div>
-                        
-                    </form>
                 </div>
-            </Modal>
-            
+
+
+                <Modal open={isModalOpen} onClose={closeModal}>
+                    <div className={styles.modalContainer}>
+                        <div className={styles.modalHeader}>
+                            <h2 className={styles.modalTitle}>{isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}</h2>
+                            <CloseIcon className={styles.closeIcon} onClick={closeModal} />
+                        </div>
+                        <form className={styles.modalForm}>
+                            <TextField
+                                label="Donor Name"
+                                fullWidth
+                                margin="normal"
+                                value={donorName}
+                                onChange={(e) => setDonorName(e.target.value)}
+                            />
+                            <TextField
+                                label="PAN No"
+                                fullWidth
+                                margin="normal"
+                                value={panNo}
+                                onChange={(e) => setPanNo(e.target.value)}
+                            />
+                            <TextField
+                                label="Date"
+                                type="date"
+                                fullWidth
+                                margin="normal"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                            <TextField
+                                label="Payment Mode"
+                                select
+                                fullWidth
+                                margin="normal"
+                                value={paymentMode}
+                                onChange={(e) => setPaymentMode(e.target.value)}
+                            >
+                                <MenuItem value="Online">Online</MenuItem>
+                                <MenuItem value="Offline">Offline</MenuItem>
+                                <MenuItem value="Credit Card">Credit Card</MenuItem>
+                                <MenuItem value="Cash">Cash</MenuItem>
+                            </TextField>
+                            <TextField
+                                label="Amount"
+                                type="number"
+                                fullWidth
+                                margin="normal"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                            />
+                            <TextField
+                                label="Reason"
+                                fullWidth
+                                margin="normal"
+                                value={reason}
+                                onChange={(e) => setReason(e.target.value)}
+                            />
+                            <div className={styles.cancel_saveButton_division}>
+                                <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
+                                <button className={styles.saveButton} variant="contained" onClick={handleSave}>
+                                    SAVE
+                                </button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </Modal>
+
             </div>
         </div>
     );

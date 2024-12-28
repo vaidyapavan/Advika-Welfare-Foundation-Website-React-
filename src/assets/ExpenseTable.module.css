@@ -188,17 +188,33 @@ textarea {
 
 
 
-.addexpensebutton
-{
-  margin-left: 1000px;
-  background-color: #1976d2; 
+
+.showbalance_addButton {
+  display: flex; /* This will arrange the children in a row */
+  justify-content: space-between; /* This will add space between the message and button */
+  align-items: center; /* Vertically align items in the row */
+  width: 100%; /* Adjust as needed to fit the content */
+  margin-bottom: 20px; /* Optional: Adds space below the row */
+}
+
+.balance {
+  margin: 0; /* Remove default margin from h3 */
+  font-size: 18px; /* Optional: Adjust font size */
+}
+
+.addexpensebutton {
+  background-color: #1976d2;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
 }
+
+.addexpensebutton:hover {
+  background-color: #005a9e;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .expenseTable {

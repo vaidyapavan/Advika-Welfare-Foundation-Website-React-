@@ -2,16 +2,16 @@
 
 .mainContainer
 {
-  background-color: white;
+background-color: white;
 height: 900px;
-width: 100%;
+width: 97%;
 }
 .container {
   max-width: 1700px;
   margin: 0 auto;
   padding: 20px;
   background-color:#ced4da50;
-  border-radius: 8px;
+  border-radius: 8px;margin-top: 25px;
   
 }
 

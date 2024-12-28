@@ -1,21 +1,33 @@
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Disable scrolling */
+  height: 100vh; /* Ensure content fits within the viewport */
+  width: 100vw;
+}
 .mainContainer{
   padding: 20px;
   background-color:white;
   border-radius: 8px;
-  height: 600px;
+  height: 500px;
   width: 100%;
-margin-top: 30px;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 
 
 }
+
+
 .container{
 
   background-color:#ced4da50;
 
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
  
 }
 .countdiv
@@ -25,11 +37,11 @@ margin-top: 30px;
 }
 
 .donationheader {
-  display: flex; /* Use flexbox to align the content */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  text-align: center; /* Align text horizontally inside the element */
-  height: 100%; /* Ensure that the container has enough height for vertical centering */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  text-align: center; 
+  height: 100%; 
 }
 
 
@@ -41,7 +53,9 @@ margin-top: 30px;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
-  margin-left: 900px;
+  margin-left: 940px;
+
+
 }
 .goback
 {
@@ -75,13 +89,14 @@ margin-top: 30px;
 .donor-count {
   font-size: 18px;
   margin-bottom: 20px;
+  margin-left: 30px;
 }
 
 .donation-table thead {
   position: sticky;
   top: 0;
   z-index: 1; /* Keeps the header above the body content */
-  background-color: white;
+
 }
 
 .donation-table th, .donation-table td {

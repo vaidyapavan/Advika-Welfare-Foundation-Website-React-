@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../assets/Homepage1.css';
-import logo from '../assets/images/advikalogo.png';
+// import logo from '../assets/images/advikalogo.png';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -58,10 +58,11 @@ const goToNextScreen = () => {
 
     return (
         <>
+        
             <div className="container">
                 {/* Sidebar navigation */}
                 <div className="sidebar">
-                    <img src={logo} alt="Advika Logo" className="logo" />
+                    {/* <img src={logo} alt="Advika Logo" className="logo" /> */}
                     <AccountBoxIcon style={{ fontSize: "80px", marginLeft: "auto", marginRight: "auto" }} />
                     <h3>{email}</h3>
                     <ul className="nav-items">
@@ -77,15 +78,14 @@ const goToNextScreen = () => {
            
                 <div className="content">
                     {renderComponent()}
+                    
+                <PageFooter onBack={goToBackScreen} onNext={goToNextScreen} />
                    
                 </div>
-                
+           
+           
             </div>
-            <PageFooter onBack={goToBackScreen} onNext={goToNextScreen} />
-
-            
-          
-
+     
         </>
     );
 }

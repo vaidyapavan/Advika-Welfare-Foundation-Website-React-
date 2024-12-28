@@ -6,16 +6,16 @@
 }
 
 html, body {
-  height: 50%;
+  height: 40%;
   font-family: 'Arial', sans-serif;
-  background-color: #f0f2f5;
+  
 }
 
 /* Container for the whole page layout */
 .container {
   display: flex;
   flex-direction: column;
-  height: 87vh;
+  height: 40vh;
 }
 
 /* Sidebar Styling */
@@ -32,7 +32,7 @@ html, body {
   left: 0;
   top: 0;
   bottom: 0;
-  height: 97vh;
+  height: 100vh;
 }
 
 .sidebar img.logo {
@@ -68,7 +68,7 @@ html, body {
 }
 
 .sidebar .nav-items li.active {
-  background-color: #16a085;
+  background-color:black;
 }
 
 /* Main content styling */
@@ -82,7 +82,7 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 100vh; /* Ensure content spans the full page height */
+  min-height: 100vh; 
 }
 
 .content h1 {

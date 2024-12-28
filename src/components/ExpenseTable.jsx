@@ -187,24 +187,34 @@ const ExpenseTable = () => {
         const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     };
-    const goToNextScreen = () =>
-    {
+    const goToNextScreen = () => {
         navigate('/read');
 
     }
 
     return (
         <div className={styles.container} >
-            <div className={styles.expenseTableContainer} style={{marginTop:"50px"}}>
-                
-                
-                <h2 className={styles.balance}>Current Available Balance is: ₹{totalBalance.toFixed(2)}</h2>
+            <div className={styles.expenseTableContainer} style={{ marginTop: "50px" }}>
+
+
+
                 <button className={styles.btn} title="Add Balance" onClick={openAddBalanceModal}>
                     ADD BALANCE
                 </button>
-                <button className={styles.addexpensebutton} title="Add Expense"  onClick={openAddExpenseModal}>
-                    ADD EXPENSE
-                </button>
+                <div className={styles.showbalance_addButton}>
+                    <h3 className={styles.balance}>
+                        Current Available Balance is: ₹{totalBalance.toFixed(2)}
+                    </h3>
+                    <button
+                        className={styles.addexpensebutton}
+                        title="Add Expense"
+                        onClick={openAddExpenseModal}
+                    >
+                        ADD EXPENSE
+                    </button>
+                </div>
+
+
                 <br></br>
                 {/* <SearchBox></SearchBox> */}
                 <div className={styles.expenseTableContainer}>
@@ -213,12 +223,12 @@ const ExpenseTable = () => {
                             <thead>
                                 <tr>
                                     <th onClick={() => sortExpenses('date')}>
-                                        {sortOrder.date === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}Date
+                                        Date {sortOrder.date === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                                     </th>
                                     <th>Reason</th>
                                     <th>Category</th>
                                     <th onClick={() => sortExpenses('amount')}>
-                                        {sortOrder.amount === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}Amount
+                                        Amount  {sortOrder.amount === 'asc' ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                                     </th>
                                     <th>Payment Mode</th>
                                     <th>Description</th>
@@ -235,36 +245,36 @@ const ExpenseTable = () => {
                                         <td>{expense.paymentMode}</td>
                                         <td>{expense.description}</td>
                                         <td>
-                                            <div className={styles.action_icon}> 
-                                            <EditIcon
-                                                onClick={() => openEditExpenseModal(expense)}
-                                                title="Edit transaction"
-                                                style={{ cursor: "pointer",marginLeft:"30px" }}
-                                            />
-                                            <DeleteIcon
-                                                onClick={() => handleDeleteExpense(expense.id)}
-                                                title="Delete transaction"
-                                                style={{ cursor: "pointer" }}
-                                            />
+                                            <div className={styles.action_icon}>
+                                                <EditIcon
+                                                    onClick={() => openEditExpenseModal(expense)}
+                                                    title="Edit transaction"
+                                                    style={{ cursor: "pointer", marginLeft: "30px" }}
+                                                />
+                                                <DeleteIcon
+                                                    onClick={() => handleDeleteExpense(expense.id)}
+                                                    title="Delete transaction"
+                                                    style={{ cursor: "pointer" }}
+                                                />
                                             </div>
-                                            
+
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                   
-                   
+
+
                 </div>
 
-               
+
             </div>
 
             {/* Modal for adding balance */}
             <Modal isOpen={addBalanceModal} onDismiss={closeAddBalanceModal}>
                 <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "340px", cursor: "pointer", marginTop:"-20px"}} onClick={closeAddBalanceModal} />
+                    <CloseIcon style={{ marginLeft: "340px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddBalanceModal} />
                     <h3 id={styles.addBalanceHeading}>Add Balance</h3>
                     <label htmlFor="amountInput">Enter amount</label>
                     <input
@@ -293,7 +303,7 @@ const ExpenseTable = () => {
                     </select>
                     <br />
                     <div className={styles.buttons}>
-                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"100px"}}>CANCEL</button>
+                        <button className={styles.save} onClick={goToHomepage} style={{ marginLeft: "100px" }}>CANCEL</button>
                         <button className={styles.save} onClick={handleSave}>SAVE</button>
 
                     </div>
@@ -304,7 +314,7 @@ const ExpenseTable = () => {
             {/* Modal for adding expense */}
             <Modal isOpen={addExpenseModal} onDismiss={closeAddExpenseModal}>
                 <div className={styles.addExpensepopupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer", marginTop:"-20px"}} onClick={closeAddExpenseModal} />
+                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddExpenseModal} />
                     <h3 className={styles.addExpenseHeading}>Add Expense</h3>
 
                     <label htmlFor="expenseAmountInput">Amount</label>
@@ -371,7 +381,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{marginLeft:"150px"}}>CANCEL</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{ marginLeft: "150px" }}>CANCEL</button>
                         <button className={styles.addExpenseButton} onClick={handleAddExpense}>ADD</button>
                     </div>
                 </div>
@@ -448,7 +458,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{marginLeft:"150px"}}>CANCEL</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{ marginLeft: "150px" }}>CANCEL</button>
                         <button className={styles.addExpenseButton} onClick={handleEditExpense}>UDATE</button>
                     </div>
                 </div>
