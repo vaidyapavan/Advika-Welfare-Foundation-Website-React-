@@ -163,7 +163,7 @@ const DonationData = () => {
                         <PivotItem headerText="Monthly Donations" itemKey="monthly">
                         <div className={styles["countdiv"]}>
                                         <h2 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h2>
-                                        <button className={styles["add-btn"]} onClick={() => openModal()}>Add Donation</button>
+                                        <button className={styles["add-btn"]} onClick={() => openModal()}>ADD DONATION</button>
                                     </div>
                             <div className={styles["donation-table-wrapper"]}>
                             
@@ -268,7 +268,7 @@ const DonationData = () => {
                             {errorMessage && <p className={styles.error}>{errorMessage}</p>}
                             {successMessage && <p className={styles.success}>{successMessage}</p>}
                             <div className={styles.buttonDivision}>
-                                <button className={styles.cancelButton} onClick={closeModal}>Cancel</button>
+                                <button className={styles.cancelButton} onClick={closeModal}>CANCEL</button>
                                 <button className={styles.saveButton} onClick={handleSaveDonation}>{editMode ? 'Update Donation' : 'Save Donation'}</button>
 
                             </div>

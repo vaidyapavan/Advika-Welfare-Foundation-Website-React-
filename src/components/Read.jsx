@@ -223,14 +223,7 @@ const Read = () => {
 
         
         {message && <p style={{ textAlign: 'center' }}>{message}</p>}
-        {/* <div className={styles.studentfooter}>
-        <button className={styles.goback} title="Go back" onClick={goToHomepage}>
-          Back
-        </button>
-        <button className={styles.nextButton} title=" GO Next" onClick={goToNextScreen}>
-          next
-        </button>
-        </div> */}
+        
       </div>
 
       {/* Delete Confirmation Modal */}
@@ -247,8 +240,8 @@ const Read = () => {
           </div>
           <br></br>
           <div className={styles.modal_footer}>
-            <button  className={styles.cancelButton}onClick={cancelDeleteConfirmation}>Cancel</button>
-            <button  className={styles.Addbutton} onClick={handleDeleteConfirmation}>Delete</button>
+            <button  className={styles.cancelButton}onClick={cancelDeleteConfirmation}>CANCEL</button>
+            <button  className={styles.Addbutton} onClick={handleDeleteConfirmation}>DELETE</button>
           </div>
         </div>
       </Modal>

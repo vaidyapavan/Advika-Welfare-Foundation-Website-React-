@@ -122,7 +122,7 @@ const Report = () => {
                         onChange={handleComboBoxChange}
                         multiSelect
                     />
-                    <Button variant="contained" onClick={handleSearch}>Search</Button>
+                    <Button variant="contained" onClick={handleSearch}>SEARCH</Button>
                 </div>
 
                 <div className={styles.scrollableTableContainer}>
@@ -152,10 +152,7 @@ const Report = () => {
                     </table>
                 </div>
 
-                {/* <div className={styles.reportFooter}>
-                    <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
-                    <button variant="contained" className={styles.nextButton}onClick={gotoNextpage}>Export to Excel</button>
-                </div> */}
+                
 
 
 

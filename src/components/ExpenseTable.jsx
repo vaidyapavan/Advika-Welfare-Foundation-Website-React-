@@ -197,13 +197,13 @@ const ExpenseTable = () => {
         <div className={styles.container} >
             <div className={styles.expenseTableContainer} style={{marginTop:"50px"}}>
                 
-                <h1 className={styles.header}>Expense Details</h1>
+                
                 <h2 className={styles.balance}>Current Available Balance is: ₹{totalBalance.toFixed(2)}</h2>
                 <button className={styles.btn} title="Add Balance" onClick={openAddBalanceModal}>
-                    Add Balance
+                    ADD BALANCE
                 </button>
                 <button className={styles.addexpensebutton} title="Add Expense"  onClick={openAddExpenseModal}>
-                    Add Expense
+                    ADD EXPENSE
                 </button>
                 <br></br>
                 {/* <SearchBox></SearchBox> */}
@@ -254,14 +254,7 @@ const ExpenseTable = () => {
                             </tbody>
                         </table>
                     </div>
-                    {/* <div className={styles.expenseFooter}>
-                    <button className={styles.goback} title="Go back" onClick={goToHomepage}>
-                        BACK
-                    </button>
-                    <button className={styles.nextButton} title="Go next" onClick={goToNextScreen}>
-                        NEXT
-                    </button>
-                </div> */}
+                   
                    
                 </div>
 
@@ -300,8 +293,8 @@ const ExpenseTable = () => {
                     </select>
                     <br />
                     <div className={styles.buttons}>
-                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"100px"}}>Cancel</button>
-                        <button className={styles.save} onClick={handleSave}>Save</button>
+                        <button className={styles.save} onClick={goToHomepage} style={{marginLeft:"100px"}}>CANCEL</button>
+                        <button className={styles.save} onClick={handleSave}>SAVE</button>
 
                     </div>
 
@@ -378,8 +371,8 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{marginLeft:"150px"}}>Cancel</button>
-                        <button className={styles.addExpenseButton} onClick={handleAddExpense}>Add</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{marginLeft:"150px"}}>CANCEL</button>
+                        <button className={styles.addExpenseButton} onClick={handleAddExpense}>ADD</button>
                     </div>
                 </div>
             </Modal>
@@ -455,8 +448,8 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{marginLeft:"150px"}}>Cancel</button>
-                        <button className={styles.addExpenseButton} onClick={handleEditExpense}>Update</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{marginLeft:"150px"}}>CANCEL</button>
+                        <button className={styles.addExpenseButton} onClick={handleEditExpense}>UDATE</button>
                     </div>
                 </div>
             </Modal>

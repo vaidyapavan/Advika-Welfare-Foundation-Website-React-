@@ -269,14 +269,7 @@ const EmployeeData = () => {
         </div>
         <br></br>
 
-        {/* <div className={styles.employeeFooter}>
-          <button className={styles.goback}   title="Go back" onClick={gotohomepage}>
-            BACK
-          </button>
-          <button className={styles.nextButton}   title="Go next"  onClick={goToNextScreen}>
-            NEXT
-          </button>
-        </div> */}
+        
   
       </div>
       </div>
@@ -356,9 +349,9 @@ const EmployeeData = () => {
             required
           />
           <div className={styles.modalFooter}>
-            <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>Cancel</button>
+            <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>CANCEL</button>
             <button className={styles.Addbutton} type="submit" variant="contained" color="primary">
-              Add
+              ADD
             </button>
 
           </div>
@@ -434,9 +427,9 @@ const EmployeeData = () => {
             required
           />
           <div className={styles.modalFooter}>
-            <button className={styles.cancelButton} onClick={closeEditModal}>Cancel</button>
+            <button className={styles.cancelButton} onClick={closeEditModal}>CANCEL</button>
             <button className={styles.Addbutton} type="submit" variant="contained" color="primary">
-              Update
+              UPDATE
             </button>
 
           </div>
@@ -454,9 +447,9 @@ const EmployeeData = () => {
         </div>
         <div className={styles.modalFooter}>
           <button className={styles.cancelButton} onClick={handleDeleteConfirmation} variant="contained" color="secondary">
-            Delete
+            DELETE
           </button>
-          <button className={styles.Addbutton} onClick={cancelDeleteConfirmation}>Cancel</button>
+          <button className={styles.Addbutton} onClick={cancelDeleteConfirmation}>CANCEL</button>
         </div>
       </Modal>
     </>

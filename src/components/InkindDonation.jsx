@@ -131,7 +131,7 @@ const InkindDonation = () => {
             <div className={styles.header}>
                 <h5> Number of Donors: {totalinkindDonors}</h5>
                 <button className={styles.addDonationButton} onClick={() => openModal()}>
-                    Add Donation
+                    ADD DONATION
                 </button>
 
             </div>
@@ -172,11 +172,7 @@ const InkindDonation = () => {
                 <br></br>
 
             </div>
-            {/* <div className={styles.donationfooter}>
-                <button className={styles.goback} style={{ marginLeft: "700px" }} onClick={gotoHomepage}> Back</button>
-                <button className={styles.nextButton} onClick={goToNextScreen}> Next</button>
-            </div> */}
-           
+        
 
 
             <Modal
@@ -239,14 +235,14 @@ const InkindDonation = () => {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                         <div className={styles.cancel_save_buttons}>
-                        <button className={styles.cancelButton} onClick={closeModal}> Cancel</button>
+                        <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
                         <button
                             className={styles.saveButton}
                          
                         
                             onClick={handleSave}
                         >
-                            Save
+                            SAVE
                         </button>
                         </div>
                        

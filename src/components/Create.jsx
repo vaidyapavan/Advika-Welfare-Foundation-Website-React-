@@ -295,7 +295,7 @@ const Create = () => {
                             </div>
                         )}
                     </div>
-                    <button type="button" className="btn btn-primary" style={{ marginLeft: '170px', marginRight: '10px' }} onClick={cancelForm}> Cancel</button>
+                    <button type="button" className="btn btn-primary" style={{ marginLeft: '170px', marginRight: '10px' }} onClick={cancelForm}> CANCEL</button>
                     <button type="submit" className="btn btn-primary" style={{ marginLeft: '10px' }}>ADD</button>
                 </form>
             </div>

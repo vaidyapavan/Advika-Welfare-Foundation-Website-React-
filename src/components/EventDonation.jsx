@@ -118,7 +118,7 @@ const EventDonation = () => {
         <div className={styles.container}>
                 <div className={styles.countdiv}>
                 <h5 >Number of Donors: {totalEventlyDonors}</h5>
-                <button className={styles.addDonationButton} onClick={() => openModal()}>Add Donation </button>
+                <button className={styles.addDonationButton} onClick={() => openModal()}>ADD DONATION </button>
                 </div>
             
             <div className={styles.scrollableTableContainer}>
@@ -217,9 +217,9 @@ const EventDonation = () => {
                             onChange={(e) => setReason(e.target.value)}
                         />
                         <div className={styles.cancel_saveButton_division}>
-                            <button className={styles.cancelButton} onClick={closeModal}> Cancel</button>
+                            <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
                         <button className={styles.saveButton} variant="contained" onClick={handleSave}>
-                            Save
+                            SAVE
                         </button>
 
                         </div>

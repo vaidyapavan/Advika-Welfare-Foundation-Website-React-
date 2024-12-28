@@ -224,7 +224,7 @@ const InventoryData = () => {
             <div className={styles.data_container}>
 
                 <h1 className={styles.inventoryHeader}>Inventory Data</h1>
-                <button onClick={openModal} className={styles.addInventoryButton} >Add Inventory</button>
+                <button onClick={openModal} className={styles.addInventoryButton} >ADD INVENTORY</button>
                 <br></br>
 
                 <div className={styles.inventory_table_Container}>
@@ -292,10 +292,7 @@ const InventoryData = () => {
                 </div>
 
 
-                {/* <div className={styles.InventoryFooter}>
-                    <button variant="contained" className={styles.goback} onClick={goToHomepage}>Back</button>
-                    <button variant="contained" className={styles.nextButton}>Export to Excel</button>
-                </div> */}
+               
 
                 {/* Add Inventory Modal */}
                 {isModalOpen && (
@@ -372,8 +369,8 @@ const InventoryData = () => {
                                 </div>
                                 <div className={styles.inventoryFormActions}>
 
-                                    <button onClick={closeModal} className={styles.cancelButton}>Cancel</button>
-                                    <button type="submit" className={styles.saveButton}>Add</button>
+                                    <button onClick={closeModal} className={styles.cancelButton}>CANCEL</button>
+                                    <button type="submit" className={styles.saveButton}>ADD</button>
                                 </div>
                             </form>
                         </div>
@@ -451,8 +448,8 @@ const InventoryData = () => {
                                     />
                                 </div>
                                 <div className={styles.inventoryFormActions}>
-                                    <button className={styles.cancelButton} onClick={closeUpdateModal}>Cancel</button>
-                                    <button className={styles.saveButton} type="submit">Update</button>
+                                    <button className={styles.cancelButton} onClick={closeUpdateModal}>CANCEL</button>
+                                    <button className={styles.saveButton} type="submit">UPDATE</button>
 
                                 </div>
                             </form>

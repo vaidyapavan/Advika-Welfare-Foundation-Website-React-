@@ -136,10 +136,10 @@ const Login = ({ setEmail }) => {
           <br />
           {/* Submit and Register buttons */}
           <button type="button" style={{ backgroundColor: "#0078d4", marginLeft: "60px" }} className={`${styles.btn} ${styles.btnSuccess}`} onClick={handleRegister}>
-            Create Account
+            CREATE ACCOUNT
           </button>
           <button type="submit" style={{ backgroundColor: "#0078d4" }} className={`${styles.btn} ${styles.btnSuccess}`}>
-            Sign In
+            SIGN IN
           </button>
           <br />
           <br />

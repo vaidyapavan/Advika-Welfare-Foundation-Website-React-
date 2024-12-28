@@ -74,15 +74,16 @@ const goToNextScreen = () => {
                     </ul>
                 </div>
 
-                {/* Main content */}
+           
                 <div className="content">
                     {renderComponent()}
-                    <PageFooter onBack={goToBackScreen} onNext={goToNextScreen} />
+                   
                 </div>
                 
             </div>
+            <PageFooter onBack={goToBackScreen} onNext={goToNextScreen} />
 
-            {/* Footer with Back and Next buttons */}
+            
           
 
         </>

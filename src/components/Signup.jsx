@@ -201,8 +201,8 @@ const Signup = ({ handlePageChange }) => {
           )}
 
           <div className={styles.btnContainer}>
-          <button type="button" style={{backgroundColor:"#0078d4"}} className={`${styles.btn} ${styles.btnSuccess}`} onClick={goToSignInPage}>Sign in</button>
-          <button type="submit"  style={{backgroundColor:"#0078d4"}}className={`${styles.btn} ${styles.btnSuccess}`}>Submit</button>
+          <button type="button" style={{backgroundColor:"#0078d4"}} className={`${styles.btn} ${styles.btnSuccess}`} onClick={goToSignInPage}>SIGN IN</button>
+          <button type="submit"  style={{backgroundColor:"#0078d4"}}className={`${styles.btn} ${styles.btnSuccess}`}>SUBMIT</button>
            
           </div>
         </form>

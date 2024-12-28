@@ -253,8 +253,8 @@ const Update = () => {
                         </div>
                     )}
                 </div>
-                <button type="button" className="btn btn-primary" onClick={gotoreadpage} style={{ marginLeft: "170px", marginRight: "-10px" }}>Cancel</button>
-                <button type="submit" className="btn btn-primary" style={{ marginLeft: '30px', marginRight: "80px" }}>Save</button>
+                <button type="button" className="btn btn-primary" onClick={gotoreadpage} style={{ marginLeft: "170px", marginRight: "-10px" }}>CANCEL</button>
+                <button type="submit" className="btn btn-primary" style={{ marginLeft: '30px', marginRight: "80px" }}>SAVE</button>
             </form>
 
             <Modal isOpen={issavemodal} onDismiss={cancelcloseModal} className="custom-modal">

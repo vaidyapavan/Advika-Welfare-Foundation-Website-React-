@@ -143,8 +143,8 @@ const AddEmployee = () => {
             required
           />
         </div>
-        <button type="submit" style={{ marginLeft: '230px' }}>Save</button>
-        <button style={{ marginLeft: '10px' }} onClick={goback}>Cancel</button>
+        <button type="submit" style={{ marginLeft: '230px' }}>SAVE</button>
+        <button style={{ marginLeft: '10px' }} onClick={goback}>CANCEL</button>
 
         <Modal
           isOpen={isModalOpen}
