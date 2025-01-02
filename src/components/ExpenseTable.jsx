@@ -303,7 +303,7 @@ const ExpenseTable = () => {
                     </select>
                     <br />
                     <div className={styles.buttons}>
-                        <button className={styles.save} onClick={goToHomepage} style={{ marginLeft: "100px" }}>CANCEL</button>
+                        <button className={styles.save} onClick={goToHomepage} style={{ marginLeft: "80px" }}>CANCEL</button>
                         <button className={styles.save} onClick={handleSave}>SAVE</button>
 
                     </div>
@@ -381,7 +381,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{ marginLeft: "150px" }}>CANCEL</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{ marginLeft: "140px"}}>CANCEL</button>
                         <button className={styles.addExpenseButton} onClick={handleAddExpense}>ADD</button>
                     </div>
                 </div>
@@ -458,7 +458,7 @@ const ExpenseTable = () => {
                     <br />
 
                     <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{ marginLeft: "150px" }}>CANCEL</button>
+                        <button className={styles.cancelExpenseButton} onClick={closeEditExpenseModal} style={{ marginLeft: "130px" }}>CANCEL</button>
                         <button className={styles.addExpenseButton} onClick={handleEditExpense}>UDATE</button>
                     </div>
                 </div>

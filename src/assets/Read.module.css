@@ -65,7 +65,7 @@
 
 /* Making the table scrollable */
 .tableContainer {
-  max-height: 450px; 
+  max-height: 400px; 
   overflow-y: auto;
   overflow-x: hidden;
   background-color:#ced4da50;

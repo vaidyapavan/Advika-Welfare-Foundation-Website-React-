@@ -11,7 +11,7 @@ body, html {
   padding: 20px;
   background-color:white;
   border-radius: 8px;
-  height: 500px;
+  height: 700px;
   width: 100%;
   margin-top: 10px;
   justify-content: center;
@@ -19,6 +19,7 @@ body, html {
 
 
 }
+
 
 
 .container{
@@ -105,8 +106,13 @@ body, html {
   border-bottom: 1px solid #ddd;
 
 }
+.donation-table th
+{
+  background-color: #f9f9f9; 
+
+}
 .donation-table tbody {
-  max-height: 350px; /* Adjust as per table wrapper height */
+  max-height: 400px; /* Adjust as per table wrapper height */
   display: block; /* To enable scrolling */
   overflow-y: auto;
 }

@@ -55,7 +55,7 @@ h5 {
 
 }
 .scrollableTableContainer {
-  max-height: 450px; 
+  max-height: 400px; 
   overflow-y: auto;  
   background-color:#ced4da50;
 
@@ -93,6 +93,9 @@ h5 {
   text-align: center;
   border-bottom: 1px solid #ddd;
 
+}
+.inkindDonationTable th{
+  background-color: #f9f9f9; 
 }
 
 

@@ -160,15 +160,17 @@ const DonationData = () => {
                 <div className={styles.container}>
                     {/* <h1 className={styles["donationheader"]}>Donation Details</h1> */}
                     <Pivot aria-label="Donation Types" selectedKey={selectedDonationType} onLinkClick={item => setSelectedDonationType(item.props.itemKey)}>
-                        <PivotItem headerText="Monthly Donations" itemKey="monthly">
-                        <div className={styles["countdiv"]}>
-                                        <h2 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h2>
-                                        <button className={styles["add-btn"]} onClick={() => openModal()}>ADD DONATION</button>
-                                    </div>
+                        <PivotItem headerText="Monthly Donations" itemKey="monthly" headerButtonProps={{
+                            style: { fontSize: '20px', fontWeight: 'bold' }
+                        }}>
+                            <div className={styles["countdiv"]}>
+                                <h2 className={styles["donor-count"]}>Number of Donors: {totalMonthlyDonors}</h2>
+                                <button className={styles["add-btn"]} onClick={() => openModal()}>ADD DONATION</button>
+                            </div>
                             <div className={styles["donation-table-wrapper"]}>
-                            
+
                                 <table className={styles["donation-table"]}>
-                                   
+
                                     <thead>
                                         <tr>
                                             <th>Donor Name</th>
@@ -189,9 +191,9 @@ const DonationData = () => {
                                                 <td>{donation.amount}</td>
                                                 <td>
                                                     <div className={styles["action-icon"]}>
-                                                    <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
+                                                        <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
                                                         <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
-                                                     
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -205,10 +207,15 @@ const DonationData = () => {
                             </div>
                             <br />
                         </PivotItem>
-                        <PivotItem headerText="In-Kind Donations" itemKey="inkind">
+                        <PivotItem headerText="In-kind Donation" itemKey="inkind"
+                            headerButtonProps={{
+                                style: { fontSize: '20px', fontWeight: 'bold' }
+                            }}>
                             <InkindDonation />
                         </PivotItem>
-                        <PivotItem headerText="Event Donations" itemKey="event">
+                        <PivotItem headerText="Event Donation" itemKey="event" headerButtonProps={{
+                            style: { fontSize: '20px', fontWeight: 'bold' }
+                        }}>
                             <EventDonation />
                         </PivotItem>
                     </Pivot>

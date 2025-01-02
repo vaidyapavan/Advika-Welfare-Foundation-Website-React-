@@ -87,6 +87,10 @@
   border-bottom: 1px solid #ddd;
 }
 
+.eventDonationTable th{
+  background-color: #f9f9f9; 
+}
+
 .eventDonationTable tr:hover {
     background-color: white;
 }
