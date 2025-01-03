@@ -6,7 +6,7 @@
   padding: 20px;
   background-color:white ;
   width: 100%;
-  margin-top: -50px;
+  margin-top: -60px;
 
   
 }
@@ -100,12 +100,14 @@
 
 /* Popup modal styles */
 .popupContent {
+  position: relative;
   padding: 20px;
-  background-color: #fff;
+  background-color: white;
   border-radius: 8px;
-  position: relative; 
-  width: 400px;
-  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin: auto;
+  margin-top: 100px;
 }
 
 /* Close icon style */

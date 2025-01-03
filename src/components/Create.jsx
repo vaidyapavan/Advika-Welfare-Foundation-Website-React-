@@ -128,7 +128,7 @@ const Create = () => {
     ];
 
     const cancelForm = () => {
-        navigate('/read');
+        navigate('/homepage1');
        
     };
 

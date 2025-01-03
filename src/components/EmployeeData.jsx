@@ -276,7 +276,7 @@ const EmployeeData = () => {
       <Modal isOpen={isAddEmployeeModalOpen} onDismiss={closeAddEmployeeModal}>
         <div className={styles.modalHeader}>
           <h2 className={styles.modalHeading}>Add Employee</h2>
-          <CloseIcon onClick={closeAddEmployeeModal} className={styles.closeIcon} />
+          {/* <CloseIcon onClick={closeAddEmployeeModal} className={styles.closeIcon} /> */}
         </div>
         <form onSubmit={handleAddEmployeeSubmit} className={styles.modalForm}>
           <label>Name</label>
@@ -360,7 +360,7 @@ const EmployeeData = () => {
       <Modal isOpen={isEditModalOpen} onDismiss={closeEditModal}>
         <div className={styles.modalHeader}>
           <h2>Edit Employee</h2>
-          <CloseIcon onClick={closeEditModal} className={styles.closeIcon} />
+          {/* <CloseIcon onClick={closeEditModal} className={styles.closeIcon} /> */}
         </div>
         <form onSubmit={handleEditEmployeeSubmit} className={styles.modalForm}>
           <label>Name</label>

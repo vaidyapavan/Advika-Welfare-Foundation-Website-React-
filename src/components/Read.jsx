@@ -245,6 +245,7 @@ const Read = () => {
           </div>
         </div>
       </Modal>
+      
     </div>
   );
 };

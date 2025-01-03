@@ -132,7 +132,7 @@ const Update = () => {
     };
 
     const gotoreadpage = () => {
-        navigate('/read');
+        navigate('/homepage1');
     };
 
     const hobbyOptions = [

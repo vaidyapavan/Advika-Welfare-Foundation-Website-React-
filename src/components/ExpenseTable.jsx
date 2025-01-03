@@ -70,6 +70,7 @@ const ExpenseTable = () => {
 
     const closeAddExpenseModal = () => {
         setAddExpenseModal(false);
+        navigate('/homepage1');
     };
 
     const openEditExpenseModal = (expense) => {
