@@ -21,6 +21,8 @@ const InkindDonation = () => {
     const [totalinkindDonors, setTotalinkindDonors] = useState(0);
 
     const [donations, setDonations] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     useEffect(() => {
         const fetchDonations = async () => {
@@ -71,15 +73,34 @@ const InkindDonation = () => {
     };
 
     const handleSave = async () => {
-        try {
-            const data = {
-                donor_name: donorName,
-                pan_no: panNo,
-                date,
-                donation_type: donationType,
-                description
-            };
+        // Validation
+        const nameRegex = /^[A-Za-z\s]+$/;  // Regex to allow only letters and spaces
+        if (!donorName || !panNo || !date || !donationType || !description) {
+            setErrorMessage('All fields are required');
+            return;
+        }
 
+        // Validate donor name (only letters and spaces)
+        if (!nameRegex.test(donorName)) {
+            setErrorMessage('Donor name must contain only letters');
+            return;
+        }
+
+        // Validate PAN number length
+        if (panNo.length !== 10) {
+            setErrorMessage('PAN number must be exactly 10 characters');
+            return;
+        }
+
+        const data = {
+            donor_name: donorName,
+            pan_no: panNo,
+            date,
+            donation_type: donationType,
+            description
+        };
+
+        try {
             if (isEditMode) {
                 await axios.put(`http://localhost:8085/inkind_donation/${currentId}`, data);
             } else {
@@ -90,9 +111,10 @@ const InkindDonation = () => {
             setDonations(response.data);
 
             closeModal();
+            setErrorMessage(''); // Clear error message on success
         } catch (error) {
             console.error("Error saving donation!", error.response?.data || error.message);
-            alert("An error occurred while saving the donation. Please try again.");
+            setErrorMessage(`An error occurred while saving the donation. Please try again.`);
         }
     };
 
@@ -186,9 +208,14 @@ const InkindDonation = () => {
                             <h2 id="modal-title" className={styles.modalTitle}>
                                 {isEditMode ? 'In-kind Donation' : 'In-kind Donation'}
                             </h2>
-
                         </div>
                         <form className={styles.modalForm}>
+                            {/* Display error message if it exists */}
+                            {errorMessage && (
+                                <div className={styles.errorMessage}>
+                                    {errorMessage}
+                                </div>
+                            )}
                             <TextField
                                 label="Donor Name"
                                 variant="outlined"
@@ -233,21 +260,20 @@ const InkindDonation = () => {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
+                            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
                             <div className={styles.cancel_save_buttons}>
                                 <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
                                 <button
                                     className={styles.saveButton}
-
-
                                     onClick={handleSave}
                                 >
                                     SAVE
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </Modal>
+
             </div>
         </div>
     );

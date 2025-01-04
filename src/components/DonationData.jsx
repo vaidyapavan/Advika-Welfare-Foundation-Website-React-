@@ -74,53 +74,65 @@ const DonationData = () => {
         setErrorMessage('');
     };
 
-    const handleSaveDonation = () => {
+    const handleSaveDonation = async () => {
         // Validation
+        const nameRegex = /^[A-Za-z\s]+$/; // Regex to allow only letters and spaces
+    
         if (!donorName || !panNo || !date || !paymentMode || !amount) {
             setErrorMessage('All fields are required');
             return;
         }
-
+    
+        if (!nameRegex.test(donorName)) {
+            setErrorMessage('Donor name must contain only letters');
+            return;
+        }
+    
         if (isNaN(amount) || amount <= 0) {
             setErrorMessage('Amount must be a positive number');
             return;
         }
-
-        const newDonation = { donor_name: donorName, pan_no: panNo, date, payment_mode: paymentMode, amount };
-
-        if (editMode) {
-            // Update Donation
-            axios.put(`http://localhost:8085/DonationData/${currentDonationId}`, newDonation)
-                .then(response => {
-                    setDonations(donations.map(donation => donation.id === currentDonationId ? response.data : donation));
-                    setSuccessMessage('Donation updated successfully');
-                    closeModal();
-                })
-                .catch(error => {
-                    console.error('Error updating donation:', error.response || error);
-                    setErrorMessage(`Error updating donation: ${error.response?.data?.message || error.message}`);
-                });
-        } else {
-            // Add New Donation
-            axios.post('http://localhost:8085/DonationData', newDonation)
-                .then(response => {
-                    setDonations(prevDonations => [...prevDonations, response.data]);
-                    setSuccessMessage('Donation added successfully');
-                    closeModal();
-                })
-                .catch(error => {
-                    console.error('Error adding donation:', error.response || error);
-                    setErrorMessage(`Error adding donation: ${error.response?.data?.message || error.message}`);
-                });
+    
+        if (panNo.length !== 10) {
+            setErrorMessage('Length of PAN number must be exactly 10 characters');
+            return;
         }
-
-        setDonorName('');
-        setPanNo('');
-        setDate('');
-        setPaymentMode('');
-        setAmount('');
+    
+        const newDonation = { donor_name: donorName, pan_no: panNo, date, payment_mode: paymentMode, amount };
+    
+        try {
+            if (editMode) {
+                // Update Donation
+                await axios.put(`http://localhost:8085/DonationData/${currentDonationId}`, newDonation);
+                setSuccessMessage('Donation updated successfully');
+            } else {
+                // Add New Donation
+                await axios.post('http://localhost:8085/DonationData', newDonation);
+                setSuccessMessage('Donation added successfully');
+            }
+    
+            // Fetch the updated donations list
+            const response = await axios.get('http://localhost:8085/DonationData');
+            setDonations(response.data);
+    
+            // Close the modal after successful operation
+            closeModal();
+    
+            // Clear the input fields
+            setDonorName('');
+            setPanNo('');
+            setDate('');
+            setPaymentMode('');
+            setAmount('');
+    
+        } catch (error) {
+            console.error('Error saving donation:', error.response || error);
+            setErrorMessage(`Error saving donation: ${error.response?.data?.message || error.message}`);
+        }
     };
-
+    
+    
+    
     const handleDeleteDonation = (id) => {
         if (id === undefined || id === null) {
             console.error('Invalid ID for deletion');
@@ -169,41 +181,41 @@ const DonationData = () => {
                             </div>
                             <div className={styles["donation-table-wrapper"]}>
 
-                                <table className={styles["donation-table"]}>
+                            <table className={styles["donation-table"]}>
+    <thead>
+        <tr>
+            <th>Donor Name</th>
+            <th>PAN No</th>
+            <th>Date</th>
+            <th>Payment Mode</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {donations.length > 0 ? donations.map((donation, index) => (
+        <tr key={donation.id || index}>
+            <td>{donation.donor_name}</td>
+            <td>{donation.pan_no}</td>
+            <td>{formatDate(donation.date)}</td>
+            <td>{donation.payment_mode}</td>
+            <td>{donation.amount}</td>
+            <td>
+                <div className={styles["action-icon"]}>
+                    <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
+                    <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
+                </div>
+            </td>
+        </tr>
+    )) : (
+        <tr>
+            <td colSpan="6">No donations available</td>
+        </tr>
+    )}
+</tbody>
 
-                                    <thead>
-                                        <tr>
-                                            <th>Donor Name</th>
-                                            <th>PAN No</th>
-                                            <th>Date</th>
-                                            <th>Payment Mode</th>
-                                            <th>Amount</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {donations.length > 0 ? donations.map((donation) => (
-                                            <tr key={donation.id}>
-                                                <td>{donation.donor_name}</td>
-                                                <td>{donation.pan_no}</td>
-                                                <td>{formatDate(donation.date)}</td>
-                                                <td>{donation.payment_mode}</td>
-                                                <td>{donation.amount}</td>
-                                                <td>
-                                                    <div className={styles["action-icon"]}>
-                                                        <EditIcon className={styles["edit_action-icon"]} onClick={() => openModal(donation)} />
-                                                        <DeleteIcon className={styles["delete_action-icon"]} onClick={() => handleDeleteDonation(donation.id)} />
+</table>
 
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )) : (
-                                            <tr>
-                                                <td colSpan="6">No donations available</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
                             </div>
                             <br />
                         </PivotItem>

@@ -20,6 +20,7 @@ const ExpenseTable = () => {
     const [editExpenseModal, setEditExpenseModal] = useState(false);
     const [successMessageModal, setSuccessMessageModal] = useState(false);
     const [sortOrder, setSortOrder] = useState({ amount: 'asc', date: 'asc' });
+    const[addbalanceerrorMessage,setAddbalanceerrorMessage] =useState("");
     const navigate = useNavigate();
 
     // States for adding or editing an expense
@@ -30,6 +31,7 @@ const ExpenseTable = () => {
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [currentExpense, setCurrentExpense] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         fetchExpenses();
@@ -101,13 +103,31 @@ const ExpenseTable = () => {
         setExpenses(sortedExpenses);
         setSortOrder({ ...sortOrder, [field]: sortOrder[field] === 'asc' ? 'desc' : 'asc' });
     };
+    
     const handleSave = async () => {
+        // Validation: Check if all fields are filled
+        if (!amount || !date || !paymentMode) {
+            setAddbalanceerrorMessage('All fields are required');
+            return;
+        }
+    
+        // Validate amount: Check if it's a positive number and not negative
+        if (isNaN(amount) || parseFloat(amount) <= 0) {
+            setAddbalanceerrorMessage('Amount must be a positive number greater than 0');
+            return;
+        }
+    
+        // Clear error message if all validations pass
+        setErrorMessage('');
+    
         const newBalanceData = {
             amount,
             date,
             paymentMode,
         };
+    
         try {
+            // Post the new balance data
             await fetch('http://localhost:8085/addBalance', {
                 method: 'POST',
                 headers: {
@@ -115,15 +135,35 @@ const ExpenseTable = () => {
                 },
                 body: JSON.stringify(newBalanceData)
             });
-
-            setTotalBalance(prevBalance => prevBalance + parseFloat(amount));
-            closeAddBalanceModal();
+    
+            setTotalBalance(prevBalance => prevBalance + parseFloat(amount)); // Update total balance
+            closeAddBalanceModal(); // Close the modal
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
     const handleAddExpense = async () => {
+        // Validation: Check if all fields are filled
+        if (!amount || !date || !reason || !category || !paymentMode || !description) {
+            setErrorMessage('All fields are required');
+            return;
+        }
+    
+        // Validate expense amount
+        if (parseFloat(amount) <= 0) {
+            setErrorMessage('Expense amount must be greater than 0');
+            return;
+        }
+    
+        if (parseFloat(amount) > totalBalance) {
+            setErrorMessage('Expense amount cannot be greater than the remaining balance');
+            return;
+        }
+    
+        // Clear the error message if all validations pass
+        setErrorMessage('');
+    
         const newExpense = {
             amount,
             date,
@@ -132,12 +172,13 @@ const ExpenseTable = () => {
             paymentMode,
             description
         };
-
+    
         try {
+            // Post the new expense
             await axios.post('http://localhost:8085/addExpense', newExpense);
-            setTotalBalance(prevBalance => prevBalance - parseFloat(amount));
-            setExpenses([...expenses, newExpense]);
-            closeAddExpenseModal();
+            setTotalBalance(prevBalance => prevBalance - parseFloat(amount)); // Update remaining balance
+            setExpenses([...expenses, newExpense]); // Add new expense to the list
+            closeAddExpenseModal(); // Close modal
         } catch (error) {
             console.error('Error adding expense:', error);
         }
@@ -274,119 +315,128 @@ const ExpenseTable = () => {
 
             {/* Modal for adding balance */}
             <Modal isOpen={addBalanceModal} onDismiss={closeAddBalanceModal}>
-                <div className={styles.popupContent}>
-                    <CloseIcon style={{ marginLeft: "340px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddBalanceModal} />
-                    <h3 id={styles.addBalanceHeading}>Add Balance</h3>
-                    <label htmlFor="amountInput">Enter amount</label>
-                    <input
-                        type="text"
-                        id="amountInput"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="dateInput">Date</label>
-                    <input
-                        type="date"
-                        id="dateInput"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <br />
-                    <label htmlFor="paymentModeSelect">Payment Mode</label>
-                    <select
-                        id="paymentModeSelect"
-                        value={paymentMode}
-                        onChange={(e) => setPaymentMode(e.target.value)}
-                    >
-                        <option value="online">Online</option>
-                        <option value="cash">Cash</option>
-                    </select>
-                    <br />
-                    <div className={styles.buttons}>
-                        <button className={styles.save} onClick={goToHomepage} style={{ marginLeft: "80px" }}>CANCEL</button>
-                        <button className={styles.save} onClick={handleSave}>SAVE</button>
+    <div className={styles.popupContent}>
+        <CloseIcon style={{ marginLeft: "340px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddBalanceModal} />
+        <h3 id={styles.addBalanceHeading}>Add Balance</h3>
 
-                    </div>
+        
 
-                </div>
-            </Modal>
+        <label htmlFor="amountInput">Enter amount</label>
+        <input
+            type="text"
+            id="amountInput"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="dateInput">Date</label>
+        <input
+            type="date"
+            id="dateInput"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+        />
+        <br />
+
+        <label htmlFor="paymentModeSelect">Payment Mode</label>
+        <select
+            id="paymentModeSelect"
+            value={paymentMode}
+            onChange={(e) => setPaymentMode(e.target.value)}
+        >
+            <option value="online">Online</option>
+            <option value="cash">Cash</option>
+        </select>
+        <br />
+        {/* Display error message if there's any */}
+        {addbalanceerrorMessage && <h6 className={styles.errorMessage}>{addbalanceerrorMessage}</h6>}
+
+        <div className={styles.buttons}>
+            <button className={styles.save} onClick={closeAddBalanceModal} style={{ marginLeft: "80px" }}>CANCEL</button>
+            <button className={styles.save} onClick={handleSave}>SAVE</button>
+        </div>
+    </div>
+</Modal>
 
             {/* Modal for adding expense */}
             <Modal isOpen={addExpenseModal} onDismiss={closeAddExpenseModal}>
-                <div className={styles.addExpensepopupContent}>
-                    <CloseIcon style={{ marginLeft: "440px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddExpenseModal} />
-                    <h3 className={styles.addExpenseHeading}>Add Expense</h3>
+    <div className={styles.addExpensepopupContent}>
+        <CloseIcon style={{ marginLeft: "440px", cursor: "pointer", marginTop: "-20px" }} onClick={closeAddExpenseModal} />
+        <h3 className={styles.addExpenseHeading}>Add Expense</h3>
 
-                    <label htmlFor="expenseAmountInput">Amount</label>
-                    <input
-                        type="text"
-                        id="expenseAmountInput"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <br />
+       
 
-                    <label htmlFor="expenseDateInput">Date</label>
-                    <input
-                        type="date"
-                        id="expenseDateInput"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <br />
+        <label htmlFor="expenseAmountInput">Amount</label>
+        <input
+            type="text"
+            id="expenseAmountInput"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+        />
+        <br />
 
-                    <label htmlFor="expenseReasonInput">Reason</label>
-                    <input
-                        type="text"
-                        id="expenseReasonInput"
-                        value={reason}
-                        onChange={(e) => setReason(e.target.value)}
-                    />
-                    <br />
+        <label htmlFor="expenseDateInput">Date</label>
+        <input
+            type="date"
+            id="expenseDateInput"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+        />
+        <br />
 
-                    <label htmlFor="expenseCategoryInput">Category</label>
-                    <select
-                        id="expenseCategoryInput"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-                        <option value="">Select a category</option>
-                        <option value="Education">Education</option>
-                        <option value="Travelling">Travelling</option>
-                        <option value="Cloth">Cloth</option>
-                        <option value="Medicine">Medicine</option>
-                        <option value="Grocery">Grocery</option>
-                        <option value="Student Welfare">Student Welfare</option>
-                        <option value="Office Expense">Office Expense</option>
-                    </select>
-                    <br />
+        <label htmlFor="expenseReasonInput">Reason</label>
+        <input
+            type="text"
+            id="expenseReasonInput"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+        />
+        <br />
 
-                    <label htmlFor="expensePaymentModeSelect">Payment Mode</label>
-                    <select
-                        id="expensePaymentModeSelect"
-                        value={paymentMode}
-                        onChange={(e) => setPaymentMode(e.target.value)}
-                    >
-                        <option value="online">Online</option>
-                        <option value="cash">Cash</option>
-                    </select>
-                    <br />
+        <label htmlFor="expenseCategoryInput">Category</label>
+        <select
+            id="expenseCategoryInput"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+        >
+            <option value="">Select a category</option>
+            <option value="Education">Education</option>
+            <option value="Travelling">Travelling</option>
+            <option value="Cloth">Cloth</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Student Welfare">Student Welfare</option>
+            <option value="Office Expense">Office Expense</option>
+        </select>
+        <br />
 
-                    <label htmlFor="expenseDescriptionInput">Description</label>
-                    <textarea
-                        id="expenseDescriptionInput"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <br />
+        <label htmlFor="expensePaymentModeSelect">Payment Mode</label>
+        <select
+            id="expensePaymentModeSelect"
+            value={paymentMode}
+            onChange={(e) => setPaymentMode(e.target.value)}
+        >
+            <option value="online">Online</option>
+            <option value="cash">Cash</option>
+        </select>
+        <br />
 
-                    <div className={styles.buttons}>
-                        <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{ marginLeft: "140px"}}>CANCEL</button>
-                        <button className={styles.addExpenseButton} onClick={handleAddExpense}>ADD</button>
-                    </div>
-                </div>
-            </Modal>
+        <label htmlFor="expenseDescriptionInput">Description</label>
+        <textarea
+            id="expenseDescriptionInput"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+        />
+        <br />
+ {/* Show error message */}
+ {errorMessage && <h5 className={styles.errorMessage}>{errorMessage}</h5>}
+        <div className={styles.buttons}>
+            <button className={styles.cancelExpenseButton} onClick={closeAddExpenseModal} style={{ marginLeft: "140px" }}>CANCEL</button>
+            <button className={styles.addExpenseButton} onClick={handleAddExpense}>ADD</button>
+        </div>
+    </div>
+</Modal>
 
 
             {/* Modal for editing expense */}

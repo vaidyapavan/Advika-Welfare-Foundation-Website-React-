@@ -20,6 +20,8 @@ const EventDonation = () => {
     const [currentId, setCurrentId] = useState(null);
     const [totalEventlyDonors, setTotalEventlyDonors] = useState(0);
     const [donations, setDonations] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     useEffect(() => {
         const fetchDonations = async () => {
@@ -73,20 +75,56 @@ const EventDonation = () => {
 
     const handleSave = async () => {
         try {
+            // Validation
+    
+            // Check if all fields are filled
+            if (!donorName || !panNo || !date || !paymentMode || !amount || !reason) {
+                setErrorMessage('All fields are required');
+                return;
+            }
+    
+            // Validate donor name (only letters and spaces)
+            const nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(donorName)) {
+                setErrorMessage('Donor name should only contain letters and spaces');
+                return;
+            }
+    
+            // Validate PAN number (must be exactly 10 digits)
+            const panRegex = /^[A-Z0-9]{10}$/; // Assuming PAN number is alphanumeric and 10 digits/characters
+            if (!panRegex.test(panNo)) {
+                setErrorMessage('PAN number must be exactly 10 characters and can include uppercase letters and numbers');
+                return;
+            }
+    
+            // Validate amount (must be greater than 0)
+            if (amount <= 0) {
+                setErrorMessage('Amount must be greater than 0');
+                return;
+            }
+    
+            // Prepare data for submission
             const data = { donorName, panNo, date, paymentMode, amount, reason };
+    
+            // Submit data (either update or create based on `isEditMode`)
             if (isEditMode) {
                 await axios.put(`http://localhost:8085/EventDonation/${currentId}`, data);
             } else {
                 await axios.post('http://localhost:8085/EventDonation', data);
             }
-
+    
+            // Fetch updated donations list and reset error message
             const response = await axios.get('http://localhost:8085/EventDonation');
             setDonations(response.data);
             closeModal();
+            setErrorMessage(''); // Clear error message on success
+    
         } catch (error) {
             console.error('Error saving donation', error);
+            setErrorMessage('An error occurred while saving the donation. Please try again.');
         }
     };
+    
 
     const handleDelete = async (id) => {
         try {
@@ -165,73 +203,83 @@ const EventDonation = () => {
 
 
                 <Modal open={isModalOpen} onClose={closeModal}>
-                    <div className={styles.modalContainer}>
-                        <div className={styles.modalHeader}>
-                            <h2 className={styles.modalTitle}>{isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}</h2>
-                            <CloseIcon className={styles.closeIcon} onClick={closeModal} />
-                        </div>
-                        <form className={styles.modalForm}>
-                            <TextField
-                                label="Donor Name"
-                                fullWidth
-                                margin="normal"
-                                value={donorName}
-                                onChange={(e) => setDonorName(e.target.value)}
-                            />
-                            <TextField
-                                label="PAN No"
-                                fullWidth
-                                margin="normal"
-                                value={panNo}
-                                onChange={(e) => setPanNo(e.target.value)}
-                            />
-                            <TextField
-                                label="Date"
-                                type="date"
-                                fullWidth
-                                margin="normal"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                            />
-                            <TextField
-                                label="Payment Mode"
-                                select
-                                fullWidth
-                                margin="normal"
-                                value={paymentMode}
-                                onChange={(e) => setPaymentMode(e.target.value)}
-                            >
-                                <MenuItem value="Online">Online</MenuItem>
-                                <MenuItem value="Offline">Offline</MenuItem>
-                                <MenuItem value="Credit Card">Credit Card</MenuItem>
-                                <MenuItem value="Cash">Cash</MenuItem>
-                            </TextField>
-                            <TextField
-                                label="Amount"
-                                type="number"
-                                fullWidth
-                                margin="normal"
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                            />
-                            <TextField
-                                label="Reason"
-                                fullWidth
-                                margin="normal"
-                                value={reason}
-                                onChange={(e) => setReason(e.target.value)}
-                            />
-                            <div className={styles.cancel_saveButton_division}>
-                                <button className={styles.cancelButton} onClick={closeModal}> CANCEL</button>
-                                <button className={styles.saveButton} variant="contained" onClick={handleSave}>
-                                    SAVE
-                                </button>
+    <div className={styles.modalContainer}>
+        <div className={styles.modalHeader}>
+            <h2 className={styles.modalTitle}>
+                {isEditMode ? 'Edit Event Donation' : 'Add Event Donation'}
+            </h2>
+            <CloseIcon className={styles.closeIcon} onClick={closeModal} />
+        </div>
+        <form className={styles.modalForm}>
+          
+           
+            <TextField
+                label="Donor Name"
+                fullWidth
+                margin="normal"
+                value={donorName}
+                onChange={(e) => setDonorName(e.target.value)}
+            />
+            <TextField
+                label="PAN No"
+                fullWidth
+                margin="normal"
+                value={panNo}
+                onChange={(e) => setPanNo(e.target.value)}
+            />
+            <TextField
+                label="Date"
+                type="date"
+                fullWidth
+                margin="normal"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+            />
+            <TextField
+                label="Payment Mode"
+                select
+                fullWidth
+                margin="normal"
+                value={paymentMode}
+                onChange={(e) => setPaymentMode(e.target.value)}
+            >
+                <MenuItem value="Online">Online</MenuItem>
+                <MenuItem value="Offline">Offline</MenuItem>
+                <MenuItem value="Credit Card">Credit Card</MenuItem>
+                <MenuItem value="Cash">Cash</MenuItem>
+            </TextField>
+            <TextField
+                label="Amount"
+                type="number"
+                fullWidth
+                margin="normal"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+            />
+            <TextField
+                label="Reason"
+                fullWidth
+                margin="normal"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+            />
+             {errorMessage && (
+                <div className={styles.errorMessage}>
+                    {errorMessage}
+                </div>
+            )}
+            <div className={styles.cancel_saveButton_division}>
+                <button className={styles.cancelButton} onClick={closeModal}>
+                    CANCEL
+                </button>
+                <button className={styles.saveButton} variant="contained" onClick={handleSave}>
+                    SAVE
+                </button>
+            </div>
+        </form>
+    </div>
+</Modal>
 
-                            </div>
-
-                        </form>
-                    </div>
-                </Modal>
 
             </div>
         </div>
