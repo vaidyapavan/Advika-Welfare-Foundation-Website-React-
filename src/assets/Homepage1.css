@@ -68,7 +68,7 @@ html, body {
 }
 
 .sidebar .nav-items li.active {
-  background-color:black;
+  background-color:rgb(76, 76, 77);
 }
 
 /* Main content styling */

@@ -20,6 +20,7 @@ const EmployeeData = () => {
   const [isDeleteConfirmModal, setIsDeleteConfirmModal] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isAddEmployeeModalOpen, setIsAddEmployeeModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [newEmployee, setNewEmployee] = useState({
     EmployeeName: '',
     Role: '',
@@ -29,6 +30,7 @@ const EmployeeData = () => {
     MobileNo: '',
     JoiningDate: ''
   });
+
   const [editEmployee, setEditEmployee] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [sortOrder, setSortOrder] = useState({ name: 'asc', role: 'asc' });
@@ -144,9 +146,54 @@ const EmployeeData = () => {
 
   const handleAddEmployeeSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation: Check if all fields are filled
+    if (!newEmployee.EmployeeName || !newEmployee.Role || !newEmployee.Salary || !newEmployee.Location || !newEmployee.AadharNo || !newEmployee.MobileNo || !newEmployee.JoiningDate) {
+      setErrorMessage('All fields are required');
+      return;
+    }
+
+    // Validate name: Only letters allowed
+    if (!/^[A-Za-z\s]+$/.test(newEmployee.EmployeeName)) {
+      setErrorMessage('Name should contain only letters');
+      return;
+    }
+
+    // Validate salary: Must be a positive number
+    if (isNaN(newEmployee.Salary) || parseFloat(newEmployee.Salary) <= 0) {
+      setErrorMessage('Salary must be a positive number greater than 0');
+      return;
+    }
+
+    // Validate Aadhar No: Only digits allowed
+    if (!/^\d+$/.test(newEmployee.AadharNo)) {
+      setErrorMessage('Aadhar number should contain only digits');
+      return;
+    }
+
+    // Validate Mobile No: Must be 10 digits
+    if (!/^\d{10}$/.test(newEmployee.MobileNo)) {
+      setErrorMessage('Mobile number must be exactly 10 digits');
+      return;
+    }
+
+    // Clear error message if all validations pass
+    setErrorMessage('');
+
+    const newEmployeeData = {
+      EmployeeName: newEmployee.EmployeeName,
+      Role: newEmployee.Role,
+      Salary: newEmployee.Salary,
+      Location: newEmployee.Location,
+      AadharNo: newEmployee.AadharNo,
+      MobileNo: newEmployee.MobileNo,
+      JoiningDate: newEmployee.JoiningDate,
+    };
+
     try {
-      await axios.post('http://localhost:8085/addEmployee', newEmployee);
-      closeAddEmployeeModal();
+      // Post the new employee data
+      await axios.post('http://localhost:8085/addEmployee', newEmployeeData);
+      closeAddEmployeeModal(); // Close the modal on successful post
     } catch (error) {
       console.error('Error adding employee:', error.message);
     }
@@ -181,8 +228,7 @@ const EmployeeData = () => {
   const gotohomepage = () => {
     navigate('/homepage1');
   };
-  const goToNextScreen = () =>
-  {
+  const goToNextScreen = () => {
     navigate('/report');
   }
   const formatDate = (dateString) => {
@@ -191,85 +237,85 @@ const EmployeeData = () => {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
-};
+  };
 
   return (
     <>
-    <div className={styles.mainContainer}>
-      <div className={styles.container}>
-        <h1 className={styles.formTitle}>Employee Data</h1> 
-        <div className={styles.searchContainer}>
-          <SearchBox
-            placeholder="Search by name"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            onClear={handleSearchClear}
-            styles={{
-              root: { width: 300 },
-              icon: { color: 'blue' },
-            }}
-          />
-          <button className={styles.addButton} title='Add Employee' onClick={openAddEmployeeModal}>
-            ADD
-          </button>
-        </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.container}>
+          <h1 className={styles.formTitle}>Employee Data</h1>
+          <div className={styles.searchContainer}>
+            <SearchBox
+              placeholder="Search by name"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onClear={handleSearchClear}
+              styles={{
+                root: { width: 300 },
+                icon: { color: 'blue' },
+              }}
+            />
+            <button className={styles.addButton} title='Add Employee' onClick={openAddEmployeeModal}>
+              ADD
+            </button>
+          </div>
 
-        <div className={styles.employeeTableWrapper}>
-          <table className={styles.employeeTableContainer}>
-            <thead>
-              <tr>
-                <th className={styles.tableHeader}>
-                  Name
-                  {sortOrder.name === 'asc' ? (
-                    <ArrowDropDownIcon onClick={sortNames} className={styles.sortIcon} />
-                  ) : (
-                    <ArrowDropUpIcon onClick={sortNames} className={styles.sortIcon} />
-                  )}
-                </th>
-                <th className={styles.tableHeader}>
-                  Role
-                  {sortOrder.role === 'asc' ? (
-                    <ArrowDropDownIcon onClick={sortRoles} className={styles.sortIcon} />
-                  ) : (
-                    <ArrowDropUpIcon onClick={sortRoles} className={styles.sortIcon} />
-                  )}
-                </th>
-                <th className={styles.tableHeader}>Salary</th>
-                <th className={styles.tableHeader}>Location</th>
-                <th className={styles.tableHeader}>Aadhar No</th>
-                <th className={styles.tableHeader}>Mobile No</th>
-                <th className={styles.tableHeader}>Joining Date</th>
-                <th className={styles.tableHeader}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((employee) => (
-                <tr key={employee.id}>
-                  <td>{employee.EmployeeName}</td>
-                  <td>{employee.Role}</td>
-                  <td>{employee.Salary}</td>
-                  <td>{employee.Location}</td>
-                  <td>{employee.AadharNo}</td>
-                  <td>{employee.MobileNo}</td>
-                  <td>{formatDate(employee.JoiningDate)}</td>
-                  <td>
-                    <div className={styles.actionIcons}>
-                    <EditIcon onClick={() => openEditModal(employee)} />
-                      <DeleteIcon onClick={() => confirmDelete(employee.id)} />
-                      
-                    </div>
-                  </td>
+          <div className={styles.employeeTableWrapper}>
+            <table className={styles.employeeTableContainer}>
+              <thead>
+                <tr>
+                  <th className={styles.tableHeader}>
+                    Name
+                    {sortOrder.name === 'asc' ? (
+                      <ArrowDropDownIcon onClick={sortNames} className={styles.sortIcon} />
+                    ) : (
+                      <ArrowDropUpIcon onClick={sortNames} className={styles.sortIcon} />
+                    )}
+                  </th>
+                  <th className={styles.tableHeader}>
+                    Role
+                    {sortOrder.role === 'asc' ? (
+                      <ArrowDropDownIcon onClick={sortRoles} className={styles.sortIcon} />
+                    ) : (
+                      <ArrowDropUpIcon onClick={sortRoles} className={styles.sortIcon} />
+                    )}
+                  </th>
+                  <th className={styles.tableHeader}>Salary</th>
+                  <th className={styles.tableHeader}>Location</th>
+                  <th className={styles.tableHeader}>Aadhar No</th>
+                  <th className={styles.tableHeader}>Mobile No</th>
+                  <th className={styles.tableHeader}>Joining Date</th>
+                  <th className={styles.tableHeader}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {message && <div className={styles.alertWarning}>{message}</div>}
-        </div>
-        <br></br>
+              </thead>
+              <tbody>
+                {filteredData.map((employee) => (
+                  <tr key={employee.id}>
+                    <td>{employee.EmployeeName}</td>
+                    <td>{employee.Role}</td>
+                    <td>{employee.Salary}</td>
+                    <td>{employee.Location}</td>
+                    <td>{employee.AadharNo}</td>
+                    <td>{employee.MobileNo}</td>
+                    <td>{formatDate(employee.JoiningDate)}</td>
+                    <td>
+                      <div className={styles.actionIcons}>
+                        <EditIcon onClick={() => openEditModal(employee)} />
+                        <DeleteIcon onClick={() => confirmDelete(employee.id)} />
 
-        
-  
-      </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {message && <div className={styles.alertWarning}>{message}</div>}
+          </div>
+          <br></br>
+
+
+
+        </div>
       </div>
 
       {/* Add Employee Modal */}
@@ -278,82 +324,82 @@ const EmployeeData = () => {
           <h2 className={styles.modalHeading}>Add Employee</h2>
           {/* <CloseIcon onClick={closeAddEmployeeModal} className={styles.closeIcon} /> */}
         </div>
+
         <form onSubmit={handleAddEmployeeSubmit} className={styles.modalForm}>
           <label>Name</label>
           <input
             placeholder='Enter Name'
-            label="Employee Name"
             name="EmployeeName"
             value={newEmployee.EmployeeName}
             onChange={handleAddEmployeeChange}
-            required
+            
           />
+
           <label>Role</label>
           <input
             placeholder='Enter Role'
-            label="Role"
             name="Role"
             value={newEmployee.Role}
             onChange={handleAddEmployeeChange}
-            required
+            
           />
+
           <label>Salary</label>
           <input
             placeholder='Enter Salary'
-            label="Salary"
             name="Salary"
             type="number"
             value={newEmployee.Salary}
             onChange={handleAddEmployeeChange}
-            required
+            
           />
+
           <label>Location</label>
           <input
             placeholder='Enter Location'
-            label="Location"
             name="Location"
             value={newEmployee.Location}
             onChange={handleAddEmployeeChange}
-            required
+          
           />
+
           <label>Aadhar No</label>
           <input
             placeholder='Enter Aadhar no:'
-            label="Aadhar No"
             name="AadharNo"
             value={newEmployee.AadharNo}
             onChange={handleAddEmployeeChange}
-            required
+            
           />
+
           <label>Mobile No:</label>
           <input
             placeholder='Enter Mobile no:'
-            label="Mobile No"
             name="MobileNo"
             value={newEmployee.MobileNo}
             onChange={handleAddEmployeeChange}
-            required
+          
           />
+
           <label>Joining Date</label>
           <input
-            label="Joining Date"
             name="JoiningDate"
             type="date"
             value={newEmployee.JoiningDate}
             onChange={handleAddEmployeeChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            required
+            
           />
+
+          {/* Display error message if there's any */}
+          {errorMessage && <h6 className={styles.errorMessage}>{errorMessage}</h6>}
+
           <div className={styles.modalFooter}>
             <button className={styles.cancelButton} onClick={closeAddEmployeeModal}>CANCEL</button>
-            <button className={styles.Addbutton} type="submit" variant="contained" color="primary">
-              ADD
-            </button>
-
+            <button className={styles.Addbutton} type="submit">ADD</button>
           </div>
         </form>
+
+
       </Modal>
 
       {/* Edit Employee Modal */}
@@ -368,8 +414,8 @@ const EmployeeData = () => {
             label="Employee Name"
             name="EmployeeName"
             value={editEmployee?.EmployeeName}
-            onChange={handleEditEmployeeChange}
-            required
+            
+            
           />
           <label>Role</label>
           <input
@@ -377,7 +423,7 @@ const EmployeeData = () => {
             name="Role"
             value={editEmployee?.Role}
             onChange={handleEditEmployeeChange}
-            required
+            
           />
           <label>Salary</label>
           <input
@@ -386,7 +432,7 @@ const EmployeeData = () => {
             type="number"
             value={editEmployee?.Salary}
             onChange={handleEditEmployeeChange}
-            required
+            
           />
           <label>Location</label>
           <input
@@ -394,7 +440,7 @@ const EmployeeData = () => {
             name="Location"
             value={editEmployee?.Location}
             onChange={handleEditEmployeeChange}
-            required
+            
           />
           <label>Aadhar No</label>
           <input
@@ -402,7 +448,7 @@ const EmployeeData = () => {
             name="AadharNo"
             value={editEmployee?.AadharNo}
             onChange={handleEditEmployeeChange}
-            required
+            
           />
           <label>Mobile No</label>
           <input
@@ -410,7 +456,7 @@ const EmployeeData = () => {
             name="MobileNo"
             value={editEmployee?.MobileNo}
             onChange={handleEditEmployeeChange}
-            required
+            
           />
           <label>Joining Date</label>
           <input

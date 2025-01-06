@@ -14,6 +14,7 @@ const InventoryData = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Form states for inventory inputs
     const [date, setDate] = useState('');
@@ -145,12 +146,61 @@ const InventoryData = () => {
     };
 
     // Handle form submission for adding inventory
+    const validateForm = () => {
+        let isValid = true;
+        let errorMessages = {}; // Object to store error messages
+    
+        // Check if all required fields are filled
+        if (!date) {
+            errorMessages.date = 'Date is required';
+            isValid = false;
+        }
+    
+        if (!itemName) {
+            errorMessages.itemName = 'Item Name is required';
+            isValid = false;
+        } else if (!/^[A-Za-z\s]+$/.test(itemName)) {
+            errorMessages.itemName = 'Item Name should contain only letters';
+            isValid = false;
+        }
+    
+        if (!quantity) {
+            errorMessages.quantity = 'Quantity is required';
+            isValid = false;
+        } else if (!/^\d+$/.test(quantity)) {
+            errorMessages.quantity = 'Quantity should be a number';
+            isValid = false;
+        }
+    
+        if (!category) {
+            errorMessages.category = 'Category is required';
+            isValid = false;
+        }
+    
+        if (!unitOfMeasurement) {
+            errorMessages.unitOfMeasurement = 'Unit of Measurement is required';
+            isValid = false;
+        }
+    
+        // Set the error messages state
+        setErrors(errorMessages);
+        setErrorMessage(isValid ? '' : 'Please fill all the required fields correctly.');
+    
+        return isValid;
+    };
+    
+    // Form submit handler
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
+        if (validateForm()) {  // Validate form before submitting
             try {
                 const newItem = {
-                    date, itemName, quantity, category, unitOfMeasurement, description
+                    date,
+                    itemName,
+                    quantity,
+                    category,
+                    unitOfMeasurement,
+                    description
                 };
                 await axios.post('http://localhost:8085/createInventory', newItem);
                 fetchInventory();  // Fetch updated inventory
@@ -161,6 +211,7 @@ const InventoryData = () => {
             }
         }
     };
+    
 
     // Handle form submission for updating inventory
     const handleUpdateSubmit = async (e) => {
@@ -179,19 +230,6 @@ const InventoryData = () => {
         }
     };
 
-    // Validate form fields
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!date) newErrors.date = 'Date is required';
-        if (!itemName) newErrors.itemName = 'Item Name is required';
-        if (!quantity) newErrors.quantity = 'Quantity is required';
-        if (!category) newErrors.category = 'Category is required';
-        if (!unitOfMeasurement) newErrors.unitOfMeasurement = 'Unit of Measurement is required';
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
 
     // Reset form fields
     const resetForm = () => {
@@ -297,85 +335,88 @@ const InventoryData = () => {
 
                 {/* Add Inventory Modal */}
                 {isModalOpen && (
-                    <Modal isOpen={isModalOpen} onDismiss={closeModal}>
-                        <div className={styles.inventoryModalWrapper}>
-                            <h2 className={styles.inventoryModalHeading}>Add Inventory Data</h2>
-                            <form onSubmit={handleFormSubmit}>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Date</Label>
-                                    <input
-                                        type="date"
-                                        value={date}
-                                        onChange={handleChange(setDate, 'date')}
-                                        className={errors.date ? styles.inputError : ''}
-                                    />
-                                    {errors.date && <div className={styles.inventoryFormError}>{errors.date}</div>}
-                                </div>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Item Name</Label>
-                                    <input
-                                        placeholder="Enter item name"
-                                        type="text"
-                                        value={itemName}
-                                        onChange={handleChange(setItemName, 'itemName')}
-                                        className={errors.itemName ? styles.inputError : ''}
-                                    />
-                                    {errors.itemName && <div className={styles.inventoryFormError}>{errors.itemName}</div>}
-                                </div>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Quantity</Label>
-                                    <input
-                                        placeholder="Enter quantity"
-                                        type="text"
-                                        value={quantity}
-                                        onChange={handleChange(setQuantity, 'quantity')}
-                                        className={errors.quantity ? styles.inputError : ''}
-                                    />
-                                    {errors.quantity && <div className={styles.inventoryFormError}>{errors.quantity}</div>}
-                                </div>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Category</Label>
-                                    <select
-                                        value={category}
-                                        onChange={handleChange(setCategory, 'category')}
-                                        className={errors.category ? styles.inputError : ''}
-                                    >
-                                        <option value="">Select category</option>
-                                        {categoryOptions.map(option => (
-                                            <option key={option.value} value={option.value}>{option.label}</option>
-                                        ))}
-                                    </select>
-                                    {errors.category && <div className={styles.inventoryFormError}>{errors.category}</div>}
-                                </div>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Unit of Measurement</Label>
-                                    <select
-                                        value={unitOfMeasurement}
-                                        onChange={handleChange(setUnitOfMeasurement, 'unitOfMeasurement')}
-                                        className={errors.unitOfMeasurement ? styles.inputError : ''}
-                                    >
-                                        <option value="">Select unit</option>
-                                        {unitOptions.map(option => (
-                                            <option key={option.value} value={option.value}>{option.label}</option>
-                                        ))}
-                                    </select>
-                                    {errors.unitOfMeasurement && <div className={styles.inventoryFormError}>{errors.unitOfMeasurement}</div>}
-                                </div>
-                                <div className={styles.inventoryFormGroup}>
-                                    <Label>Description</Label>
-                                    <textarea
-                                        value={description}
-                                        onChange={handleChange(setDescription, 'description')}
-                                    />
-                                </div>
-                                <div className={styles.inventoryFormActions}>
-
-                                    <button onClick={closeModal} className={styles.cancelButton}>CANCEL</button>
-                                    <button type="submit" className={styles.saveButton}>ADD</button>
-                                </div>
-                            </form>
-                        </div>
-                    </Modal>
+                   <Modal isOpen={isModalOpen} onDismiss={closeModal}>
+                   <div className={styles.inventoryModalWrapper}>
+                       <h2 className={styles.inventoryModalHeading}>Add Inventory Data</h2>
+                       <form onSubmit={handleFormSubmit}>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Date</Label>
+                               <input
+                                   type="date"
+                                   value={date}
+                                   onChange={handleChange(setDate, 'date')}
+                                   className={errors.date ? styles.inputError : ''}
+                               />
+                           </div>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Item Name</Label>
+                               <input
+                                   placeholder="Enter item name"
+                                   type="text"
+                                   value={itemName}
+                                   onChange={handleChange(setItemName, 'itemName')}
+                                   className={errors.itemName ? styles.inputError : ''}
+                               />
+                           </div>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Quantity</Label>
+                               <input
+                                   placeholder="Enter quantity"
+                                   type="text"
+                                   value={quantity}
+                                   onChange={handleChange(setQuantity, 'quantity')}
+                                   className={errors.quantity ? styles.inputError : ''}
+                               />
+                           </div>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Category</Label>
+                               <select
+                                   value={category}
+                                   onChange={handleChange(setCategory, 'category')}
+                                   className={errors.category ? styles.inputError : ''}
+                               >
+                                   <option value="">Select category</option>
+                                   {categoryOptions.map(option => (
+                                       <option key={option.value} value={option.value}>{option.label}</option>
+                                   ))}
+                               </select>
+                           </div>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Unit of Measurement</Label>
+                               <select
+                                   value={unitOfMeasurement}
+                                   onChange={handleChange(setUnitOfMeasurement, 'unitOfMeasurement')}
+                                   className={errors.unitOfMeasurement ? styles.inputError : ''}
+                               >
+                                   <option value="">Select unit</option>
+                                   {unitOptions.map(option => (
+                                       <option key={option.value} value={option.value}>{option.label}</option>
+                                   ))}
+                               </select>
+                           </div>
+                           <div className={styles.inventoryFormGroup}>
+                               <Label>Description</Label>
+                               <textarea
+                                   value={description}
+                                   onChange={handleChange(setDescription, 'description')}
+                               />
+                           </div>
+               
+                           {/* Single consolidated error message */}
+                           {errorMessage && (
+                               <div className={styles.inventoryFormError} style={{ marginBottom: '1rem' }}>
+                                  <h6> {errorMessage}</h6>
+                               </div>
+                           )}
+               
+                           <div className={styles.inventoryFormActions}>
+                               <button onClick={closeModal} className={styles.cancelButton}>CANCEL</button>
+                               <button type="submit" className={styles.saveButton}>ADD</button>
+                           </div>
+                       </form>
+                   </div>
+               </Modal>
+                  
                 )}
 
                 {isUpdateModalOpen && (
